@@ -1,7 +1,9 @@
 #快速开发框架
 
-BaseApp
-DevelopLib
+|类名|所在包|描述|备注|
+|:---|:---|:---|:---|
+|BaseApp|com.march.baselib|Application基类||
+|DevelopLib|com.march.baselib|类库初始化及配置|
 
 common -
     Config
