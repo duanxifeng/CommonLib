@@ -4,7 +4,7 @@
 |:---|:---|:---|:---|
 |app|BaseApp|Application基类|无|
 |develop|DevelopLib|类库初始化及配置|无|
-|annotation|暂无数据|||
+|annotation|暂无数据|暂无数据|暂无数据|
 |common|Config|配置信息|无|
 |common|SimpleClick|防治多次点击|无|
 |helper|CommonHelper|未分类的小方法暂时收录|无|
@@ -37,7 +37,7 @@
 |ui.fragment|BaseFragment|基类，暂无数据|无|
 |ui.dialog|BaseDialog|基类，简化Dialog创建|无|
 |ui.dialog|ImageDirDialog|照片目录dialog选择|无|
-|ui.popup|||暂无数据|无|
-|widget|||暂无数据|无|
+|ui.popup|暂无数据|暂无数据|暂无数据|无|
+|widget|暂无数据|暂无数据|暂无数据|无|
 
 
