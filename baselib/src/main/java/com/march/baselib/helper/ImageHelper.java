@@ -18,12 +18,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 图像操作</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
+ * Describe : 图像操作<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class ImageHelper {
 

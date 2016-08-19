@@ -4,12 +4,12 @@ import android.support.v4.app.Fragment;
 
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : Fragment基类 </br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
+ * Describe : Fragment基类 <p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class BaseFragment extends Fragment{
 }

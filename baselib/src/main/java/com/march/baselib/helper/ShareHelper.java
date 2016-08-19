@@ -7,12 +7,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/13 </br> </br>
- * Describe : 唤醒系统分享</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/13 <p>
+ * Describe : 唤醒系统分享<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class ShareHelper {
     private static ShareHelper mSysShare;

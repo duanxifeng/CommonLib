@@ -9,12 +9,12 @@ import android.widget.Toast;
 import com.march.baselib.DevelopLib;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/13 </br> </br>
- * Describe : Toast工具类 </br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/13 <p>
+ * Describe : Toast工具类 <p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class Toaster {
 

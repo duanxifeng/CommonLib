@@ -7,12 +7,12 @@ import com.march.baselib.DevelopLib;
 import java.io.File;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 创建路径</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p> 
+ * Describe : 创建路径<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class PathHelper {
     /**

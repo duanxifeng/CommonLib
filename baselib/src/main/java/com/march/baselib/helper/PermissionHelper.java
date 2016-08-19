@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/17 </br> </br>
- * Describe : Android M 权限控制</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/17 <p>
+ * Describe : Android M 权限控制<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class PermissionHelper {
 

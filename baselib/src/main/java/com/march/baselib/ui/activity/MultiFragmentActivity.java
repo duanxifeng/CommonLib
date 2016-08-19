@@ -7,12 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 处理一个Activity包含多个Fragment的相关交互 </br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
+ * Describe : 处理一个Activity包含多个Fragment的相关交互 <p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public abstract class MultiFragmentActivity extends BaseActivity {
 

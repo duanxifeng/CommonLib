@@ -40,12 +40,12 @@ import bolts.Continuation;
 import bolts.Task;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 选择照片的activity </br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
+ * Describe : 选择照片的activity <p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class SelectImageActivity extends BaseActivity implements View.OnClickListener {
 

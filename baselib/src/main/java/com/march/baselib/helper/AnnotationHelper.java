@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/17 </br> </br>
- * Describe : 注解操作</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/17 <p>
+ * Describe : 注解操作<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class AnnotationHelper {
 

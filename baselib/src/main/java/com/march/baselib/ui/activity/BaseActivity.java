@@ -15,12 +15,12 @@ import android.view.View;
  * Desc :
  */
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 向外公开的基类。实现部分简化操作的方法 </br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
+ * Describe : 向外公开的基类。实现部分简化操作的方法 <p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 
 public abstract class BaseActivity extends AbsActivityWrap {

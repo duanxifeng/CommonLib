@@ -21,12 +21,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 图像目录dialog </br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
+ * Describe : 图像目录dialog <p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class ImageDirDialog extends BaseDialog {
 

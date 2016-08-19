@@ -3,12 +3,12 @@ package com.march.baselib.model;
 import android.support.annotation.NonNull;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 图片信息</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
+ * Describe : 图片信息<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class ImageInfo implements Comparable<ImageInfo> {
     // 设置id为自增长的组件

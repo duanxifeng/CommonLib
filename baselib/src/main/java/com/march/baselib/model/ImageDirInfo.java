@@ -3,12 +3,12 @@ package com.march.baselib.model;
 
 import android.support.annotation.NonNull;
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 图像目录信息</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
+ * Describe : 图像目录信息<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class ImageDirInfo implements Comparable<ImageDirInfo> {
     private int picNum;

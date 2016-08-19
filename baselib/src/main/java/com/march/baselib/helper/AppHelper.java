@@ -16,12 +16,12 @@ import java.util.Locale;
 
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/13 </br> </br>
- * Describe : 应用级别相关</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/13 <p>
+ * Describe : 应用级别相关<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class AppHelper {
 

@@ -1,12 +1,12 @@
 package com.march.baselib.common;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/13 </br> </br>
- * Describe : 配置信息</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/13 <p>
+ * Describe : 配置信息<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class Config {
 

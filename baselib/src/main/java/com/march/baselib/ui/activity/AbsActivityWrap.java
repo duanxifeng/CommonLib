@@ -20,16 +20,16 @@ import java.util.Map;
  */
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
  * Describe :
  * <li>标准基类实现类，实现部分功能</li>
  * <ol>1.添加共有的title bar</ol>
  * <ol> 2.监测权限</ol>
- * <ol> 3.关联图片相册、相机选择裁剪</ol></br>
+ * <ol> 3.关联图片相册、相机选择裁剪</ol><p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 abstract class AbsActivityWrap extends AbsActivity {
 

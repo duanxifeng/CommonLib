@@ -9,12 +9,12 @@ import android.view.WindowManager;
 import com.march.baselib.DevelopLib;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/13 </br> </br>
- * Describe : 尺寸相关操作</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/13 <p>
+ * Describe : 尺寸相关操作<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class DimensionHelper {
 

@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.WindowManager;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 标准基类。负责activity流程化加载</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
+ * Describe : 标准基类。负责activity流程化加载<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 abstract class AbsActivity extends AppCompatActivity {
 

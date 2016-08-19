@@ -22,12 +22,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 联系人操作</br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
+ * Describe : 联系人操作<p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class ContactHelper {
     private static String MyPhoneNumber;

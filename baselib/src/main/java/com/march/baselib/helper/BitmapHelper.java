@@ -13,12 +13,12 @@ import java.io.IOException;
 
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : Bitmap处理类 </br>
+ * Project  : CommonLib <p>
+ * Package  : com.march.baselib <p>
+ * CreateAt : 16/8/15 <p>
+ * Describe : Bitmap处理类 <p>
  *
- * @author chendong </br>
+ * @author chendong <p>
  */
 public class BitmapHelper {
 
