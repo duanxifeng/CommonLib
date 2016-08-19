@@ -4,7 +4,7 @@
 |:---|:---|:---|:---|
 |app|BaseApp|Application基类|无|
 |develop|DevelopLib|类库初始化及配置|无|
-|annotation|暂无数据|暂无数据|暂无数据|
+|annotation|暂无数据|暂无数据|注解相关|
 |common|Config|配置信息|无|
 |common|SimpleClick|防治多次点击|无|
 |helper|CommonHelper|未分类的小方法暂时收录|无|
