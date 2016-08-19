@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.widget.ImageView;
 
-import com.march.baselib.DevelopLib;
+import com.march.baselib.develop.DevelopLib;
 import com.march.baselib.R;
 import com.march.baselib.helper.DimensionHelper;
 import com.march.baselib.inter.OnCommonListener;

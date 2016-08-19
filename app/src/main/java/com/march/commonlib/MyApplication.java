@@ -3,8 +3,8 @@ package com.march.commonlib;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.march.baselib.BaseApp;
-import com.march.baselib.DevelopLib;
+import com.march.baselib.app.BaseApp;
+import com.march.baselib.develop.DevelopLib;
 import com.march.baselib.inter.HowLoadImg;
 
 /**

@@ -1,10 +1,9 @@
 package com.march.baselib.helper;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.march.baselib.DevelopLib;
+import com.march.baselib.develop.DevelopLib;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

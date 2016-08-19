@@ -4,15 +4,9 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
-import com.march.baselib.DevelopLib;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
+import com.march.baselib.develop.DevelopLib;
 
 
 /**

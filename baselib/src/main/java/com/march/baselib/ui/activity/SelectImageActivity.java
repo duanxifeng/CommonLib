@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.march.baselib.DevelopLib;
+import com.march.baselib.develop.DevelopLib;
 import com.march.baselib.R;
 import com.march.baselib.helper.DimensionHelper;
 import com.march.baselib.helper.ImageHelper;

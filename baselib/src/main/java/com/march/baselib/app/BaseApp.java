@@ -1,4 +1,4 @@
-package com.march.baselib;
+package com.march.baselib.app;
 
 import android.app.Application;
 

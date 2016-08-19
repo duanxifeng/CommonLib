@@ -7,7 +7,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
-import com.march.baselib.DevelopLib;
+import com.march.baselib.develop.DevelopLib;
 import com.march.baselib.model.ImageInfo;
 
 import java.io.File;
