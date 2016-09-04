@@ -6,12 +6,12 @@ import java.io.Closeable;
 import java.io.IOException;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 一些小的辅助方法，由于比较碎片，不单独提取到帮助类中<p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 一些小的辅助方法，由于比较碎片，不单独提取到帮助类中
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class CommonHelper {
 

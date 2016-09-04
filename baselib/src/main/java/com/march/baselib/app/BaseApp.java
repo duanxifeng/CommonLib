@@ -6,12 +6,12 @@ import com.march.baselib.helper.PathHelper;
 
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : Application基类 <p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : Application基类
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class BaseApp extends Application {
 

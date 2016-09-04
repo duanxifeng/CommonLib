@@ -21,12 +21,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 图像目录dialog <p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 图像目录dialog
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class ImageDirDialog extends BaseDialog {
 
@@ -55,16 +55,17 @@ public class ImageDirDialog extends BaseDialog {
     private void createAdapter() {
         mDirAdapter = new SimpleRvAdapter<ImageDirInfo>(getContext(), mImageDirs, R.layout.select_image_dir_item) {
             @Override
-            public void bindData4View(RvViewHolder holder, ImageDirInfo data, int pos) {
-                ImageView iv = holder.getView(R.id.iv_dir_cover);
+            public void onBindView(RvViewHolder holder, ImageDirInfo data, int pos, int type) {
+                ImageView iv = (ImageView) holder.getView(R.id.iv_dir_cover);
                 int size = DimensionHelper.dp2px(80);
                 DevelopLib.getLoadImg().loadImg(iv, size, size, data.getCoverInfo().getPath());
                 holder.setText(R.id.tv_dir_name, data.getDirName() + "(" + data.getPicNum() + ")");
             }
+
         };
-        mDirAdapter.setOnItemClickListener(new OnItemClickListener<RvViewHolder>() {
+        mDirAdapter.setOnItemClickListener(new OnItemClickListener<ImageDirInfo>() {
             @Override
-            public void onItemClick(int pos, RvViewHolder holder) {
+            public void onItemClick(int pos, RvViewHolder holder, ImageDirInfo data) {
                 if (listener != null) {
                     listener.onEvent(pos, mImageDirs.get(pos));
                 }

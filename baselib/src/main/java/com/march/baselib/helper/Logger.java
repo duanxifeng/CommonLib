@@ -3,12 +3,12 @@ package com.march.baselib.helper;
 import android.util.Log;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 日志打印操作 <p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 日志打印操作
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class Logger {
 

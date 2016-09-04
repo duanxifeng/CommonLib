@@ -8,12 +8,12 @@ import android.widget.Toast;
 import com.march.baselib.develop.DevelopLib;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/13 <p>
- * Describe : Toast工具类 <p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/13
+ * Describe : Toast工具类
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class Toaster {
 
@@ -96,8 +96,8 @@ public class Toaster {
     /**
      * 初始化自定义ToastBuilder，实现自定义Toast
      *
-     * @param builder
-     */
+     * @param builder  构建
+     * */
     public void initToastBulder(ToastBuilder builder) {
         this.mToastBuilder = builder;
     }

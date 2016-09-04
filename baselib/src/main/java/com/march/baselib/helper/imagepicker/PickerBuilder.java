@@ -11,12 +11,12 @@ import java.lang.annotation.RetentionPolicy;
 
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 构建选择照片工具</br>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 构建选择照片工具
  *
- * @author chendong </br>
+ * @author chendong
  */
 public class PickerBuilder {
 

@@ -3,12 +3,12 @@ package com.march.baselib.common;
 import android.view.View;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 防止多次点击<p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 防止多次点击
  *
- * @author chendong <p>
+ * @author chendong
  */
 public abstract class SimpleClick implements View.OnClickListener {
     public static boolean checkDoubleClick = false;

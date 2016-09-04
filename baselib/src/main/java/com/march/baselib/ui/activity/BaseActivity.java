@@ -1,26 +1,17 @@
 package com.march.baselib.ui.activity;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 
+
 /**
- * com.march.baselib.ui.activity
- * CommonLib
- * Created by chendong on 16/8/17.
- * Copyright © 2016年 chendong. All rights reserved.
- * Desc :
- */
-/**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 向外公开的基类。实现部分简化操作的方法 <p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 向外公开的基类。实现部分简化操作的方法
  *
- * @author chendong <p>
+ * @author chendong
  */
 
 public abstract class BaseActivity extends AbsActivityWrap {

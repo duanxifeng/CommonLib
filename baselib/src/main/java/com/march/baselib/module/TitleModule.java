@@ -8,12 +8,12 @@ import android.widget.TextView;
 import com.march.baselib.R;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 实现UI添加公共title操作<p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 实现UI添加公共title操作
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class TitleModule {
 

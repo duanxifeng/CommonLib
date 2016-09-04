@@ -1,12 +1,12 @@
 package com.march.baselib.model;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 联系人信息<p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 联系人信息
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class ContactInfo {
     private String contactName;

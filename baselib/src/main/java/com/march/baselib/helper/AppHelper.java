@@ -10,12 +10,12 @@ import com.march.baselib.develop.DevelopLib;
 
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/13 <p>
- * Describe : 应用级别相关<p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/13
+ * Describe : 应用级别相关
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class AppHelper {
 

@@ -21,13 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 联系人操作<p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 联系人操作
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class ContactHelper {
     private static String MyPhoneNumber;
@@ -65,6 +66,7 @@ public class ContactHelper {
 
     /**
      * 获取联系人列表
+     *
      * @param isClear 刷新后获取，为true时，之前获取的缓存数据会被清空，为false时，如果有缓存优先返回
      * @return 联系人列表
      */
@@ -82,6 +84,7 @@ public class ContactHelper {
 
     /**
      * 打开通讯录选择联系人
+     *
      * @param activity activity
      */
     public static void openContacts(Activity activity) {
@@ -93,10 +96,11 @@ public class ContactHelper {
 
     /**
      * 选择后返回数据处理
-     * @param reqCode 请求码
+     *
+     * @param reqCode    请求码
      * @param resultCode 返回码
-     * @param data 数据
-     * @param listener 监听
+     * @param data       数据
+     * @param listener   监听
      */
     public static void onActivityResult(int reqCode, int resultCode, Intent data, OnGetContactInfo listener) {
         if (resultCode == Activity.RESULT_OK && reqCode == REQUEST_PICK_CONTACT) {
@@ -109,10 +113,11 @@ public class ContactHelper {
 
     /**
      * 获得用户自己的手机号码
-     *
-     * @return 手机号码
      * Requires Permission:
      * {@link android.Manifest.permission#READ_PHONE_STATE READ_PHONE_STATE}
+     *
+     * @param context  上下文
+     * @return 手机号码
      */
     public static String getMyPhoneNumber(Context context) {
         if (MyPhoneNumber == null) {
@@ -230,7 +235,8 @@ public class ContactHelper {
 
     /**
      * 添加一个联系人数据
-     * @param name name
+     *
+     * @param name        name
      * @param phoneNumber phone
      * @return 返回true表示添加成功，false表示失败
      */
@@ -267,6 +273,7 @@ public class ContactHelper {
 
     /**
      * 删除单个数据，会直接删除是这个名字的人的所有信息
+     *
      * @param name 用户的姓名
      * @return 是否删除成功
      */
@@ -297,7 +304,8 @@ public class ContactHelper {
 
     /**
      * 修改联系人数据
-     * @param name name
+     *
+     * @param name        name
      * @param phoneNumber phone
      * @return 是否成功
      */
@@ -326,6 +334,7 @@ public class ContactHelper {
 
     /**
      * 根据电话号码查询姓名
+     *
      * @param phoneNumber phone
      * @return 返回这个电话的主人名，如果没有则返回null
      */

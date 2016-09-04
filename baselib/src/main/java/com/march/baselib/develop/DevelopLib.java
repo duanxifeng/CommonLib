@@ -7,12 +7,12 @@ import com.march.baselib.inter.HowLoadImg;
 
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 类库处理类 <p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 类库处理类
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class DevelopLib {
 

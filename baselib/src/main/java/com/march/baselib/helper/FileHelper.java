@@ -14,12 +14,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p> <p>
- * Describe : 文件相关操作 <p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 文件相关操作
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class FileHelper {
 

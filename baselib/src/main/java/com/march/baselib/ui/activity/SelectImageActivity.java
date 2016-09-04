@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,12 +41,12 @@ import bolts.Continuation;
 import bolts.Task;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 选择照片的activity <p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 选择照片的activity
  *
- * @author chendong <p>
+ * @author chendong
  */
 public class SelectImageActivity extends BaseActivity implements View.OnClickListener {
 
@@ -57,6 +58,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
     public static int NO_LIMIT = -1;
 
     private int size;
+
     private RecyclerView mImageRv;
     private SimpleRvAdapter<ImageInfo> mImageAdapter;
     //目录 － 目录下的图片列表
@@ -75,7 +77,8 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
 
     /**
      * 启动界面选择图片
-     * @param from 从哪个activity进入
+     *
+     * @param from  从哪个activity进入
      * @param limit 最多选择多少张，不限制时 NO_LIMIT
      */
     public static void selectImages(Activity from, int limit) {
@@ -128,14 +131,16 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void createOrUpdateAdapter() {
-        if (mImageAdapter != null)
+        if (mImageAdapter != null) {
             mImageAdapter.updateData(mCurrentImages);
+            return;
+        }
         mImageAdapter = new SimpleRvAdapter<ImageInfo>(mContext, mCurrentImages, R.layout.select_image_item_rv) {
             @Override
-            public void bindData4View(RvViewHolder holder, ImageInfo data, final int pos) {
+            public void onBindView(RvViewHolder holder, ImageInfo data, final int pos, int type) {
                 holder.getParentView().setTag(pos);
                 View coverView = holder.getView(R.id.cover_select_image);
-                TextView tv = holder.getView(R.id.tv_select_image);
+                TextView tv = (TextView) holder.getView(R.id.tv_select_image);
                 if (mSelectImages.contains(data)) {
                     coverView.setVisibility(View.VISIBLE);
                     tv.setSelected(true);
@@ -147,7 +152,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
                 }
                 if (isOnlyUpdateNumber)
                     return;
-                ImageView iv = holder.getView(R.id.iv_select_image);
+                ImageView iv = (ImageView) holder.getView(R.id.iv_select_image);
                 DevelopLib.getLoadImg().loadImg(iv, size, size, data.getPath());
 
                 View parentView = holder.getParentView();
@@ -175,10 +180,11 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
                 holder.setClickLis(R.id.view_click_cover, lis);
                 holder.setClickLis(R.id.tv_select_image, lis);
             }
+
         };
-        mImageAdapter.setOnItemClickListener(new OnItemClickListener<RvViewHolder>() {
+        mImageAdapter.setOnItemClickListener(new OnItemClickListener<ImageInfo>() {
             @Override
-            public void onItemClick(int pos, RvViewHolder holder) {
+            public void onItemClick(int pos, RvViewHolder holder, ImageInfo data) {
                 Toaster.get().show("打开预览");
             }
         });
@@ -269,4 +275,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         });
         mDirDialog.show();
     }
+
+
+
 }

@@ -14,12 +14,12 @@ import java.io.File;
 import java.util.UUID;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 选择图片工具</br>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 选择图片工具
  *
- * @author chendong </br>
+ * @author chendong
  */
 public abstract class AbsImagePicker {
     public static final int PICK_ALBUM = 0;
@@ -83,7 +83,9 @@ public abstract class AbsImagePicker {
 
     /**
      * 暂时没使用
+     * @return 文件
      */
+    @Deprecated
     protected File syncPick() {
         //检测参数
         if (width / height != xRatio / yRatio) {

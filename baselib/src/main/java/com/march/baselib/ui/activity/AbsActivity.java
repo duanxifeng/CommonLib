@@ -10,12 +10,18 @@ import android.view.View;
 import android.view.WindowManager;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 标准基类。负责activity流程化加载<p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 标准基类。负责activity流程化加载
+ * 流程化加载周期
+ * onInitIntent(Intent intent);
+ * onInitDatas();
+ * onInitViews(Bundle saveData);
+ * onInitEvents();
+ * onStartWorks();
  *
- * @author chendong <p>
+ * @author chendong
  */
 abstract class AbsActivity extends AppCompatActivity {
 
@@ -45,6 +51,7 @@ abstract class AbsActivity extends AppCompatActivity {
 
     /**
      * 监测权限
+     *
      * @return 是否可以继续加载activity
      */
     protected abstract boolean checkPermission();
@@ -63,6 +70,7 @@ abstract class AbsActivity extends AppCompatActivity {
 
     /**
      * 初始化控件
+     *
      * @param save OnCreate中保存的bundle
      */
     protected void onInitViews(Bundle save) {
@@ -76,6 +84,7 @@ abstract class AbsActivity extends AppCompatActivity {
 
     /**
      * 初始化 获取的Intent
+     *
      * @param intent intent
      */
     protected void onInitIntent(Intent intent) {
@@ -83,6 +92,7 @@ abstract class AbsActivity extends AppCompatActivity {
 
     /**
      * 是否全屏默认不全屏
+     *
      * @return 是否全屏
      */
     protected boolean isFullScreen() {
@@ -91,6 +101,7 @@ abstract class AbsActivity extends AppCompatActivity {
 
     /**
      * 是否隐藏ActionBar默认隐藏
+     *
      * @return 是否隐藏ActionBar默认隐藏
      */
     protected boolean isNoActionBar() {
@@ -99,18 +110,21 @@ abstract class AbsActivity extends AppCompatActivity {
 
     /**
      * 获取布局id,如果getLayoutView返回则不关心id
+     *
      * @return layout id
      */
     protected abstract int getLayoutId();
 
     /**
      * 获取布局View,优先于getLayoutId
+     *
      * @return 布局View
      */
     protected abstract View getLayoutView();
 
     /**
      * 执行公用方法
+     *
      * @param saveData onCreate 保存的bundle
      */
     protected void invokeCommonMethod(Bundle saveData) {
@@ -120,6 +134,7 @@ abstract class AbsActivity extends AppCompatActivity {
         onInitEvents();
         onStartWorks();
     }
+
     //创建界面
     private void createViewShow() {
         //全屏显示
@@ -132,7 +147,6 @@ abstract class AbsActivity extends AppCompatActivity {
             setContentView(getLayoutId());
         hideActionBar();
     }
-
 
 
     //隐藏actionbar

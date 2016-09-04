@@ -7,12 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : 处理一个Activity包含多个Fragment的相关交互 <p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 处理一个Activity包含多个Fragment的相关交互
  *
- * @author chendong <p>
+ * @author chendong
  */
 public abstract class MultiFragmentActivity extends BaseActivity {
 
@@ -81,7 +81,7 @@ public abstract class MultiFragmentActivity extends BaseActivity {
                 transaction.add(getFragmentContainerId(), mCurrentFragment, toTag);
             }
         }
-        // 选择image图片
+        // 同步状态
         syncSelectState(showItem);
         // 保存当前显示fragment的item
         mHideItem = hideItem;
@@ -91,11 +91,38 @@ public abstract class MultiFragmentActivity extends BaseActivity {
 
     /**
      * 选中某一个fragment
+     *
+     * @param showItem   显示的item
+     * @param isOnCreate 是否是第一次创
      */
-    protected void selectItemFragment(int showItem, boolean isOnCreate) {
-        performSelectItem(mExactlyItem, showItem, isOnCreate);
-        mExactlyItem = showItem;
+    protected void showFragment(int showItem, boolean isOnCreate) {
+        if (showItem == mShowItem) {
+            if (showSameFragment(showItem)) {
+                performSelectItem(mExactlyItem, showItem, isOnCreate);
+                mExactlyItem = showItem;
+            }
+        } else {
+            performSelectItem(mExactlyItem, showItem, isOnCreate);
+            mExactlyItem = showItem;
+        }
     }
+
+    /**
+     * 显示某个fragment
+     *
+     * @param showItem 显示的item
+     */
+    protected void showFragment(int showItem) {
+        showFragment(showItem, false);
+    }
+
+    /**
+     * 当点击显示同一个
+     *
+     * @param showItem 显示的item
+     * @return 返回false表示忽略此次点击的切换
+     */
+    protected abstract boolean showSameFragment(int showItem);
 
     /**
      * 获取当前处于活动状态的fragment

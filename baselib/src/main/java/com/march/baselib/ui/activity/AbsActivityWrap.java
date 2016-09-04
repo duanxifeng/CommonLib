@@ -20,16 +20,16 @@ import java.util.Map;
  */
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
  * Describe :
- * <li>标准基类实现类，实现部分功能</li>
- * <ol>1.添加共有的title bar</ol>
- * <ol> 2.监测权限</ol>
- * <ol> 3.关联图片相册、相机选择裁剪</ol><p>
+ * 标准基类实现类，实现部分功能
+ * 添加共有的title bar
+ * 监测权限
+ * 关联图片相册、相机选择裁剪
  *
- * @author chendong <p>
+ * @author chendong
  */
 abstract class AbsActivityWrap extends AbsActivity {
 
@@ -54,6 +54,7 @@ abstract class AbsActivityWrap extends AbsActivity {
 
     /**
      * 关联图片获取
+     * @param picker 图片选择弃
      */
     public void setPicker(AbsImagePicker picker) {
         this.mPicker = picker;

@@ -18,12 +18,12 @@ import java.io.File;
 import java.util.UUID;
 
 /**
- * Project  : CommonLib </br>
- * Package  : com.march.baselib </br>
- * CreateAt : 16/8/15 </br> </br>
- * Describe : 选择照片的基类,全都放到一个类里面，也是可行的，但是代码不够清晰,不建议使用</br>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : 选择照片的基类,全都放到一个类里面，也是可行的，但是代码不够清晰,不建议使用
  *
- * @author chendong </br>
+ * @author chendong
  */
 @Deprecated
 public class ImagePicker {

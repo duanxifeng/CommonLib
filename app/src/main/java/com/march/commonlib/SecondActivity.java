@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.march.baselib.helper.DimensionHelper;
 import com.march.baselib.helper.Logger;
-import com.march.baselib.ui.activity.AbsActivityWrap;
 import com.march.baselib.ui.activity.BaseActivity;
 import com.march.quickrvlibs.RvViewHolder;
 import com.march.quickrvlibs.SimpleRvAdapter;
@@ -54,7 +53,7 @@ public class SecondActivity extends BaseActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
         SimpleRvAdapter<String> adapter = new SimpleRvAdapter<String>(mContext, datas, R.layout.item) {
             @Override
-            public void bindData4View(RvViewHolder holder, String data, int pos) {
+            public void onBindView(RvViewHolder holder, String data, int pos, int type) {
                 View iv = holder.getView(R.id.iv);
                 holder.setText(R.id.tv, pos + "");
                 size = DimensionHelper.getScreenWidth() / 3.0f;
@@ -63,12 +62,11 @@ public class SecondActivity extends BaseActivity {
                 holder.getParentView().setTag(pos);
             }
         };
-        adapter.setOnItemClickListener(new OnItemClickListener<RvViewHolder>() {
+        adapter.setOnItemClickListener(new OnItemClickListener<String>() {
             @Override
-            public void onItemClick(int pos, RvViewHolder holder) {
+            public void onItemClick(int pos, RvViewHolder holder, String data) {
                 Logger.e("click " + pos);
             }
-
         });
         recyclerView.setAdapter(adapter);
 

@@ -8,12 +8,12 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * Project  : CommonLib <p>
- * Package  : com.march.baselib <p>
- * CreateAt : 16/8/15 <p>
- * Describe : dialog基类 <p>
+ * Project  : CommonLib
+ * Package  : com.march.baselib
+ * CreateAt : 16/8/15
+ * Describe : dialog基类
  *
- * @author chendong <p>
+ * @author chendong
  */
 public abstract class BaseDialog extends AppCompatDialog {
     /**
