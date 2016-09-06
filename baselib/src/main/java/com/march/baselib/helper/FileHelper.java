@@ -25,7 +25,8 @@ public class FileHelper {
 
     /**
      * 复制文件到
-     * @param srcFile 原文件
+     *
+     * @param srcFile  原文件
      * @param destFile 目标文件
      * @return 复制成功
      */
@@ -36,8 +37,10 @@ public class FileHelper {
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
         try {
-            destFile.getParentFile().mkdirs();
-            destFile.createNewFile();
+            boolean mkdirs = destFile.getParentFile().mkdirs();
+            boolean newFile = destFile.createNewFile();
+            if (!mkdirs || !newFile)
+                return false;
             bis = new BufferedInputStream(new FileInputStream(srcFile));
             bos = new BufferedOutputStream(new FileOutputStream(destFile));
             int size;
@@ -58,6 +61,7 @@ public class FileHelper {
 
     /**
      * 通知文件刷新，刷新后相册会出现这张照片，
+     *
      * @param picFile 图片文件
      */
     public static void scanFile(File picFile) {

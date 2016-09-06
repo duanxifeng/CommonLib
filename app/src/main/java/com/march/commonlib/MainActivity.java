@@ -30,6 +30,7 @@ public class MainActivity extends BaseActivity {
     protected void onInitViews(Bundle save) {
         super.onInitViews(save);
         iv = getView(R.id.iv);
+        SelectImageActivity.selectImages(mActivity, 60);
     }
 
     @TestAnnotation(testCode = 100, value = {"a", "b"})
@@ -50,7 +51,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStartWorks() {
         super.onStartWorks();
-        SelectImageActivity.selectImages(mActivity, 5);
+//        SelectImageActivity.selectImages(mActivity, 5);
 
         List<Method> methods = AnnotationHelper.getMethods(MainActivity.class, TestAnnotation.class);
         for (Method m : methods) {

@@ -2,6 +2,8 @@ package com.march.baselib.ui.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.view.View;
 
 
@@ -13,11 +15,17 @@ import android.view.View;
  *
  * @author chendong
  */
-
 public abstract class BaseActivity extends AbsActivityWrap {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActivity = this;
+    }
 
     /**
      * 启动activity
+     *
      * @param cls 被启动的activity
      */
     protected void startActivity(Class cls) {
@@ -26,7 +34,8 @@ public abstract class BaseActivity extends AbsActivityWrap {
 
     /**
      * 简化获取View
-     * @param id view id
+     *
+     * @param id  view id
      * @param <V> View范型
      * @return 控件
      */
@@ -36,6 +45,7 @@ public abstract class BaseActivity extends AbsActivityWrap {
 
     /**
      * 监测并显示dialog
+     *
      * @param dialog 对话框
      * @return 返回true时表示已经显示，返回false表示没有初始化
      */

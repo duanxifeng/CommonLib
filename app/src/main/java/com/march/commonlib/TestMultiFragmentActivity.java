@@ -18,6 +18,11 @@ public class TestMultiFragmentActivity extends MultiFragmentActivity {
     }
 
     @Override
+    protected boolean whenShowSameFragment(int showItem) {
+        return false;
+    }
+
+    @Override
     protected int getFragmentContainerId() {
         return 0;
     }

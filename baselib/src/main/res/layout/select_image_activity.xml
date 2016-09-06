@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.march.baselib.widget.SlidingCheckLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:id="@+id/sliding">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_select_image"
@@ -19,6 +20,7 @@
         android:clipToPadding="false"
         android:paddingBottom="50dp"
         tools:listitem="@layout/select_image_item_rv" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -58,4 +60,4 @@
         android:paddingLeft="10dp"
         android:text="ssssss"
         android:textColor="@color/white" />
-</FrameLayout>
+</com.march.baselib.widget.SlidingCheckLayout>

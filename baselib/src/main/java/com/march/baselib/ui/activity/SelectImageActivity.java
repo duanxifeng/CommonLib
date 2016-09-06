@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +24,7 @@ import com.march.baselib.model.ImageDirInfo;
 import com.march.baselib.model.ImageInfo;
 import com.march.baselib.module.TitleModule;
 import com.march.baselib.ui.dialog.ImageDirDialog;
+import com.march.baselib.widget.SlidingCheckLayout;
 import com.march.quickrvlibs.RvViewHolder;
 import com.march.quickrvlibs.SimpleRvAdapter;
 import com.march.quickrvlibs.inter.OnItemClickListener;
@@ -60,6 +60,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
     private int size;
 
     private RecyclerView mImageRv;
+    private SlidingCheckLayout mSlidingCheckLy;
     private SimpleRvAdapter<ImageInfo> mImageAdapter;
     //目录 － 目录下的图片列表
     private Map<String, List<ImageInfo>> mImagesMap;
@@ -67,7 +68,6 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
     private List<ImageInfo> mCurrentImages;
     //被选中的图片列表
     private List<ImageInfo> mSelectImages;
-    private boolean isOnlyUpdateNumber;
     private TextView mDateTv;
     private SimpleDateFormat simpleDateFormat;
     private GridLayoutManager mLayoutManager;
@@ -130,6 +130,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         }, Task.UI_THREAD_EXECUTOR);
     }
 
+
     private void createOrUpdateAdapter() {
         if (mImageAdapter != null) {
             mImageAdapter.updateData(mCurrentImages);
@@ -137,8 +138,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         }
         mImageAdapter = new SimpleRvAdapter<ImageInfo>(mContext, mCurrentImages, R.layout.select_image_item_rv) {
             @Override
-            public void onBindView(RvViewHolder holder, ImageInfo data, final int pos, int type) {
-                holder.getParentView().setTag(pos);
+            public void onBindView(final RvViewHolder holder, ImageInfo data, final int pos, int type) {
                 View coverView = holder.getView(R.id.cover_select_image);
                 TextView tv = (TextView) holder.getView(R.id.tv_select_image);
                 if (mSelectImages.contains(data)) {
@@ -150,8 +150,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
                     tv.setSelected(false);
                     tv.setText("");
                 }
-                if (isOnlyUpdateNumber)
-                    return;
+
                 ImageView iv = (ImageView) holder.getView(R.id.iv_select_image);
                 DevelopLib.getLoadImg().loadImg(iv, size, size, data.getPath());
 
@@ -162,19 +161,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
                 View.OnClickListener lis = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ImageInfo imageInfo = mCurrentImages.get(pos);
-                        if (mSelectImages.contains(imageInfo)) {
-                            mSelectImages.remove(imageInfo);
-                        } else {
-                            if (mSelectImageMaxNum != NO_LIMIT && mSelectImages.size() >= mSelectImageMaxNum) {
-                                Toaster.get().show("最多只能选择" + mSelectImageMaxNum + "张");
-                                return;
-                            }
-                            mSelectImages.add(imageInfo);
-                        }
-                        isOnlyUpdateNumber = true;
-                        mImageAdapter.notifyDataSetChanged();
-                        isOnlyUpdateNumber = false;
+                        notifyCheckOrNotCheck(holder, pos);
                     }
                 };
                 holder.setClickLis(R.id.view_click_cover, lis);
@@ -194,11 +181,13 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onInitViews(Bundle save) {
         super.onInitViews(save);
+        mSlidingCheckLy = getView(R.id.sliding);
         mImageRv = getView(R.id.rv_select_image);
         mLayoutManager = (GridLayoutManager) mImageRv.getLayoutManager();
         mDateTv = getView(R.id.tv_time_image);
         mTitleModule.setText("返回", ImageHelper.ALL_IMAGE_KEY, "确定");
-        mAlphaAnimator = ObjectAnimator.ofFloat(mDateTv, "alpha", 1.0f, 0f)
+        mAlphaAnimator = ObjectAnimator
+                .ofFloat(mDateTv, "alpha", 1.0f, 0f)
                 .setDuration(1500);
     }
 
@@ -222,7 +211,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
-        mImageRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mSlidingCheckLy.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -237,6 +226,40 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
+        mSlidingCheckLy.setOnSlidingCheckListener(new SlidingCheckLayout.OnSlidingCheckListener() {
+            @Override
+            public void onSlidingCheck(int pos) {
+                RvViewHolder holder = (RvViewHolder) mImageRv.findViewHolderForAdapterPosition(pos);
+                notifyCheckOrNotCheck(holder, pos);
+            }
+        });
+    }
+
+    /**
+     * 修改选中和不选中的状态
+     *
+     * @param holder
+     * @param pos
+     */
+    private void notifyCheckOrNotCheck(RvViewHolder holder, int pos) {
+        ImageInfo imageInfo = mCurrentImages.get(pos);
+        TextView tv = (TextView) holder.getView(R.id.tv_select_image);
+        View coverView = holder.getView(R.id.cover_select_image);
+        if (tv.isSelected()) {
+            mSelectImages.remove(imageInfo);
+            tv.setSelected(false);
+            coverView.setVisibility(View.GONE);
+            tv.setText("");
+        } else {
+            if (mSelectImageMaxNum != NO_LIMIT && mSelectImages.size() >= mSelectImageMaxNum) {
+                Toaster.get().show("最多只能选择" + mSelectImageMaxNum + "张");
+                return;
+            }
+            mSelectImages.add(imageInfo);
+            tv.setSelected(true);
+            coverView.setVisibility(View.VISIBLE);
+            tv.setText(String.valueOf(mSelectImages.indexOf(imageInfo) + 1));
+        }
     }
 
     @Override
@@ -252,6 +275,12 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mImagesMap.clear();
+        mCurrentImages.clear();
+        mSelectImages.clear();
+        mImagesMap = null;
+        mCurrentImages = null;
+        mSelectImages = null;
     }
 
     @Override
@@ -275,7 +304,4 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         });
         mDirDialog.show();
     }
-
-
-
 }

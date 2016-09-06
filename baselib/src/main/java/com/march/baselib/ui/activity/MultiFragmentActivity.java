@@ -97,7 +97,7 @@ public abstract class MultiFragmentActivity extends BaseActivity {
      */
     protected void showFragment(int showItem, boolean isOnCreate) {
         if (showItem == mShowItem) {
-            if (showSameFragment(showItem)) {
+            if (whenShowSameFragment(showItem)) {
                 performSelectItem(mExactlyItem, showItem, isOnCreate);
                 mExactlyItem = showItem;
             }
@@ -122,10 +122,10 @@ public abstract class MultiFragmentActivity extends BaseActivity {
      * @param showItem 显示的item
      * @return 返回false表示忽略此次点击的切换
      */
-    protected abstract boolean showSameFragment(int showItem);
+    protected abstract boolean whenShowSameFragment(int showItem);
 
     /**
-     * 获取当前处于活动状态的fragment
+     * 获取当前处于活动状态的fragment'
      *
      * @return fragment
      */

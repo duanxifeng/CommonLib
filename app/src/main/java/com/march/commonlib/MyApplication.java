@@ -21,7 +21,7 @@ public class MyApplication extends BaseApp {
         DevelopLib.initLib(this, new HowLoadImg() {
             @Override
             public void loadImg(ImageView iv, int w, int h, String path) {
-                Glide.with(MyApplication.this).load(path).centerCrop().crossFade().into(iv);
+                Glide.with(MyApplication.this).load(path).centerCrop().into(iv);
             }
         });
     }

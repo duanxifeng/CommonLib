@@ -1,6 +1,7 @@
 package com.march.baselib.helper;
 
 import android.os.Environment;
+import android.widget.Toast;
 
 import com.march.baselib.develop.DevelopLib;
 
@@ -20,26 +21,34 @@ public class PathHelper {
      */
     public static String TempPath;
     /**
-     * 父路径
+     * app 父路径
      */
-    public static String ParentPath;
+    public static String AppRootPath;
+    /**
+     * 外存卡父路径
+     */
+    public static String ES_PATH;
+
+    public static String DCIM_PATH;
 
     /**
-     *初始化路径
+     * 初始化路径
      */
-    public static void initPath() {
+    public static boolean initPath() {
         if (CommonHelper.isSDCardAvailable()) {
-            // 使用自己设置的sdcard缓存路径，需要应用里设置清除缓存按钮
-            //  /storage/sdcard0/包名
-            ParentPath = Environment.getExternalStorageDirectory().getPath()
-                    + File.separator + DevelopLib.getCtx().getPackageName();
-            // /storage/sdcard0/Android/data/com.example.qymh/cache
+            ES_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
+            DCIM_PATH = new File(ES_PATH, "/DCIM/Camera").getAbsolutePath();
+            //  /storage/sdcard/0/包名
+            AppRootPath = new File(ES_PATH, DevelopLib.getCtx().getPackageName()).getAbsolutePath();
+
         } else {
             // data/data/包名/files（这个文件夹在apk安装的时候就会创建）
-            ParentPath = DevelopLib.getCtx().getFilesDir().getAbsolutePath();
+            AppRootPath = DevelopLib.getCtx().getFilesDir().getAbsolutePath();
         }
 
-        TempPath = ParentPath + "/temp";
-        new File(TempPath).mkdirs();
+        TempPath = AppRootPath + "/temp";
+        boolean mkdirs = new File(TempPath).mkdirs();
+        return mkdirs;
+
     }
 }
