@@ -12,6 +12,7 @@
     <color name="blue">#0f0</color>
     <color name="color_60E5DA">#60e5da</color>
     <color name="color_AAFFFFFF">#aaffffff</color>
+    <color name="transparent_black_55">#55000000</color>
     <color name="transparent_black_99">#99000000</color>
     <color name="color_FF00A6FF">#FF00A6FF</color>
     <color name="milky_white">#ddFFFFFF</color>

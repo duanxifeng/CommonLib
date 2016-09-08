@@ -25,7 +25,7 @@
         android:id="@+id/cover_select_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transparent_black_99"
+        android:background="@color/transparent_black_55"
         android:visibility="gone" />
 
     <TextView

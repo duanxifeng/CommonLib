@@ -23,6 +23,16 @@ public class ImageInfo implements Comparable<ImageInfo> {
     private String date;
     private int fileId;
 
+    private boolean isChecked;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
     public String getPath() {
         return path;
     }

@@ -24,7 +24,7 @@ import com.march.baselib.model.ImageDirInfo;
 import com.march.baselib.model.ImageInfo;
 import com.march.baselib.module.TitleModule;
 import com.march.baselib.ui.dialog.ImageDirDialog;
-import com.march.baselib.widget.SlidingCheckLayout;
+import com.march.baselib.widget.SlidingSelectLayout;
 import com.march.quickrvlibs.RvViewHolder;
 import com.march.quickrvlibs.SimpleRvAdapter;
 import com.march.quickrvlibs.inter.OnItemClickListener;
@@ -60,7 +60,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
     private int size;
 
     private RecyclerView mImageRv;
-    private SlidingCheckLayout mSlidingCheckLy;
+    private SlidingSelectLayout mSlidingCheckLy;
     private SimpleRvAdapter<ImageInfo> mImageAdapter;
     //目录 － 目录下的图片列表
     private Map<String, List<ImageInfo>> mImagesMap;
@@ -139,6 +139,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         mImageAdapter = new SimpleRvAdapter<ImageInfo>(mContext, mCurrentImages, R.layout.select_image_item_rv) {
             @Override
             public void onBindView(final RvViewHolder holder, ImageInfo data, final int pos, int type) {
+                mSlidingCheckLy.markView(holder.getParentView(),pos);
                 View coverView = holder.getView(R.id.cover_select_image);
                 TextView tv = (TextView) holder.getView(R.id.tv_select_image);
                 if (mSelectImages.contains(data)) {
@@ -182,6 +183,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
     protected void onInitViews(Bundle save) {
         super.onInitViews(save);
         mSlidingCheckLy = getView(R.id.sliding);
+        mSlidingCheckLy.setTagKey(R.string.app_name);
         mImageRv = getView(R.id.rv_select_image);
         mLayoutManager = (GridLayoutManager) mImageRv.getLayoutManager();
         mDateTv = getView(R.id.tv_time_image);
@@ -211,7 +213,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
-        mSlidingCheckLy.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mImageRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -226,9 +228,9 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
-        mSlidingCheckLy.setOnSlidingCheckListener(new SlidingCheckLayout.OnSlidingCheckListener() {
+        mSlidingCheckLy.setOnSlidingSelectListener(new SlidingSelectLayout.OnSlidingSelectListener() {
             @Override
-            public void onSlidingCheck(int pos) {
+            public void onSlidingSelect(int pos, View parentView) {
                 RvViewHolder holder = (RvViewHolder) mImageRv.findViewHolderForAdapterPosition(pos);
                 notifyCheckOrNotCheck(holder, pos);
             }
@@ -250,6 +252,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
             tv.setSelected(false);
             coverView.setVisibility(View.GONE);
             tv.setText("");
+            imageInfo.setChecked(false);
         } else {
             if (mSelectImageMaxNum != NO_LIMIT && mSelectImages.size() >= mSelectImageMaxNum) {
                 Toaster.get().show("最多只能选择" + mSelectImageMaxNum + "张");
@@ -259,7 +262,9 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
             tv.setSelected(true);
             coverView.setVisibility(View.VISIBLE);
             tv.setText(String.valueOf(mSelectImages.indexOf(imageInfo) + 1));
+            imageInfo.setChecked(true);
         }
+        mImageAdapter.notifyDataSetChanged();
     }
 
     @Override
