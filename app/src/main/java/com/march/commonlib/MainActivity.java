@@ -5,17 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.march.baselib.helper.AnnotationHelper;
-import com.march.baselib.helper.Logger;
 import com.march.baselib.helper.imagepicker.AbsImagePicker;
-import com.march.baselib.helper.imagepicker.ImagePicker;
+import com.march.baselib.helper.ImagePicker;
 import com.march.baselib.helper.imagepicker.PickerBuilder;
-import com.march.baselib.ui.activity.SelectImageActivity;
 import com.march.baselib.ui.activity.BaseActivity;
+import com.march.commonlib.selectimg.SelectImageActivity;
 
 import java.io.File;
-import java.lang.reflect.Method;
-import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -33,10 +29,6 @@ public class MainActivity extends BaseActivity {
         SelectImageActivity.selectImages(mActivity, 60);
     }
 
-    @TestAnnotation(testCode = 100, value = {"a", "b"})
-    public void test() {
-        Logger.e("test");
-    }
 
     @Override
     protected void onInitEvents() {
@@ -52,17 +44,16 @@ public class MainActivity extends BaseActivity {
     protected void onStartWorks() {
         super.onStartWorks();
 //        SelectImageActivity.selectImages(mActivity, 5);
-
-        List<Method> methods = AnnotationHelper.getMethods(MainActivity.class, TestAnnotation.class);
-        for (Method m : methods) {
-            Logger.e(m.toString());
-            TestAnnotation annotation = m.getAnnotation(TestAnnotation.class);
-            Logger.e(annotation.testCode());
-            for (String str : annotation.value()) {
-                Logger.e(str);
-            }
-        }
-        AnnotationHelper.executeMethod(this, methods.get(0));
+//        List<Method> methods = AnnotationHelper.getMethods(MainActivity.class, TestAnnotation.class);
+//        for (Method m : methods) {
+//            Logger.e(m.toString());
+//            TestAnnotation annotation = m.getAnnotation(TestAnnotation.class);
+//            Logger.e(annotation.testCode());
+//            for (String str : annotation.value()) {
+//                Logger.e(str);
+//            }
+//        }
+//        AnnotationHelper.executeMethod(this, methods.get(0));
     }
 
 
@@ -98,7 +89,7 @@ public class MainActivity extends BaseActivity {
                     .build()
                     .pick();
         } else {
-            new PickerBuilder(AbsImagePicker.PICK_ALBUM, mActivity)
+            new PickerBuilder(AbsImagePicker.PICK_ALBUM, this)
                     .listener(listener)
                     .build()
                     .pick();

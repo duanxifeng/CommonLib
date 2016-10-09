@@ -32,7 +32,7 @@ abstract class AbsActivity extends AppCompatActivity {
     /**
      * activity
      */
-    protected Activity mActivity;
+    protected AppCompatActivity mActivity;
     /**
      * getApplicationContext()
      */

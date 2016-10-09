@@ -17,6 +17,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layouts/layout_selectimg',
+                    'src/main/res/layouts/other',
+                    'src/main/res/layouts',
+                    'src/main/res'
+            ]
+        }
+    }
 }
 
 dependencies {
@@ -29,4 +40,5 @@ dependencies {
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.march.quickrvlibs:quickrvlibs:2.1.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.march.slidingselect:slidingselect:0.0.1'
 }

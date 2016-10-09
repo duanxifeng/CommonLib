@@ -37,23 +37,24 @@ public class ImageHelper {
     /**
      * 简化给TextView设置drawable
      *
+     * @param context  context
      * @param textView view
      * @param res      资源id
      * @param pos      位置
      */
-    public static void setTvDrawable(TextView textView, int res, int pos) {
+    public static void setTvDrawable(Context context, TextView textView, int res, int pos) {
         switch (pos) {
             case TOP:
-                textView.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(res), null, null);
+                textView.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(context, res), null, null);
                 break;
             case BOTTOM:
-                textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, getDrawable(res));
+                textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, getDrawable(context, res));
                 break;
             case LEFT:
-                textView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(res), null, null, null);
+                textView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(context, res), null, null, null);
                 break;
             case RIGHT:
-                textView.setCompoundDrawablesWithIntrinsicBounds(null, null, getDrawable(res), null);
+                textView.setCompoundDrawablesWithIntrinsicBounds(null, null, getDrawable(context, res), null);
                 break;
         }
     }
@@ -61,11 +62,12 @@ public class ImageHelper {
     /**
      * 使用资源获取drawable
      *
-     * @param res 资源
+     * @param context context
+     * @param res     资源
      * @return drawable
      */
-    public static Drawable getDrawable(int res) {
-        return ContextCompat.getDrawable(DevelopLib.getCtx(), res);
+    public static Drawable getDrawable(Context context, int res) {
+        return ContextCompat.getDrawable(context, res);
     }
 
     /**

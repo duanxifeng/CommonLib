@@ -1,5 +1,6 @@
 package com.march.baselib.helper;
 
+import android.content.Context;
 import android.os.Environment;
 import android.widget.Toast;
 
@@ -33,17 +34,19 @@ public class PathHelper {
 
     /**
      * 初始化路径
+     *
+     * @param context context
      */
-    public static boolean initPath() {
+    public static boolean initPath(Context context) {
         if (CommonHelper.isSDCardAvailable()) {
             ES_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
             DCIM_PATH = new File(ES_PATH, "/DCIM/Camera").getAbsolutePath();
             //  /storage/sdcard/0/包名
-            AppRootPath = new File(ES_PATH, DevelopLib.getCtx().getPackageName()).getAbsolutePath();
+            AppRootPath = new File(ES_PATH, context.getPackageName()).getAbsolutePath();
 
         } else {
             // data/data/包名/files（这个文件夹在apk安装的时候就会创建）
-            AppRootPath = DevelopLib.getCtx().getFilesDir().getAbsolutePath();
+            AppRootPath = context.getFilesDir().getAbsolutePath();
         }
 
         TempPath = AppRootPath + "/temp";

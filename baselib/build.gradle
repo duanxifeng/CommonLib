@@ -3,12 +3,12 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "23.0.3"
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -37,9 +37,7 @@ javadoc {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.march.quickrvlibs:quickrvlibs:2.1.0'
-    compile 'com.parse.bolts:bolts-tasks:1.4.0'
+    compile 'com.android.support:appcompat-v7:24.2.0'
 }
 
 
@@ -51,7 +49,7 @@ def proDesc = 'CommonLib' //项目的描述，不会有什么影响，随便写�
 def yourId = 'chendongmarch'  //bintrayID
 def yourName = 'chendong'  //不重要，你自己的nickname就可以
 def yourEmail = 'helloworld4x@gmial.com'  //email
-version = "0.0.1"
+version = "0.0.2"
 group = "com.march.baselib"            // Maven Group ID for the artifact，一般填你唯一的包名
 //初始化maven库
 install {

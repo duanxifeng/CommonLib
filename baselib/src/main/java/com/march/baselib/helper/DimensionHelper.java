@@ -1,5 +1,6 @@
 package com.march.baselib.helper;
 
+import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
@@ -17,9 +18,10 @@ public class DimensionHelper {
 
     private static DisplayMetrics metrics;
 
-    private static DisplayMetrics getMetrics() {
+
+    private static DisplayMetrics getMetrics(Context context) {
         if (metrics == null) {
-            metrics = DevelopLib.getCtx().getResources().getDisplayMetrics();
+            metrics = context.getResources().getDisplayMetrics();
         }
         return metrics;
     }
@@ -27,63 +29,70 @@ public class DimensionHelper {
     /**
      * 屏幕宽度
      *
+     * @param context context
+     * @param context context
      * @return 屏幕宽度
      */
-    public static int getScreenWidth() {
-        return getMetrics().widthPixels;
+    public static int getScreenWidth(Context context) {
+        return getMetrics(context).widthPixels;
     }
 
     /**
      * 屏幕高度
      *
+     * @param context context
      * @return 屏幕高度
      */
-    public static int getScreenHeight() {
-        return getMetrics().heightPixels;
+    public static int getScreenHeight(Context context) {
+        return getMetrics(context).heightPixels;
     }
 
 
     /**
      * dp转px
      *
-     * @param dpVal dp值
+     * @param context context
+     * @param dpVal   dp值
      * @return px值
      */
-    public static int dp2px(float dpVal) {
+    public static int dp2px(Context context, float dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dpVal, getMetrics());
+                dpVal, getMetrics(context));
     }
 
     /**
      * sp转px
      *
-     * @param spVal sp 值
+     * @param context context
+     * @param spVal   sp 值
      * @return px 值
      */
-    public static int sp2px(float spVal) {
+    public static int sp2px(Context context, float spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                spVal, getMetrics());
+                spVal, getMetrics(context));
     }
 
     /**
      * px转dp
      *
-     * @param pxVal px 值
+     * @param context context
+     * @param pxVal   px 值
      * @return dp值
      */
-    public static float px2dp(float pxVal) {
-        final float scale = getMetrics().density;
+    public static float px2dp(Context context, float pxVal) {
+        final float scale = getMetrics(context).density;
         return (pxVal / scale);
     }
 
     /**
      * px转sp
      *
-     * @param pxVal px值
+     * @param context context
+     * @param pxVal   px值
      * @return sp值
      */
-    public static float px2sp(float pxVal) {
-        return (pxVal / getMetrics().scaledDensity);
+    public static float px2sp(Context context, float pxVal) {
+        return (pxVal / getMetrics(context).scaledDensity);
     }
 
 

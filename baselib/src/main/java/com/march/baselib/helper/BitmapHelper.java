@@ -1,5 +1,6 @@
 package com.march.baselib.helper;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -26,13 +27,14 @@ public class BitmapHelper {
 
     /**
      * 压缩图片到文件
-     * @param bmp 位图
-     * @param file 文件
+     *
+     * @param bmp     位图
+     * @param file    文件
      * @param quality 质量
-     * @param isScan 是否通知相册刷新
+     * @param isScan  是否通知相册刷新
      * @return 存入的file
      */
-    public static File compressImage(Bitmap bmp, File file, int quality, boolean isScan) {
+    public static File compressImage(Context context, Bitmap bmp, File file, int quality, boolean isScan) {
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             // 直接压缩80%
@@ -42,7 +44,7 @@ public class BitmapHelper {
             if (bmp.isRecycled())
                 bmp.recycle();
             if (isScan)
-                FileHelper.scanFile(file);
+                FileHelper.scanIntoMediaStore(context, file.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,28 +53,31 @@ public class BitmapHelper {
 
     /**
      * 从Resources中加载图片
-     * @param resId 资源id
-     * @param reqWidth 要求的宽度
+     *
+     * @param context   上下文
+     * @param resId     资源id
+     * @param reqWidth  要求的宽度
      * @param reqHeight 要求的高度
      * @return 处理后的bitmap
      */
-    public static Bitmap decodeRes(int resId, int reqWidth, int reqHeight) {
+    public static Bitmap decodeRes(Context context, int resId, int reqWidth, int reqHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         // 设置成了true,不占用内存，只获取bitmap宽高
         options.inJustDecodeBounds = true;
         // 初始化options对象
-        BitmapFactory.decodeResource(DevelopLib.getCtx().getResources(), resId, options);
+        BitmapFactory.decodeResource(context.getResources(), resId, options);
         // 得到计算好的options，目标宽、目标高
         options = getBestOptions(options, reqWidth, reqHeight);
-        Bitmap src = BitmapFactory.decodeResource(DevelopLib.getCtx().getResources(), resId, options); // 载入一个稍大的缩略图
+        Bitmap src = BitmapFactory.decodeResource(context.getResources(), resId, options); // 载入一个稍大的缩略图
         return createScaleBitmap(src, mDesiredWidth, mDesiredHeight); // 进一步得到目标大小的缩略图
     }
 
 
     /**
      * 从SD卡上加载图片
+     *
      * @param pathName  文件路径
-     * @param reqWidth 要求的宽度
+     * @param reqWidth  要求的宽度
      * @param reqHeight 要求的高度
      * @return 处理后的bitmap
      */

@@ -3,7 +3,6 @@ package com.march.baselib.ui.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.MainThread;
 import android.view.View;
 
 
@@ -20,7 +19,6 @@ public abstract class BaseActivity extends AbsActivityWrap {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivity = this;
     }
 
     /**
@@ -41,6 +39,17 @@ public abstract class BaseActivity extends AbsActivityWrap {
      */
     protected <V extends View> V getView(int id) {
         return (V) findViewById(id);
+    }
+
+    /**
+     * 设置监听事件
+     * @param listener 事件
+     * @param ids ids
+     */
+    protected void setClickListener(View.OnClickListener listener, int... ids) {
+        for (int id : ids) {
+            getView(id).setOnClickListener(listener);
+        }
     }
 
     /**

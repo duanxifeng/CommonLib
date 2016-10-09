@@ -73,7 +73,7 @@ abstract class AbsActivityWrap extends AbsActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (mPicker != null) {
-            mPicker.onActivityResult(requestCode, resultCode, data);
+            mPicker.onActivityResult(mContext,requestCode, resultCode, data);
         }
     }
 
