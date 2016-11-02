@@ -1,5 +1,6 @@
 package com.march.commonlib;
-import com.march.baselib.app.BaseApp;
+import android.app.Application;
+
 
 /**
  * com.march.commonlib
@@ -8,7 +9,7 @@ import com.march.baselib.app.BaseApp;
  * Copyright © 2016年 chendong. All rights reserved.
  * Desc :
  */
-public class MyApplication extends BaseApp {
+public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

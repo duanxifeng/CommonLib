@@ -14,23 +14,21 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.CheckBox;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.march.baselib.helper.DimensionHelper;
-import com.march.baselib.helper.ImageHelper;
-import com.march.baselib.helper.Toaster;
-import com.march.baselib.inter.OnCommonListener;
-import com.march.baselib.model.ImageInfo;
-import com.march.baselib.module.TitleModule;
-import com.march.baselib.ui.activity.BaseActivity;
-import com.march.baselib.ui.dialog.BaseDialog;
 import com.march.commonlib.R;
-import com.march.quickrvlibs.RvViewHolder;
-import com.march.quickrvlibs.SimpleRvAdapter;
-import com.march.quickrvlibs.inter.OnClickListener;
+import com.march.lib_base.BaseDialog;
+import com.march.lib_base.activity.BaseActivity;
+import com.march.lib_base.common.DimensionHelper;
+import com.march.lib_base.common.Toaster;
+import com.march.lib_helper.helper.ImageHelper;
+import com.march.lib_helper.model.ImageInfo;
+import com.march.quickrvlibs.adapter.RvViewHolder;
+import com.march.quickrvlibs.adapter.SimpleRvAdapter;
+import com.march.quickrvlibs.inter.OnItemClickListener;
 import com.march.slidingselect.SlidingSelectLayout;
 
 import java.text.SimpleDateFormat;
@@ -51,32 +49,43 @@ import java.util.Map;
  */
 public class SelectImageActivity extends BaseActivity implements View.OnClickListener {
 
+    public static final String KEY_SELECT_IMAGE_RESULT = "KEY_SELECT_IMAGE_RESULT";
+    public static final int RESULT_CODE_SELECT_IMAGE = 0x123;
     private static int REQ_CODE = 0x12;
     private static String KEY_LIMIT = "KEY_LIMIT";
-    /**
-     * 不限制选择数量
-     */
     public static int NO_LIMIT = -1;
 
+
     private int size;
+    private int mSelectImageMaxNum = 0;
+
+    private TextView mDirTv;
     private RecyclerView mImageRv;
     private TextView mEnsureTv;
     private SlidingSelectLayout mSlidingSelectLy;
-    private SimpleRvAdapter<ImageInfo> mImageAdapter;
-    //目录 － 目录下的图片列表
-    private Map<String, List<ImageInfo>> mImagesMap;
-    //当前的图片列表
-    private List<ImageInfo> mCurrentImages;
-    //被选中的图片列表
-    private List<ImageInfo> mSelectImages;
     private TextView mDateTv;
+
     private SimpleDateFormat simpleDateFormat;
     private GridLayoutManager mLayoutManager;
     private ObjectAnimator mAlphaAnimator;
-    private ImageDirDialog mDirDialog;
-    private int mSelectImageMaxNum = 0;
+    // 扫描文件的任务
     private AsyncTask<Void, Void, Void> scanImageTask;
-    private TextView mDirTv;
+    private SimpleRvAdapter<ImageInfo> mImageAdapter;
+    // 目录 － 目录下的图片列表
+    private Map<String, List<ImageInfo>> mImagesMap;
+    // 当前的图片列表
+    private List<ImageInfo> mCurrentImages;
+    // 被选中的图片列表
+    private ArrayList<ImageInfo> mSelectImages;
+    private ImageDirDialog mDirDialog;
+    private PreviewDialog mPreviewDialog;
+
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.select_image_activity;
+    }
+
 
     protected void loadImg(ImageView iv, int w, int h, String path) {
         Glide.with(mContext).load(path).centerCrop().thumbnail(0.1f).into(iv);
@@ -89,15 +98,27 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
      * @param limit 最多选择多少张，不限制时 NO_LIMIT
      */
     public static void selectImages(Activity from, int limit) {
-        Intent intent = new Intent(from, SelectImageActivity.class);
-        intent.putExtra(KEY_LIMIT, limit);
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_LIMIT, limit);
+        Intent intent = buildIntent(from, SelectImageActivity.class, bundle);
         from.startActivityForResult(intent, REQ_CODE);
     }
 
+    /**
+     * 从返回数据中获取选中的图片
+     * @param intent onActivityResult(Intent data)
+     * @return ArrayList<ImageInfo>
+     */
+    public static ArrayList<ImageInfo> getSelectImage(Intent intent) {
+        ArrayList<ImageInfo> rst = intent.getParcelableArrayListExtra(KEY_SELECT_IMAGE_RESULT);
+        return rst;
+    }
+
+
     @Override
-    protected void onInitIntent(Intent intent) {
+    public void onInitIntent(Bundle intent) {
         super.onInitIntent(intent);
-        mSelectImageMaxNum = intent.getIntExtra(KEY_LIMIT, NO_LIMIT);
+        mSelectImageMaxNum = intent.getInt(KEY_LIMIT, NO_LIMIT);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -116,7 +137,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    protected void onInitDatas() {
+    public void onInitDatas() {
         super.onInitDatas();
         simpleDateFormat = new SimpleDateFormat("yyyy年M月d日 HH:mm:ss", Locale.CHINA);
         mSelectImages = new ArrayList<>();
@@ -143,6 +164,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         };
         scanImageTask.execute();
     }
+
 
     // 创建和更新adapter
     private void createOrUpdateAdapter() {
@@ -184,35 +206,47 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
                 holder.setClickLis(R.id.tv_select_image, lis);
             }
         };
-        mImageAdapter.setOnChildClickListener(new OnClickListener<ImageInfo>() {
+        mImageAdapter.setOnItemClickListener(new OnItemClickListener<ImageInfo>() {
             @Override
             public void onItemClick(int pos, RvViewHolder holder, ImageInfo data) {
-                Toaster.get().show(mContext, "点击预览");
+                showPreviewDialog(data.getPath());
             }
         });
         mImageRv.setAdapter(mImageAdapter);
     }
 
+
     @Override
-    protected void onInitViews(Bundle save) {
-        super.onInitViews(save);
+    public void onInitViews(View view, Bundle saveData) {
+        super.onInitViews(view, saveData);
         mEnsureTv = getView(R.id.tv_ensure);
         mEnsureTv.setText("完成  " + mSelectImages.size() + "/" + mSelectImageMaxNum);
         mSlidingSelectLy = getView(R.id.sliding);
         mImageRv = getView(R.id.rv_select_image);
         mLayoutManager = (GridLayoutManager) mImageRv.getLayoutManager();
         mDateTv = getView(R.id.tv_time_image);
-        mTitleModule.setText("返回", ImageHelper.ALL_IMAGE_KEY, "预览");
+        mTitleBarView.setText("返回", ImageHelper.ALL_IMAGE_KEY, "预览");
+        mTitleBarView.setLeftBackListener(mActivity);
         mAlphaAnimator = ObjectAnimator
                 .ofFloat(mDateTv, "alpha", 1.0f, 0f)
                 .setDuration(1500);
     }
 
     @Override
-    protected void onInitEvents() {
+    public void onInitEvents() {
         super.onInitEvents();
         mDirTv = getView(R.id.tv_select_image_dir);
         mDirTv.setOnClickListener(this);
+
+        mEnsureTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putParcelableArrayListExtra(KEY_SELECT_IMAGE_RESULT, mSelectImages);
+                setResult(RESULT_CODE_SELECT_IMAGE, intent);
+                finish();
+            }
+        });
 
         mImageRv.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
@@ -311,21 +345,21 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         return true;
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.select_image_activity;
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mImagesMap.clear();
-        mCurrentImages.clear();
-        mSelectImages.clear();
+        if (mImagesMap != null)
+            mImagesMap.clear();
+        if (mCurrentImages != null)
+            mCurrentImages.clear();
+        if (mSelectImages != null)
+            mSelectImages.clear();
         mImagesMap = null;
         mCurrentImages = null;
         mSelectImages = null;
-        scanImageTask.cancel(true);
+        if (scanImageTask != null)
+            scanImageTask.cancel(true);
     }
 
     @Override
@@ -335,15 +369,28 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+
+    private void showPreviewDialog(String path) {
+        if (mPreviewDialog != null) {
+            mPreviewDialog.show(path);
+            return;
+        }
+
+        mPreviewDialog = new PreviewDialog(mContext);
+        mPreviewDialog.setCancelable(true);
+        mPreviewDialog.setCanceledOnTouchOutside(true);
+        mPreviewDialog.show(path);
+    }
+
     private void showDirDialog() {
         if (checkDialog2Show(mDirDialog))
             return;
         mDirDialog = new ImageDirDialog(mActivity, mImagesMap);
-        mDirDialog.setListener(new OnCommonListener<ImageDirInfo>() {
+        mDirDialog.setListener(new OnImageDirClickListener() {
             @Override
-            public void onEvent(int pos, ImageDirInfo data) {
+            public void onClickDir(int pos, ImageDirInfo data) {
                 mCurrentImages = mImagesMap.get(data.getDirName());
-                mTitleModule.setText(TitleModule.POS_Center, data.getDirName());
+                mTitleBarView.setText(mTitleBarView.POS_Center, data.getDirName());
                 mDirTv.setText(data.getDirName());
                 mImageAdapter.updateData(mCurrentImages);
             }
@@ -351,10 +398,59 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         mDirDialog.show();
     }
 
-    // 目录选择弹窗
-    public class ImageDirDialog extends BaseDialog {
+    public interface OnImageDirClickListener {
+        void onClickDir(int pos, ImageDirInfo dir);
+    }
 
-        private OnCommonListener<ImageDirInfo> listener;
+    public class PreviewDialog extends BaseDialog {
+
+        private ImageView mPreviewIv;
+        private int width, height;
+
+        public PreviewDialog(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void initViews() {
+            width = (int) (DimensionHelper.getScreenWidth(mContext) * 0.8f);
+            height = (int) (width * (4.0f / 3));
+            mPreviewIv = (ImageView) findViewById(R.id.iv_preview);
+            assert mPreviewIv != null;
+            ViewGroup.LayoutParams layoutParams = mPreviewIv.getLayoutParams();
+            layoutParams.width = width;
+            layoutParams.height = height;
+            mPreviewIv.setLayoutParams(layoutParams);
+            mPreviewIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dismiss();
+                }
+            });
+        }
+
+
+        @Override
+        protected int getLayoutId() {
+            return R.layout.select_image_preview_dialog;
+        }
+
+        @Override
+        protected void setWindowParams() {
+            setWindowParams(WRAP, WRAP, 1, 0.8f, Gravity.CENTER);
+        }
+
+        public void show(String path) {
+            loadImg(mPreviewIv, width, height, path);
+            super.show();
+        }
+    }
+
+    /**
+     * 目录选择弹窗
+     */
+    public class ImageDirDialog extends BaseDialog {
+        private OnImageDirClickListener listener;
         private RecyclerView mDirRv;
         private List<ImageDirInfo> mImageDirs;
         private SimpleRvAdapter<ImageDirInfo> mDirAdapter;
@@ -373,7 +469,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
             createAdapter();
         }
 
-        public void setListener(OnCommonListener<ImageDirInfo> listener) {
+        public void setListener(OnImageDirClickListener listener) {
             this.listener = listener;
         }
 
@@ -386,14 +482,14 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
                     loadImg(iv, size, size, data.getCoverInfo().getPath());
                     holder.setText(R.id.tv_dir_name, data.getDirName());
                     holder.setText(R.id.tv_dir_img_num, data.getPicNum() + "");
-                    holder.getView(R.id.iv_dir_sign).setVisibility(pos == lastCheckPos?View.VISIBLE:View.INVISIBLE);
+                    holder.getView(R.id.iv_dir_sign).setVisibility(pos == lastCheckPos ? View.VISIBLE : View.INVISIBLE);
                 }
             };
-            mDirAdapter.setOnChildClickListener(new com.march.quickrvlibs.inter.OnClickListener<ImageDirInfo>() {
+            mDirAdapter.setOnItemClickListener(new OnItemClickListener<ImageDirInfo>() {
                 @Override
                 public void onItemClick(int pos, RvViewHolder holder, ImageDirInfo data) {
                     if (listener != null) {
-                        listener.onEvent(pos, mImageDirs.get(pos));
+                        listener.onClickDir(pos, mImageDirs.get(pos));
                     }
                     int prePos = lastCheckPos;
                     lastCheckPos = pos;

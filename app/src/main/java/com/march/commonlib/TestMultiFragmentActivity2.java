@@ -3,10 +3,11 @@ package com.march.commonlib;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.march.baselib.helper.MultiFragmentHelper;
-import com.march.baselib.inter.MultiFragmentOperator;
-import com.march.baselib.ui.activity.BaseActivity;
-import com.march.baselib.ui.activity.MultiFragmentActivity;
+import com.march.lib_base.activity.BaseActivity;
+import com.march.lib_helper.helper.MultiFragmentHelper;
+import com.march.lib_helper.inter.MultiFragmentOperator;
+
+;
 
 /**
  * com.march.commonlib
@@ -20,9 +21,9 @@ public class TestMultiFragmentActivity2 extends BaseActivity implements MultiFra
     private MultiFragmentHelper multiFragmentHelper;
 
     @Override
-    protected void onStartWorks() {
+    public void onStartWorks() {
         super.onStartWorks();
-        multiFragmentHelper = new MultiFragmentHelper(mActivity, this, mSaveBundle);
+        multiFragmentHelper = new MultiFragmentHelper(this, this, mSaveBundle);
     }
 
     @Override
@@ -31,11 +32,6 @@ public class TestMultiFragmentActivity2 extends BaseActivity implements MultiFra
         multiFragmentHelper.onSaveInstanceState(outState);
     }
 
-    @Override
-    protected void onInitViews(Bundle save) {
-        super.onInitViews(save);
-
-    }
 
     @Override
     protected String[] getPermission2Check() {

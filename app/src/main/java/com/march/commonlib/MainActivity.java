@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.march.baselib.helper.imagepicker.AbsImagePicker;
-import com.march.baselib.helper.ImagePicker;
-import com.march.baselib.helper.imagepicker.PickerBuilder;
-import com.march.baselib.ui.activity.BaseActivity;
+//import com.march.lib_base.activity.BaseActivity;;
 import com.march.commonlib.selectimg.SelectImageActivity;
+import com.march.lib_base.activity.BaseActivity;
+import com.march.lib_helper.helper.ImagePicker;
 
 import java.io.File;
 
@@ -18,21 +17,15 @@ public class MainActivity extends BaseActivity {
     private ImageView iv;
 
     @Override
-    protected void onInitDatas() {
+    public void onInitDatas() {
         super.onInitDatas();
     }
 
     @Override
-    protected void onInitViews(Bundle save) {
-        super.onInitViews(save);
+    public void onInitIntent(Bundle intent) {
+        super.onInitIntent(intent);
         iv = getView(R.id.iv);
         SelectImageActivity.selectImages(mActivity, 60);
-    }
-
-
-    @Override
-    protected void onInitEvents() {
-        super.onInitEvents();
     }
 
     @Override
@@ -41,7 +34,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onStartWorks() {
+    public void onStartWorks() {
         super.onStartWorks();
 //        SelectImageActivity.selectImages(mActivity, 5);
 //        List<Method> methods = AnnotationHelper.getMethods(MainActivity.class, TestAnnotation.class);
@@ -67,11 +60,10 @@ public class MainActivity extends BaseActivity {
         return false;
     }
 
-    private AbsImagePicker.OnPickerOverListener listener = new AbsImagePicker.OnPickerOverListener() {
+    private ImagePicker.OnPickerOverListener listener = new ImagePicker.OnPickerOverListener() {
         @Override
         public void onPickerOver(File file) {
             iv.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
-
         }
     };
     private ImagePicker.OnPickerOverListener listener2 = new ImagePicker.OnPickerOverListener() {
@@ -83,16 +75,16 @@ public class MainActivity extends BaseActivity {
     };
 
     public void clickBtn(View view) {
-        if (view.getId() == R.id.capture) {
-            new PickerBuilder(AbsImagePicker.PICK_CAPTURE, mActivity)
-                    .listener(listener)
-                    .build()
-                    .pick();
-        } else {
-            new PickerBuilder(AbsImagePicker.PICK_ALBUM, this)
-                    .listener(listener)
-                    .build()
-                    .pick();
-        }
+//        if (view.getId() == R.id.capture) {
+//            new PickerBuilder(AbsImagePicker.PICK_CAPTURE, mActivity)
+//                    .listener(listener)
+//                    .build()
+//                    .pick();
+//        } else {
+//            new PickerBuilder(AbsImagePicker.PICK_ALBUM, this)
+//                    .listener(listener)
+//                    .build()
+//                    .pick();
+//        }
     }
 }

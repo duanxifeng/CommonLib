@@ -51,7 +51,7 @@
             android:layout_alignParentRight="true"
             android:gravity="center"
             android:text="完成"
-            android:background="@color/color_FF00A6FF"
+            android:background="@color/colorPrimary"
             android:textColor="@color/black"
             android:textSize="16sp" />
     </RelativeLayout>

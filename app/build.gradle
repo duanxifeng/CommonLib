@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion project.COMPILE_SDK_VERSION as int
+    buildToolsVersion project.TOOLS_VERSION
 
     defaultConfig {
+        minSdkVersion project.MIN_SDK_VERSION as int
+        targetSdkVersion project.TARGET_SDK_VERSION
         applicationId "com.march.commonlib"
-        minSdkVersion 15
-        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -32,13 +32,16 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-//    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
-    compile project(':baselib')
-    compile 'com.parse.bolts:bolts-tasks:1.4.0'
-    compile 'com.zhy:okhttputils:2.6.2'
-    compile 'com.march.quickrvlibs:quickrvlibs:2.1.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.march.slidingselect:slidingselect:0.0.1'
+    testCompile 'junit:junit:4.12'
+
+    compile rootProject.ext.support.blot
+    compile rootProject.ext.support.okhttputils
+    compile rootProject.ext.support.quickRv
+    compile rootProject.ext.support.slidingSelect
+    compile rootProject.ext.support.glide
+    compile rootProject.ext.support.design
+    compile rootProject.ext.support.appcompat_v7
+
+    compile project(':lib-base')
+    compile project(':lib-helper')
 }
