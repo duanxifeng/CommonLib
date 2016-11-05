@@ -1,13 +1,8 @@
 package com.march.commonlib;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-
-import com.march.lib_base.activity.BaseActivity;
-import com.march.lib_helper.helper.MultiFragmentHelper;
-import com.march.lib_helper.inter.MultiFragmentOperator;
-
-;
+import android.support.v4.app.Fragment;;import com.march.lib.core.activity.BaseActivity;
+import com.march.lib.core.common.FragmentHelper;
 
 /**
  * com.march.commonlib
@@ -16,14 +11,29 @@ import com.march.lib_helper.inter.MultiFragmentOperator;
  * Copyright © 2016年 chendong. All rights reserved.
  * Desc :
  */
-public class TestMultiFragmentActivity2 extends BaseActivity implements MultiFragmentOperator {
+public class TestMultiFragmentActivity2 extends BaseActivity  {
 
-    private MultiFragmentHelper multiFragmentHelper;
+    private FragmentHelper multiFragmentHelper;
 
     @Override
     public void onStartWorks() {
         super.onStartWorks();
-        multiFragmentHelper = new MultiFragmentHelper(this, this, mSaveBundle);
+        multiFragmentHelper = new FragmentHelper(this, new FragmentHelper.SimpleFragmentOperator() {
+            @Override
+            public int getFragmentContainerId() {
+                return 0;
+            }
+
+            @Override
+            public Fragment makeFragment(int showItem) {
+                return null;
+            }
+
+            @Override
+            public void syncSelectState(int selectImage) {
+
+            }
+        });
     }
 
     @Override
@@ -46,25 +56,5 @@ public class TestMultiFragmentActivity2 extends BaseActivity implements MultiFra
     @Override
     protected int getLayoutId() {
         return 0;
-    }
-
-    @Override
-    public boolean whenShowSameFragment(int showItem) {
-        return false;
-    }
-
-    @Override
-    public int getFragmentContainerId() {
-        return 0;
-    }
-
-    @Override
-    public Fragment makeFragment(int showItem) {
-        return null;
-    }
-
-    @Override
-    public void syncSelectState(int selectImage) {
-
     }
 }

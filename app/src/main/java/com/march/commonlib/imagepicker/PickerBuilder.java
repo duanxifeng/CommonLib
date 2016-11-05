@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.IntDef;
 
-import com.march.lib_base.activity.BaseActivity;;
+import com.march.lib.core.activity.BaseActivity;;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

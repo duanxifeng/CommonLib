@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-//import com.march.lib_base.activity.BaseActivity;;
+//import com.march.lib.core.activity.BaseActivity;;
 import com.march.commonlib.selectimg.SelectImageActivity;
-import com.march.lib_base.activity.BaseActivity;
-import com.march.lib_helper.helper.ImagePicker;
+import com.march.lib.core.activity.BaseActivity;
+import com.march.lib.support.helper.ImagePicker;
 
 import java.io.File;
 

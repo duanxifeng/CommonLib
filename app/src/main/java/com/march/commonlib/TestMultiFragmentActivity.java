@@ -2,7 +2,7 @@ package com.march.commonlib;
 
 import android.support.v4.app.Fragment;
 
-import com.march.lib_base.activity.MultiFragmentActivity;
+import com.march.lib.core.activity.MultiFragmentActivity;
 
 
 /**

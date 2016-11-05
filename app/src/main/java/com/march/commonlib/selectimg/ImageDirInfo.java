@@ -3,7 +3,8 @@ package com.march.commonlib.selectimg;
 
 import android.support.annotation.NonNull;
 
-import com.march.lib_helper.model.ImageInfo;
+import com.march.lib.support.model.ImageInfo;
+
 
 /**
  * Project  : CommonLib

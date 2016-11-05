@@ -9,10 +9,10 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.march.lib_base.common.Logger;
-import com.march.lib_helper.helper.BitmapHelper;
-import com.march.lib_helper.helper.FileHelper;
-import com.march.lib_helper.helper.PathHelper;
+import com.march.lib.core.common.Logger;
+import com.march.lib.support.helper.BitmapHelper;
+import com.march.lib.support.helper.FileHelper;
+import com.march.lib.support.helper.PathHelper;
 
 import java.io.File;
 import java.util.UUID;

@@ -42,6 +42,6 @@ dependencies {
     compile rootProject.ext.support.design
     compile rootProject.ext.support.appcompat_v7
 
-    compile project(':lib-base')
-    compile project(':lib-helper')
+    compile project(':lib-core')
+    compile project(':lib-support')
 }

@@ -20,12 +20,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.march.commonlib.R;
-import com.march.lib_base.BaseDialog;
-import com.march.lib_base.activity.BaseActivity;
-import com.march.lib_base.common.DimensionHelper;
-import com.march.lib_base.common.Toaster;
-import com.march.lib_helper.helper.ImageHelper;
-import com.march.lib_helper.model.ImageInfo;
+import com.march.lib.core.BaseDialog;
+import com.march.lib.core.activity.BaseActivity;
+import com.march.lib.core.common.DimensionHelper;
+import com.march.lib.core.common.Toaster;
+import com.march.lib.support.helper.ImageHelper;
+import com.march.lib.support.model.ImageInfo;
 import com.march.quickrvlibs.adapter.RvViewHolder;
 import com.march.quickrvlibs.adapter.SimpleRvAdapter;
 import com.march.quickrvlibs.inter.OnItemClickListener;
@@ -251,10 +251,12 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         mImageRv.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
+                // 获取第一个位置
                 int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
                 if (firstVisibleItemPosition < 0)
                     return;
-                mDateTv.setText(simpleDateFormat.format(new Date(Long.parseLong(mCurrentImages.get(firstVisibleItemPosition).getDate()) * 1000)));
+                String date = mCurrentImages.get(firstVisibleItemPosition).getDate();
+                mDateTv.setText(simpleDateFormat.format(new Date(Long.parseLong(date) * 1000)));
             }
 
             @Override
@@ -321,8 +323,8 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         RvViewHolder holder;
         int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
         int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
+
         for (int i = firstVisibleItemPosition; i <= lastVisibleItemPosition; i++) {
-//            Logger.e("发现 " +findSelectCount + " 被选中","总共 " + mSelectImages.size() + "  个被选中");
             //尽量提前推出，只对第一屏有效
             if (findSelectCount >= mSelectImages.size()) {
                 break;

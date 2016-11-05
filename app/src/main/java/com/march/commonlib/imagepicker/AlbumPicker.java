@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 
-import com.march.lib_helper.helper.FileHelper;
+import com.march.lib.support.helper.FileHelper;
 
 import java.io.File;
 
