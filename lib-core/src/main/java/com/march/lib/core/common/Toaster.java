@@ -100,7 +100,7 @@ public class Toaster {
      *
      * @param builder 构建
      */
-    public void initToastBulder(ToastBuilder builder) {
+    public void initToastBuilder(ToastBuilder builder) {
         this.mToastBuilder = builder;
     }
 
@@ -109,15 +109,18 @@ public class Toaster {
      */
     public interface ToastBuilder {
         Toast buildToast(Toast toast, String msg);
+
         void setText(Toast toast, String msg);
     }
 
     private void show(final Context context, String msg, int strRes, final int duration) {
         if (!isCanToast) return;
+
         if (msg == null) {
             //如果找不到,这里会跑出not found异常
             msg = context.getString(strRes);
         }
+
         final String finalMsg2Show = msg;
         mHandler.post(new Runnable() {
             @Override
@@ -132,7 +135,7 @@ public class Toaster {
                     }
                 } else {
                     if (mToastBuilder != null) {
-                        mToastBuilder.setText(mToast,finalMsg2Show);
+                        mToastBuilder.setText(mToast, finalMsg2Show);
                     } else {
                         mToast.setText(finalMsg2Show);
                     }

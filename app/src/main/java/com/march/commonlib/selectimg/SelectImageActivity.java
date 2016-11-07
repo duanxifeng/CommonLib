@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.march.commonlib.R;
-import com.march.lib.core.BaseDialog;
+import com.march.lib.core.dialog.BaseDialog;
 import com.march.lib.core.activity.BaseActivity;
 import com.march.lib.core.common.DimensionHelper;
 import com.march.lib.core.common.Toaster;

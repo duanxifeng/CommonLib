@@ -28,16 +28,10 @@ abstract class AbsActivity extends AppCompatActivity implements ILife {
     public static final String INTENT_DEFAULT_DATA = "INTENT_DEFAULT_DATA";
 
     /**
-     * oncreate 保存的bundle
+     * onCreate 保存的bundle
      */
     protected Bundle mSaveBundle;
-    /**
-     * activity
-     */
     protected Activity mActivity;
-    /**
-     * getApplicationContext()mActivity
-     */
     protected Context mContext;
 
     @Override
@@ -47,6 +41,7 @@ abstract class AbsActivity extends AppCompatActivity implements ILife {
         mContext = this;
         mSaveBundle = savedInstanceState;
         createViewShow();
+        // 检测权限
         if (checkPermission())
             invokeCommonMethod(mSaveBundle);
     }

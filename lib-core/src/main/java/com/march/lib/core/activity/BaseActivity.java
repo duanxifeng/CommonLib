@@ -4,8 +4,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-
 /**
  * Project  : CommonLib
  * Package  : com.march.baselib

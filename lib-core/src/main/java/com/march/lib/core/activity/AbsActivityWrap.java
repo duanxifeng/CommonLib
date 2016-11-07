@@ -23,12 +23,11 @@ import java.util.Map;
  * Project  : CommonLib
  * Package  : com.march.baselib
  * CreateAt : 16/8/15
- * Describe :
+ * Describe : 基类，添加title和权限检测
  *
  * @author chendong
  */
 abstract class AbsActivityWrap extends AbsActivity {
-
     /**
      * title bar
      */
@@ -43,12 +42,18 @@ abstract class AbsActivityWrap extends AbsActivity {
         return mTitleBarView;
     }
 
+    /**
+     * 创建Intent,由于共用了ILife加载周期，要使用该方法构建Intent，所有数据
+     * @param context 上下文
+     * @param cls 启动的class
+     * @param bundle 数据存储bundle
+     * @return 构建之后的Intent
+     */
     protected static Intent buildIntent(Context context, Class cls, Bundle bundle) {
         Intent intent = new Intent(context, cls);
         intent.putExtra(INTENT_DEFAULT_DATA, bundle);
         return intent;
     }
-
 
     /**
      * 监测权限

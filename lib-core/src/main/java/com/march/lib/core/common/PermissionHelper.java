@@ -1,6 +1,7 @@
 package com.march.lib.core.common;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.util.ArrayMap;
 
 import java.util.ArrayList;
@@ -19,23 +19,22 @@ import java.util.Map;
  * Project  : CommonLib
  * Package  : com.march.baselib
  * CreateAt : 16/8/17
- * Describe : Android M 权限控制
+ * Describe : Android M 权限控制，全部的dangerous permission权限需要申请
  *
  * @author chendong
  */
-@RequiresApi(api = Build.VERSION_CODES.M)
+@TargetApi(Build.VERSION_CODES.M)
 public class PermissionHelper {
 
     private static final int REQ_PERMISSION_CODE = 0x12;
 
-    /**
-     * 全部的dangerous permission
-     */
+    // 联系人相关
     public static final String PER_GROUP_CONTACTS = Manifest.permission_group.CONTACTS;
     public static final String PER_WRITE_CONTACTS = Manifest.permission.WRITE_CONTACTS;
     public static final String PER_GET_ACCOUNTS = Manifest.permission.GET_ACCOUNTS;
     public static final String PER_READ_CONTACTS = Manifest.permission.READ_CONTACTS;
 
+    // 手机相关
     public static final String PER_GROUP_PHONE = Manifest.permission_group.PHONE;
     public static final String PER_READ_CALL_LOG = Manifest.permission.READ_CALL_LOG;
     public static final String PER_READ_PHONE_STATE = Manifest.permission.READ_PHONE_STATE;
@@ -45,27 +44,34 @@ public class PermissionHelper {
     public static final String PER_PROCESS_OUTGOING_CALLS = Manifest.permission.PROCESS_OUTGOING_CALLS;
     public static final String PER_ADD_VOICEMAIL = Manifest.permission.ADD_VOICEMAIL;
 
+    // 日历相关
     public static final String PER_GROUP_CALENDAR = Manifest.permission_group.CALENDAR;
     public static final String PER_READ_CALENDAR = Manifest.permission.READ_CALENDAR;
     public static final String PER_WRITE_CALENDAR = Manifest.permission.WRITE_CALENDAR;
 
+    // 相机相关
     public static final String PER_GROUP_CAMERA = Manifest.permission_group.CAMERA;
     public static final String PER_CAMERA = Manifest.permission.CAMERA;
 
+    // 传感器相关
     public static final String PER_GROUP_SENSORS = Manifest.permission_group.SENSORS;
     public static final String PER_BODY_SENSORS = Manifest.permission.BODY_SENSORS;
 
+    // 位置相关
     public static final String PER_GROUP_LOCATION = Manifest.permission_group.LOCATION;
     public static final String PER_ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     public static final String PER_ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
 
+    // 存储相关
     public static final String PER_GROUP_STORAGE = Manifest.permission_group.STORAGE;
     public static final String PER_READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE;
     public static final String PER_WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+    // 麦克风相关
     public static final String PER_GROUP_MICROPHONE = Manifest.permission_group.MICROPHONE;
     public static final String PER_RECORD_AUDIO = Manifest.permission.RECORD_AUDIO;
 
+    // 短信
     public static final String PER_GROUP_SMS = Manifest.permission_group.SMS;
     public static final String PER_READ_SMS = Manifest.permission.READ_SMS;
     public static final String PER_RECEIVE_WAP_PUSH = Manifest.permission.RECEIVE_WAP_PUSH;
@@ -104,6 +110,7 @@ public class PermissionHelper {
     public static boolean checkPermission(Activity context, String[] permissions) {
         //6.0以上
         if (isOverMarshmallow()) {
+
             //没有权限需要申请时,直接返回true,相当于权限全部通过
             if (permissions == null || permissions.length <= 0)
                 return true;
@@ -122,14 +129,15 @@ public class PermissionHelper {
             //没有没申请的权限，相当于权限全部通过
             if (noOkPermissions.size() <= 0)
                 return true;
+
             //6.0以上需要申请权限
             for (String noOkPermission : noOkPermissions) {
                 Logger.e(" noOkPermission " + noOkPermission);
             }
+
             context.requestPermissions(noOkPermissions.toArray(new String[noOkPermissions.size()]), REQ_PERMISSION_CODE);
             return false;
         }
-
         //6.0以下安装时已经全部申请
         return true;
     }

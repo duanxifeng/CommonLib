@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Project  : Reaper
- * Package  : com.march.reaper
+ * Project  : CommonLib
+ * Package  : com.march.lib.core.common
  * CreateAt : 2016/11/5
  * Describe : 实现Fragment切换
  *
