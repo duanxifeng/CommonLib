@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.march.commonlib.R;
-import com.march.lib.adapter.common.IAdapterModel;
+import com.march.lib.adapter.common.ITypeAdapterModel;
 import com.march.lib.adapter.core.BaseViewHolder;
 import com.march.lib.adapter.core.TypeRvAdapter;
 import com.march.lib.core.activity.BaseActivity;
@@ -61,7 +61,7 @@ public class TypeAdapterTest extends BaseActivity {
     }
 
 
-    class TypeModel implements IAdapterModel {
+    class TypeModel implements ITypeAdapterModel {
 
         public static final int TYPE_OK = 1;
         public static final int TYPE_NO = 2;

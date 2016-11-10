@@ -2,18 +2,22 @@
 # RecyclerView Adapter
 
 ## 介绍
-为RecyclerView提供更简单的适配器实现方式，不断更新中
+1. 为RecyclerView提供更简单的适配器实现方式，不断更新完善中。
+
+2. [Demo视频演示](http://7xtjec.com1.z0.glb.clouddn.com/ittleQ.mp4)
+
+3. [GitHub地址](https://github.com/chendongMarch/CommonLib/lib-adapter)
+
+4. [博客](http://blog.csdn.net/chendong_/article/details/50897581)
+
+
 
 ![](http://7xtjec.com1.z0.glb.clouddn.com/toc.png)
 
-* [开始](#开始)
-	* [Demo视频演示](#Demo视频演示)
-	* [GitHub地址](#GitHub地址)
-	* [博客](#博客)
-	* [Usage](#Usage)
+* [Usage](#Usage)
 * [BaseViewHolder的使用](#BaseViewHolder的使用)
 * [接口介绍](#接口介绍)
-	* [IAdapterModel](#IAdapterModel)
+	* [ITypeAdapterModel](#ITypeAdapterModel)
 	* [ISectionRule](#ISectionRule)
 	* [AbsSectionHeader](#AbsSectionHeader)
 * [通用适配器](#通用适配器)
@@ -34,18 +38,32 @@
 	* [Sample](#Sample)
 
 
+## Usage
+- 类库还在开发中，暂时没有发布到Jcenter,所以需要在`yourProject.gradle`文件中添加如下代码进行依赖
+
+```
+allprojects {
+    repositories {
+         maven { url 'https://dl.bintray.com/chendongmarch/maven' }
+    }
+}
+```
+
+- 在`yourApp.gradle`文件中添加依赖
+
+```
+compile 'com.march.lib-adapter:lib-adapter:1.0.0'
+```
 
 
------
-## 开始
-### Demo视频演示
-[Demo视频演示](http://7xtjec.com1.z0.glb.clouddn.com/ittleQ.mp4)
-### GitHub地址
-[GitHub地址](https://github.com/chendongMarch/CommonLib/lib-adapter)
-### 博客
-[博客](http://blog.csdn.net/chendong_/article/details/50897581)
-### Usage
-- `compile 'com.march.lib-adapter:lib-adapter:1.0.0'`
+## 接口介绍
+类库中涉及的几个数据相关的接口
+### ITypeAdapterModel
+进行多类型数据适配时，Model需要实现`ITypeAdapterModel`告知Adapter数据的type
+### ISectionRule
+进行九宫格模式适配时，需要添加`ISectionRule`,这是一种规则，adapter会根据你提供的规则自动生成Header
+### AbsSectionHeader
+进行九宫格模式适配时，作为header的数据类型需要实现AbsSectionHeader
 
 
 ## BaseViewHolder的使用

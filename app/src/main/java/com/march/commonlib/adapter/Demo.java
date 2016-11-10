@@ -1,14 +1,14 @@
 package com.march.commonlib.adapter;
 
 
-import com.march.lib.adapter.common.IAdapterModel;
+import com.march.lib.adapter.common.ITypeAdapterModel;
 
 /**
  * QuickRv     com.march.quickrv
  * Created by 陈栋 on 16/3/15.
  * 功能:
  */
-public class Demo implements IAdapterModel {
+public class Demo implements ITypeAdapterModel {
 
     private boolean isSingleType = false;
     @Override

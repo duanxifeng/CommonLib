@@ -11,7 +11,7 @@ import com.march.lib.adapter.core.AbsAdapter;
  *
  * @author chendong
  */
-public abstract class AbsSectionHeader implements IAdapterModel {
+public abstract class AbsSectionHeader implements ITypeAdapterModel {
     @Override
     public int getRvType() {
         return AbsAdapter.TYPE_ITEM_HEADER;

@@ -3,7 +3,7 @@ package com.march.lib.adapter.core;
 import android.content.Context;
 import android.util.SparseArray;
 
-import com.march.lib.adapter.common.IAdapterModel;
+import com.march.lib.adapter.common.ITypeAdapterModel;
 import com.march.lib.adapter.helper.CommonHelper;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * Created by march on 16/6/8.
  * RecyclerView多类型快速适配
  */
-public abstract class TypeRvAdapter<D extends IAdapterModel>
+public abstract class TypeRvAdapter<D extends ITypeAdapterModel>
         extends BaseRvAdapter<D> {
 
     private class TypeConfig {

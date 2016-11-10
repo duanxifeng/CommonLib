@@ -6,6 +6,6 @@ package com.march.lib.adapter.common;
  * @author chendong
  *
  */
-public interface IAdapterModel {
+public interface ITypeAdapterModel {
 	int getRvType();
 }

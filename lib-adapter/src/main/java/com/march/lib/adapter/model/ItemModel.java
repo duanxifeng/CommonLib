@@ -1,6 +1,6 @@
 package com.march.lib.adapter.model;
 
-import com.march.lib.adapter.common.IAdapterModel;
+import com.march.lib.adapter.common.ITypeAdapterModel;
 
 /**
  * Project  : QuickRv
@@ -10,22 +10,22 @@ import com.march.lib.adapter.common.IAdapterModel;
  *
  * @author chendong
  */
-public class ItemModel<D> implements IAdapterModel {
+public class ItemModel<D> implements ITypeAdapterModel {
 
     private D t;
     private int type;
 
     public ItemModel(D t) {
         this.t = t;
-        if (t instanceof IAdapterModel) {
-            this.type = ((IAdapterModel) t).getRvType();
+        if (t instanceof ITypeAdapterModel) {
+            this.type = ((ITypeAdapterModel) t).getRvType();
         }
     }
 
     public ItemModel(D t, int type) {
         this.t = t;
-        if (t instanceof IAdapterModel) {
-            this.type = ((IAdapterModel) t).getRvType();
+        if (t instanceof ITypeAdapterModel) {
+            this.type = ((ITypeAdapterModel) t).getRvType();
         } else {
             this.type = type;
         }
