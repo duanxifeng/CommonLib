@@ -9,14 +9,13 @@
 
 4. [博客](http://blog.csdn.net/chendong_/article/details/50897581)
 
-[adapterId区分](adapterId-区分)
+
 
 ![](http://7xtjec.com1.z0.glb.clouddn.com/toc.png)
 
-<a href="#test">文字</a>
 
-* [使用](#使用)
-* [BaseViewHolder的使用](#BaseViewHolder的使用)
+* [Usage](#usage)
+* [BaseViewHolder 的使用](#baseviewholder-的使用)
 * [通用适配器](#通用适配器)
 	* [单类型数据适配](#单类型数据适配)
 	* [多类型数据适配](#多类型数据适配)
@@ -27,19 +26,14 @@
 * [数据更新](#数据更新)
 	* [数据更新](#数据更新)
 	* [分页加载更新](#分页加载更新)
-* [Module](#Module)
-	* [添加Header和Footer](#添加Header和Footer)
+* [Module](#module)
+	* [添加 Header 和 Footer](#添加-header-和-footer)
 	* [预加载更多](#预加载更多)
 * [其他](#其他)
-	* [adapterId区分](#adapterId区分)
-	* [Sample](#Sample)
+	* [adapterId 区分](#adapterid-区分)
+	* [Sample](#sample)
 
 
-<span id="test" name="test"></span>
-## test
-
-
-## adapterId 区分
 ## Usage
 - 类库还在开发中，暂时没有发布到Jcenter,所以需要在`yourProject.gradle`文件中添加如下代码进行依赖
 
