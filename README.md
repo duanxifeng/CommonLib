@@ -2,8 +2,6 @@
 
 ## 开始
 
-- 为了简化开发流程设计的类库，分为两个库
-
 1. [lib-core](https://github.com/chendongMarch/CommonLib/lib-core)是核心库，集成了开发必须的核心功能
 `compile 'com.march.lib-core:lib-core:1.0.0'`
 
