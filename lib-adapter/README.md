@@ -9,7 +9,7 @@
 
 4. [博客](http://blog.csdn.net/chendong_/article/details/50897581)
 
-
+[adapterId区分](adapterId-区分)
 
 ![](http://7xtjec.com1.z0.glb.clouddn.com/toc.png)
 
@@ -39,7 +39,7 @@
 ## test
 
 
-
+## adapterId 区分
 ## Usage
 - 类库还在开发中，暂时没有发布到Jcenter,所以需要在`yourProject.gradle`文件中添加如下代码进行依赖
 
