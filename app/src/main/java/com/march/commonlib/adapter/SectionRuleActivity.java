@@ -58,7 +58,7 @@ public class SectionRuleActivity extends BaseActivity {
                 R.layout.item_header_content) {
             @Override
             protected void onBindItemHeader(BaseViewHolder holder, ItemHeader data, int pos, int type) {
-                holder.setText(R.id.info1, data.getTitle());
+                holder.setText(R.id.info1, data.getItemHeaderTitle());
             }
 
             @Override
@@ -66,7 +66,7 @@ public class SectionRuleActivity extends BaseActivity {
                 ssl.markView(holder.getParentView(), pos, data);
                 ViewGroup.LayoutParams layoutParams = holder.getParentView().getLayoutParams();
                 layoutParams.height = (int) (getResources().getDisplayMetrics().widthPixels / 3.0f);
-                holder.setText(R.id.tv, String.valueOf(data.index));
+                holder.setText(R.id.tv, String.valueOf(data.contentIndex));
 
                 if (selects.contains(data)) {
                     holder.getParentView().setBackgroundColor(Color.RED);
@@ -86,7 +86,7 @@ public class SectionRuleActivity extends BaseActivity {
             @Override
             public boolean isNeedItemHeader(int currentPos, Content preData, Content currentData, Content nextData) {
                 Log.e("chendong", currentPos + "  " + getString(preData) + "  " + getString(currentData) + "  " + getString(nextData));
-                return currentPos == 0 || currentData.index % 7 == 1;
+                return currentPos == 0 || currentData.contentIndex % 7 == 1;
             }
         });
 
@@ -108,7 +108,7 @@ public class SectionRuleActivity extends BaseActivity {
             public void onClick(int pos, BaseViewHolder holder, ItemModel data) {
                 if (data.getRvType() == AbsAdapter.TYPE_ITEM_DEFAULT) {
                     Content content = (Content) data.get();
-                    Toast.makeText(SectionRuleActivity.this, content.title, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SectionRuleActivity.this, content.contentTitle, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -142,7 +142,7 @@ public class SectionRuleActivity extends BaseActivity {
     private String getIndex(Content content) {
         if (content == null)
             return "null";
-        return content.index + "";
+        return content.contentIndex + "";
     }
 
     @Override
@@ -156,37 +156,37 @@ public class SectionRuleActivity extends BaseActivity {
     }
 
     class ItemHeader extends AbsSectionHeader {
-        String title;
+        String itemHeaderTitle;
 
-        public String getTitle() {
-            return title;
+        public String getItemHeaderTitle() {
+            return itemHeaderTitle;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
+        public void setItemHeaderTitle(String itemHeaderTitle) {
+            this.itemHeaderTitle = itemHeaderTitle;
         }
 
         public ItemHeader(String title) {
-            this.title = title;
+            this.itemHeaderTitle = title;
         }
     }
 
     static class Content {
         public static final int TYPE_CONTENT = 1;
-        String title;
-        int index;
+        String contentTitle;
+        int contentIndex;
 
         @Override
         public String toString() {
             return "Content{" +
-                    "title='" + title + '\'' +
-                    ", index=" + index +
+                    "itemHeaderTitle='" + contentTitle + '\'' +
+                    ", contentIndex=" + contentIndex +
                     '}';
         }
 
         public Content(String title, int index) {
-            this.title = title;
-            this.index = index;
+            this.contentTitle = title;
+            this.contentIndex = index;
         }
     }
 }

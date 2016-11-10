@@ -62,7 +62,7 @@ public class SectionAdapterTest extends BaseActivity {
                 R.layout.item_header_content) {
             @Override
             protected void onBindItemHeader(BaseViewHolder holder, ItemHeader data, int pos, int type) {
-                holder.setText(R.id.info1, data.getTitle());
+                holder.setText(R.id.info1, data.getItemHeaderTitle());
             }
 
             @Override
@@ -72,10 +72,10 @@ public class SectionAdapterTest extends BaseActivity {
                 ssl.markView(holder.getParentView(), pos,data);
                 TextView tv = (TextView) holder.getView(R.id.tv);
                 if (list.contains(data)) {
-                    tv.setText("check" + data.title);
+                    tv.setText("check" + data.contentTitle);
                     tv.setTextColor(Color.RED);
                 } else {
-                    tv.setText("un check" + data.title);
+                    tv.setText("un check" + data.contentTitle);
                     tv.setTextColor(Color.GREEN);
                 }
             }
@@ -98,7 +98,7 @@ public class SectionAdapterTest extends BaseActivity {
             public void onClick(int pos, BaseViewHolder holder, ItemModel data) {
                 if (data.getRvType() == AbsAdapter.TYPE_ITEM_DEFAULT) {
                     Content content = (Content) data.get();
-                    Toast.makeText(SectionAdapterTest.this, content.title, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SectionAdapterTest.this, content.contentTitle, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -107,7 +107,7 @@ public class SectionAdapterTest extends BaseActivity {
         ssl.setOnSlidingSelectListener(new SlidingSelectLayout.OnSlidingSelectListener<Content>() {
             @Override
             public void onSlidingSelect(int pos, View parentView, Content data) {
-                Log.e("chendong",data.title);
+                Log.e("chendong",data.contentTitle);
                 if (list.contains(data)) {
                     list.remove(data);
                 } else {
@@ -132,26 +132,26 @@ public class SectionAdapterTest extends BaseActivity {
 
 
     class ItemHeader extends AbsSectionHeader {
-        String title;
+        String itemHeaderTitle;
 
-        public String getTitle() {
-            return title;
+        public String getItemHeaderTitle() {
+            return itemHeaderTitle;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
+        public void setItemHeaderTitle(String itemHeaderTitle) {
+            this.itemHeaderTitle = itemHeaderTitle;
         }
 
         public ItemHeader(String title) {
-            this.title = title;
+            this.itemHeaderTitle = title;
         }
     }
 
     static class Content {
-        String title;
+        String contentTitle;
 
         public Content(String title) {
-            this.title = title;
+            this.contentTitle = title;
         }
 
     }

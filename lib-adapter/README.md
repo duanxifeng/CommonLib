@@ -19,6 +19,8 @@
 * [通用适配器](#通用适配器)
 	* [单类型数据适配](#单类型数据适配)
 	* [多类型数据适配](#多类型数据适配)
+		* [使用 ISectionRule 配置数据](#使用-isectionrule-配置数据)
+		* [使用 HashMap 配置数据](#使用-hashmap-配置数据)
 	* [九宫格模式适配](#九宫格模式适配)
 * [监听事件](#监听事件)
 	* [三种事件](#三种事件)
@@ -52,18 +54,7 @@ compile 'com.march.lib-adapter:lib-adapter:1.0.0'
 ```
 
 
-## 接口介绍
-类库中涉及的几个数据相关的接口
-### ITypeAdapterModel
-进行多类型数据适配时，Model需要实现`ITypeAdapterModel`告知Adapter数据的type
-### ISectionRule
-进行九宫格模式适配时，需要添加`ISectionRule`,这是一种规则，adapter会根据你提供的规则自动生成Header
-### AbsSectionHeader
-进行九宫格模式适配时，作为header的数据类型需要实现AbsSectionHeader
-
-
-## BaseViewHolder的使用
-
+## BaseViewHolder 的使用
 - 通用ViewHolder，内部使用`SparseArray`实现View的缓存。
 
 ```java
@@ -81,11 +72,10 @@ public RvViewHolder setImg(int resId, int imgResId)
 //监听
 public RvViewHolder setClickLis(int resId, View.OnClickListener listener)
 ```
-
-##
-
 ## 通用适配器
 ### 单类型数据适配
+- SimpleRvAdapter
+
 ```java
 //一个简单的实现,实体类不需要再去实现RvQuickInterface接口
 SimpleRvAdapter simpleAdapter =
@@ -97,9 +87,14 @@ new SimpleRvAdapter<Demo>(self, demos, R.layout.rvquick_item_a) {
         };
 ```
 ### 多类型数据适配
+- TypeRvAdapter
+
+1. 多类型数据适配时需要接受`ITypeAdapterModel(接口)`类型的的数据，因此进行多类型数据适配时，你的Model需要实现`ITypeAdapterModel`告知Adapter数据的type
+
+2. `addType(int type,int res)`方法用来给每种类型的数据添加不同的布局文件，达到多类型适配的目的。
+
 ```java
-//调用addType()方法配置每种类型的layout资源
-//实体类需要实现RvQuickInterface接口
+// Demo类必须实现 ITypeAdapterModel 接口
 TypeRvAdapter<Demo> typeAdapter =
 new TypeRvAdapter<Demo>(context, data) {
             @Override
@@ -116,44 +111,108 @@ new TypeRvAdapter<Demo>(context, data) {
             }
 
         };
-typeAdapter.addType(Demo.CODE_DETAIL, R.layout.item_quickadapter_type)
-                .addType(Demo.JUST_TEST, R.layout.item_quickadapter);
+typeAdapter.addType(Demo.CODE_DETAIL, R.layout.item_layout_a)
+           .addType(Demo.JUST_TEST, R.layout.item_layout_b);
 ```
-### 九宫格模式适配
-- 每个Header下面由多个item。类似微信九宫格照片展示
 
-- [针对多种情况的API稍微复杂一些 Details](https://github.com/chendongMarch/QuickRv/blob/master/ItemHeaderAdapter.md)
+### 九宫格模式适配
+- SectionRvAdapter
+
+1. 每个Header下面由多个item。类似微信九宫格照片展示,SectionRvAdapter实际上是多类型适配(TypeRvAdapter)的一种特殊形式，内置了SectionHeader类型的数据，用来更简单的实现九宫格模式的数据适配，因为多类型数据适配的特点他都可以使用，也就是说你可以定义多种类型的数据展示。
+2. ![](http://7xtjec.com1.z0.glb.clouddn.com/item_header_small.png)
+
+2. 作为ItemHeader的数据类型需要继承`AbsSectionHeader(抽象类)`
+
+```java
+class ItemHeader extends AbsSectionHeader {
+        String itemHeaderTitle;
+}
+```
+
+3. 作为每个Section内容的数据类型，如果他是单类型的不需要做其他操作，如果有多种类型的内容需要实现ITypeAdapterModel，详细参照多类型数据适配[多类型数据适配](#多类型数据适配)
+
+```java
+class Content {
+		 int contentIndex
+        String contentTitle;
+}
+```
+
+#### 使用 ISectionRule 配置数据
+1. `ISectionRule接口`,进行九宫格模式适配使用 ISectionRule 配置数据时，需要添加`ISectionRule`,这是一种规则，adapter会根据你提供的规则自动生成Header
+2. 提供了两种构造方法
+
+```java
+// 直接配置 item header 和 content 的 layout 资源
+public SectionRvAdapter(Context context,List<ID> originDatas,
+                        int headerLayoutId, int contentLayoutId)
+// 只添加 header 的 layout 资源，content的资源可以使用addType方法添加
+public SectionRvAdapter(Context context, List<ID> originDatas,
+                        int headerLayoutId)
+```
 
 ```java
 // ItemHeader表示header的数据类型，Content表示内部数据的数据类型
-ItemHeaderAdapter<ItemHeader, Content> adapter = new ItemHeaderAdapter<ItemHeader, Content>(
-        this,
-        contents,
-        R.layout.item_header_header,
-        R.layout.item_header_content) {
-    @Override
-    protected void onBindItemHeader(RvViewHolder holder, ItemHeader data, int pos, int type) {
-        holder.setText(R.id.info1, data.getTitle());
-    }
-    @Override
-    protected void onBindContent(RvViewHolder holder, Content data, int pos, int type) {
-        ViewGroup.LayoutParams layoutParams = holder.getParentView().getLayoutParams();
-        layoutParams.height = (int) (getResources().getDisplayMetrics().widthPixels / 3.0f);
-    }
-};
-adapter.addItemHeaderRule(new ItemHeaderRule<ItemHeader, Content>() {
-    @Override
-    public ItemHeader buildItemHeader(int currentPos, Content preData, Content currentData, Content nextData) {
-        return new ItemHeader("pre is " + getIndex(preData) + " current is " + getIndex(currentData) + " next is " + getIndex(nextData));
-    }
-    @Override
-    public boolean isNeedItemHeader(int currentPos, Content preData, Content currentData, Content nextData) {
-        Log.e("chendong", getString(preData) + "  " + getString(currentData) + "  " + getString(nextData));
-        return currentData.index % 5 == 0;
-    }
-});
+// 初始化，添加header 和 content的布局文件
+adapter = new SectionRvAdapter<ItemHeader, Content>(
+                this,
+                contents,
+                R.layout.item_header_header,
+                R.layout.item_header_content) {
+            @Override
+            protected void onBindItemHeader(BaseViewHolder holder, ItemHeader data, int pos, int type) {
+                holder.setText(R.id.info1, data.getItemHeaderTitle());
+            }
+
+            @Override
+            protected void onBindContent(BaseViewHolder holder, Content data, int pos, int type) {
+                holder.setText(R.id.tv, String.valueOf(data.contentIndex));
+            }
+        };
+
+		 // 添加ISectionRule
+        adapter.addItemHeaderRule(new ISectionRule<ItemHeader, Content>() {
+            @Override
+            public ItemHeader buildItemHeader(int currentPos, Content preData, Content currentData, Content nextData) {
+            		// 生成header数据
+                return new ItemHeader("create new header " + currentData.contentIndex);
+            }
+
+            @Override
+            public boolean isNeedItemHeader(int currentPos, Content preData, Content currentData, Content nextData) {
+					// 什么时候创建header(当是第一个数据或者index是7的倍数时，插入一个header)
+                return currentPos == 0 || currentData.contentIndex % 7 == 1;
+            }
+        });
 mRv.setAdapter(adapter);
 ```
+#### 使用 HashMap 配置数据
+## 监听事件
+### 三种事件
+### 实现需要的事件
+## 数据更新
+### 数据更新
+### 分页加载更新
+## Module
+### 添加 Header 和 Footer
+### 预加载更多
+## 其他
+### adapterId 区分
+### Sample
+
+
+
+
+## 接口介绍
+类库中涉及的几个数据相关的接口
+### ITypeAdapterModel
+进行多类型数据适配时，Model需要实现`ITypeAdapterModel`告知Adapter数据的type
+### ISectionRule
+进行九宫格模式适配时，需要添加`ISectionRule`,这是一种规则，adapter会根据你提供的规则自动生成Header
+### AbsSectionHeader
+进行九宫格模式适配时，作为header的数据类型需要实现AbsSectionHeader
+
+
 
 
 ## 监听事件

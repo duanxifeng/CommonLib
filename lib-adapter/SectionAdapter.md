@@ -16,27 +16,27 @@
 ## 定义实体类
 ```java
     class ItemHeader extends RvQuickItemHeader {
-        String title;
+        String itemHeaderTitle;
 
         public String getTitle() {
-            return title;
+            return itemHeaderTitle;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
+        public void setTitle(String itemHeaderTitle) {
+            this.itemHeaderTitle = itemHeaderTitle;
         }
 
-        public ItemHeader(String title) {
-            this.title = title;
+        public ItemHeader(String itemHeaderTitle) {
+            this.itemHeaderTitle = itemHeaderTitle;
         }
     }
 
     static class Content{
 
-        String title;
+        String itemHeaderTitle;
 
-        public Content(String title) {
-            this.title = title;
+        public Content(String itemHeaderTitle) {
+            this.itemHeaderTitle = itemHeaderTitle;
         }
     }
 ```
@@ -166,7 +166,7 @@ adapter.setOnChildClickListener(new OnClickListener<RvQuickModel>() {
                 //  点击content
                 if (data.getRvType() == RvAdapter.TYPE_ITEM_DEFAULT) {
                     Content content = data.get();
-                    Toast.makeText(ItemHeaderRuleActivity.this, content.title, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ItemHeaderRuleActivity.this, content.itemHeaderTitle, Toast.LENGTH_SHORT).show();
                 }else if(data.getRvType() == RvAdapter.TYPE_ITEM_HEADER){
                     // 点击header,do some thing
                     return;

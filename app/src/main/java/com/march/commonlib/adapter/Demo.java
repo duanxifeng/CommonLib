@@ -30,8 +30,8 @@ public class Demo implements ITypeAdapterModel {
     public String toString() {
         return "Demo{" +
                 "isSingleType=" + isSingleType +
-                ", title='" + title + '\'' +
-                ", index=" + index +
+                ", itemHeaderTitle='" + title + '\'' +
+                ", contentIndex=" + index +
                 '}';
     }
 }
