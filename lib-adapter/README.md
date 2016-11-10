@@ -9,7 +9,7 @@
 
 4. [博客](http://blog.csdn.net/chendong_/article/details/50897581)
 
-[adapterId区分](adapterId-区分)
+[查看 adb 版本](#查看-adb-版本)
 
 ![](http://7xtjec.com1.z0.glb.clouddn.com/toc.png)
 
@@ -34,9 +34,7 @@
 	* [adapterId区分](#adapterId区分)
 	* [Sample](#Sample)
 
-
-<span id="test" name="test"></span>
-## test
+### 查看 adb 版本
 
 
 ## adapterId 区分
