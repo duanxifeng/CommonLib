@@ -50,12 +50,6 @@ public class LoadMoreTest extends BaseActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        for (int i = 0; i < 9; i++) {
-//                            datas.add(new LoadMoreModel("new is " + i));
-//                        }
-//                        adapter.appendTailRangeData(datas, true);
-//                        mLoadMoreModule.finishLoad();
-
                         List<LoadMoreModel> tempData = new ArrayList<LoadMoreModel>();
                         for (int i = 0; i < 9; i++) {
                             tempData.add(new LoadMoreModel("new is " + i));

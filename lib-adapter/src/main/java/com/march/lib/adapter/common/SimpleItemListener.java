@@ -14,6 +14,7 @@ import com.march.lib.adapter.core.BaseViewHolder;
  */
 
 public abstract class SimpleItemListener<D> implements OnItemListener<D> {
+
     @Override
     public void onClick(int pos, BaseViewHolder holder, D data) {
 

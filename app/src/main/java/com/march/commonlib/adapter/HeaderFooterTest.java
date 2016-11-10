@@ -58,7 +58,18 @@ public class HeaderFooterTest extends BaseActivity {
                 holder.getParentView().getLayoutParams().height = 350;
                 holder.setText(R.id.info, "高度" + 350 + "px");
             }
+
+            @Override
+            public void onBindHeader(BaseViewHolder header) {
+                super.onBindHeader(header);
+            }
+
+            @Override
+            public void onBindFooter(BaseViewHolder footer) {
+                super.onBindFooter(footer);
+            }
         };
+
         HFModule hfModule = new HFModule(mContext,
                 R.layout.header_footer_headerly,
                 R.layout.header_footer_footerly, mRv);

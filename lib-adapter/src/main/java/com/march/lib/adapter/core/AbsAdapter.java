@@ -73,7 +73,7 @@ public abstract class AbsAdapter<D>
         return context;
     }
 
-    /*
+        /*
          * 私有辅助方法
          */
     private View getInflateView(int resId, ViewGroup parent) {

@@ -14,7 +14,7 @@
 ![](http://7xtjec.com1.z0.glb.clouddn.com/toc.png)
 
 
-* [Usage](#usage)
+* [使用](#使用)
 * [BaseViewHolder 的使用](#baseviewholder-的使用)
 * [通用适配器](#通用适配器)
 	* [单类型数据适配](#单类型数据适配)
@@ -25,9 +25,11 @@
 * [监听事件](#监听事件)
 	* [三种事件](#三种事件)
 	* [实现需要的事件](#实现需要的事件)
+	* [SectionRvAdapter 事件](#sectionrvadapter-事件)
 * [数据更新](#数据更新)
-	* [数据更新](#数据更新)
-	* [分页加载更新](#分页加载更新)
+	* [内置更新方法](#内置更新方法)
+	* [分页更新方法](#分页更新方法)
+	* [SectionRvAdapter 追加更新](#sectionrvadapter-追加更新)
 * [Module](#module)
 	* [添加 Header 和 Footer](#添加-header-和-footer)
 	* [预加载更多](#预加载更多)
@@ -36,7 +38,7 @@
 	* [Sample](#sample)
 
 
-## Usage
+## 使用
 - 类库还在开发中，暂时没有发布到Jcenter,所以需要在`yourProject.gradle`文件中添加如下代码进行依赖
 
 ```
@@ -140,6 +142,7 @@ class Content {
 
 #### 使用 ISectionRule 配置数据
 1. `ISectionRule接口`,进行九宫格模式适配使用 ISectionRule 配置数据时，需要添加`ISectionRule`,这是一种规则，adapter会根据你提供的规则自动生成Header
+
 2. 提供了两种构造方法
 
 ```java
@@ -187,190 +190,203 @@ adapter = new SectionRvAdapter<ItemHeader, Content>(
 mRv.setAdapter(adapter);
 ```
 #### 使用 HashMap 配置数据
-## 监听事件
-### 三种事件
-### 实现需要的事件
-## 数据更新
-### 数据更新
-### 分页加载更新
-## Module
-### 添加 Header 和 Footer
-### 预加载更多
-## 其他
-### adapterId 区分
-### Sample
+1. 一个 ItemHeader 下有多个 Content，类似`Map<ItemHeader,Content>`的数据结构,可以选择在外面构造好数据来进行数据适配
 
+2. HashMap是无序的，为了保证数据的有序性，使用`LinkedHashMap`
 
-
-
-## 接口介绍
-类库中涉及的几个数据相关的接口
-### ITypeAdapterModel
-进行多类型数据适配时，Model需要实现`ITypeAdapterModel`告知Adapter数据的type
-### ISectionRule
-进行九宫格模式适配时，需要添加`ISectionRule`,这是一种规则，adapter会根据你提供的规则自动生成Header
-### AbsSectionHeader
-进行九宫格模式适配时，作为header的数据类型需要实现AbsSectionHeader
-
-
-
-
-## 监听事件
-### 三种事件
-### 实现需要的事件
-- 单击事件 和 长按事件,带有范型
+3. 同样的也提供了两种构造方法
 
 ```java
-public void setOnItemClickListener(OnClickListener<D> mClickLis)
+// 直接配置 item header 和 content 的 layout 资源
+public SectionRvAdapter(Context context,
+                            LinkedHashMap<IH, List<ID>> originDatas,
+                            int headerLayoutId, int contentLayoutId)
 
-public void setOnItemLongClickListener(OnLongClickListener<D> mLongClickLis)
+// 只添加 header 的 layout 资源，content的资源可以使用addType方法添加
+public SectionRvAdapter(Context context,
+                            LinkedHashMap<IH, List<ID>> originDatas,
+                            int headerLayoutId)
+```
 
-eg:
-quickAdapter.setOnItemClickListener(new OnClickListener<Demo>() {
+```java
+final LinkedHashMap<ItemHeader, List<Content>> map = new LinkedHashMap<>();
+adapter = new SectionRvAdapter<ItemHeader, Content>(this, map,
+                R.layout.item_header_header,
+                R.layout.item_header_content) {
             @Override
-            public void onItemClick(int pos, RvViewHolder holder, Demo data) {
-                Toast.makeText(self, "click " + pos + "  " + data.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-```
-
-## 数据更新
-
-- append方法为在原来的数据后面拼接数据，传入的参数不是全部的只是需要拼接的
-- update和change方法传入为全部数据
-
-```java
-    //  全部更新数据,内部调用notifyDataSetChanged
-    //  data为展示的全部数据
-    public void updateData(List<D> data)
-
-    //  自动计算更新插入的数据,如果是插入数据，调用该方法
-    //  内部计算调用`notifyItemRangeInserted()`,避免全部刷新解决图片闪烁
-    //  data为展示的全部数据，通过计算差值更新
-    public void updateRangeInsert(List<D> data)
-
-    //  添加数据并更新
-    //  内部计算调用`notifyItemRangeInserted()`,避免全部刷新解决图片闪烁
-    //  data应该是需要拼接的数据
-    //  该方法结合分页加载使用
-    public void appendDataUpdateRangeInsert(List<D> data)
-
-
-    // 只想替换或拼接数据但不想更新显示，使用如下方法,然后自行调用`notifyItemChanged()`等更新方法
-    public void changeDataNotUpdate(List<D> data)
-    public void appendDataNotUpdate(List<D> data)
-```
-
-## Module
-
-- 为了更好的扩展adapter，和实现功能的分离,每个模块负责自己的工作更加清晰
-
-- 使用HFModule实现添加Header和Footer
-
-- 使用LoadMoreModule实现预加载更多功能
-
-
-## 添加Header和Footer
-
-- Header和Footer的添加使用模块的方式,相关操作依赖于HFModule
-
-
-- 资源Id设置(推荐使用这种方式,header 和 footer的数据配置可以在抽象方法中操作)
-
-```java
-HFModule hfModule =
-    new HFModule(context, R.layout.header,R.layout.footer, recyclerView);
-quickAdapter.addHeaderFooterModule(hfModule);
-```
-
-- 使用加载好的View设置
-
-```java
-View headerView = getLayoutInflater().inflate(R.layout.header, recyclerView,false)
-View footerView = getLayoutInflater().inflate(R.layout.footer, recyclerView,false)
-HFModule hfModule = new HFModule(headerView,footerView);
-quickAdapter.addHFModule(hfModule);
-```
-- 抽象方法实现Header,Footer显示
-
-```java
-quickAdapter = new TypeRvAdapter<Demo>(self, demos) {
-            @Override
-            public void onBindHeader(RvViewHolder header) {
-               //给Header绑定数据和事件,不需要可以不实现
+            protected void onBindItemHeader(BaseViewHolder holder, ItemHeader data, int pos, int type) {
+                holder.setText(R.id.info1, data.getItemHeaderTitle());
             }
 
             @Override
-            public void onBindFooter(RvViewHolder footer) {
-               //给footer绑定数据和事件,不需要可以不实现
+            protected void onBindContent(BaseViewHolder holder, Content data, int pos, int type) {
+                TextView tv = (TextView) holder.getView(R.id.tv);
             }
         };
 ```
-- 相关API
 
+## 监听事件
+支持单击、双击和长按事件
+### 三种事件
 ```java
-quickAdapter.getHFModule().isHasHeader();
-quickAdapter.getHFModule().isHasFooter();
-// 隐藏和显示header和footer
-quickAdapter.getHFModule().setFooterEnable(true);
-quickAdapter.getHFModule().setHeaderEnable(true);
-```
-
-## 预加载
-
-- 预加载模块,添加LoadMoreModule实现加载更多，当接近数据底部时会出发加载更多
-
-- preLoadNum,表示提前多少个Item触发预加载，未到达底部时,距离底部preLoadNum个Item开始加载
-
-- 每当到达底部时会触发加载，为防止多次加载，一次加载未完成时会禁止第二次加载，当加载结束之后调用finishLoad()，保证第二次加载可以进行。
-
-```java
-//方法
-public void addLoadMoreModule(LoadMoreModule loadMore)
-
-//当数据加载完毕时调用,才能使下次加载有效,防止重复加载
-mLoadMore.finishLoad();
-
-
-eg:
-LoadMoreModule loadMoreModule =
-    new LoadMoreModule(2, new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(final LoadMoreModule mLoadMore) {
-                Log.e("chendong", "4秒后加载新的数据");
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < 10; i++) {
-                            demos.add(new Demo(i, "new " + i));
-                        }
-                        mLoadMore.finishLoad();
-                        //隐藏footer
-                        quickAdapter.getHFModule().setFooterEnable(false);
-                    }
-                }, 4000);
-            }
-        });
-quickAdapter.addLoadMoreModule(loadMoreModule);
-```
-
-
-## 使用adapterId
-
-- 由于可以使用匿名内部类的形式快速实现,就无法通过类的instantOf方法区分,此时可以使用adapterId区分
-
-```java
-public int getAdapterId();
-
-public void setAdapterId(int adapterId);
-
-public boolean isUseThisAdapter(RecyclerView rv) {
-        return ((RvAdapter) rv.getAdapter()).getAdapterId() == adapterId;
+public interface OnItemListener<D> {
+    // 单击事件
+    void onClick(int pos, BaseViewHolder holder, D data);
+    // 长按事件
+    void onLongPress(int pos, BaseViewHolder holder, D data);
+    // 双击事件
+    void onDoubleClick(int pos, BaseViewHolder holder, D data);
 }
 ```
+### 实现需要的事件
+抽象类的实现，可以选择性的实现需要的方法
+
+```java
+public abstract class SimpleItemListener<D> implements OnItemListener<D> {
+
+    @Override
+    public void onClick(int pos, BaseViewHolder holder, D data) {
+
+    }
+
+    @Override
+    public void onLongPress(int pos, BaseViewHolder holder, D data) {
+
+    }
+
+    @Override
+    public void onDoubleClick(int pos, BaseViewHolder holder, D data) {
+
+    }
+}
+
+			adapter.setItemListener(new SimpleItemListener <GuideData>() {
+            @Override
+            public void onClick(int pos, BaseViewHolder holder, GuideData data) {
+                 Toast.makeText(mContext, "单击事件", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongPress(int pos, BaseViewHolder holder, GuideData data) {
+                Toast.makeText(mContext, "长按事件", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDoubleClick(int pos, BaseViewHolder holder, GuideData data) {
+                Toast.makeText(mContext,"双击事件", Toast.LENGTH_SHORT).show();
+            }
+        });
+```
+
+### SectionRvAdapter 事件
+
+```java
+adapter.setItemListener(new SimpleItemListener<ItemModel>() {
+            @Override
+            public void onClick(int pos, BaseViewHolder holder, ItemModel data) {
+            			//  当是Content数据类型
+                if (data.getRvType() == AbsAdapter.TYPE_ITEM_DEFAULT) {
+                    Content content = (Content) data.get();
+                    Toast.makeText(SectionAdapterTest.this, content.contentTitle, Toast.LENGTH_SHORT).show();
+                }else{
+                		// 当是ItemHeader数据类型
+                }
+            }
+        });
+```
+
+## 数据更新
+为了简化数据更新的方法，内置了数据更新的部分方法
+### 内置更新方法
+```java
+// 插入一条数据
+public void insert(int pos, D data)
+// 更新数据，isUpdate为false时只会添加数据不会更新显示
+public void notifyDataSetChanged(List<D> data, boolean isUpdate)
+```
+### 分页更新方法
+```java
+// 简化分页加载的更新，调用该方法实现增量更新，不会全部刷新，isAllData为true时表示data是全部数据，为false时表示是追加的数据
+public void appendTailRangeData(List<D> data, boolean isAllData)
+```
+### SectionRvAdapter 追加更新
+// SectionRvAdapter比较特别，需要使用单独的更新方法
+```java
+// 使用SectionRule配置数据时，使用此方法更新
+public void updateDataAndItemHeader(List<ID> data)
+// 使用Map配置数据时，使用此方法更新
+public void updateDataAndItemHeader(Map<IH, List<ID>> map)
+// 分页加载更新数据时调用，仅支持使用SectionRule配置数据
+public void appendSectionTailRangeData(List<ID> data)
+```
 
 
-## 举个例子
+## Module
+使用Module配置附加功能，目前有HFModule(添加Header和Footer)、LoadMoreModule(预加载更多)
+### 添加 Header 和 Footer
+- HFModule
+
+```java
+// 生成和添加module
+HFModule hfModule = new HFModule(mContext,
+                R.layout.header_footer_headerly,
+                R.layout.header_footer_footerly, mRv);
+adapter.addHFModule(hfModule);
+// 更改Header 和 Footer的数据,类似数据的配置,你可以在实现的方法里绑定数据和监听事件
+adapter = new SimpleRvAdapter<HFModel>(mContext, hfModels, R.layout.header_footer_item) {
+            @Override
+            public void onBindHeader(BaseViewHolder header) {
+                super.onBindHeader(header);
+            }
+
+            @Override
+            public void onBindFooter(BaseViewHolder footer) {
+                super.onBindFooter(footer);
+            }
+        };
+// 当只想添加Header或Footer时，使用常亮HFModule.NO_RES表示没有资源
+HFModule hfModule = new HFModule(mContext,HFModule.NO_RES,
+                HFModule.NO_RES, mRv);
+
+//  隐藏Header 和 Footer
+public void setFooterEnable(boolean footerEnable)
+public void setHeaderEnable(boolean headerEnable)
+```
+### 预加载更多
+- LoadMoreModule
+
+`new LoadMoreModule(int preLoadNum, OnLoadMoreListener lis)`,preLoadNum表示提前几个Item进行预加载，preLoadNum越大预加载的越提前
+加载数据完成之后需要调用`mLoadMoreModule.finishLoad();`结束本次加载，保证下次加载可以生效
+
+```java
+		// 触发之后1500秒后加载数据
+		LoadMoreModule loadMoreM = new LoadMoreModule(4, new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(final LoadMoreModule mLoadMoreModule) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<LoadMoreModel> tempData = new ArrayList<LoadMoreModel>();
+                        for (int i = 0; i < 9; i++) {
+                            tempData.add(new LoadMoreModel("new is " + i));
+                        }
+                        adapter.appendTailRangeData(tempData, false);
+                        mLoadMoreModule.finishLoad();
+                    }
+                }, 1500);
+            }
+        });
+        adapter.addLoadMoreModule(loadMoreM);
+```
+## 其他
+### adapterId 区分
+为了区分不同的适配器，生成了adapterId,用来检测当前RecyclerView使用的是不是这个adapter
+
+```java
+public boolean isThisAdapter(RecyclerView rv)
+```
+### Sample
+
 ```java
 
 //内部类实现
