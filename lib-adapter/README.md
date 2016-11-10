@@ -1,7 +1,6 @@
 
 # RecyclerView Adapter
 
-## 介绍
 1. 为RecyclerView提供更简单的适配器实现方式，不断更新完善中。
 
 2. [Demo视频演示](http://7xtjec.com1.z0.glb.clouddn.com/ittleQ.mp4)
@@ -14,12 +13,10 @@
 
 ![](http://7xtjec.com1.z0.glb.clouddn.com/toc.png)
 
-* [Usage](#Usage)
+<a href="#test">文字</a>
+
+* [使用](#使用)
 * [BaseViewHolder的使用](#BaseViewHolder的使用)
-* [接口介绍](#接口介绍)
-	* [ITypeAdapterModel](#ITypeAdapterModel)
-	* [ISectionRule](#ISectionRule)
-	* [AbsSectionHeader](#AbsSectionHeader)
 * [通用适配器](#通用适配器)
 	* [单类型数据适配](#单类型数据适配)
 	* [多类型数据适配](#多类型数据适配)
@@ -36,6 +33,11 @@
 * [其他](#其他)
 	* [adapterId区分](#adapterId区分)
 	* [Sample](#Sample)
+
+
+<span id="test" name="test"></span>
+## test
+
 
 
 ## Usage
