@@ -21,6 +21,7 @@ android {
     sourceSets {
         main {
             res.srcDirs = [
+                    'src/main/res/layouts/layout_adapter',
                     'src/main/res/layouts/layout_selectimg',
                     'src/main/res/layouts/other',
                     'src/main/res/layouts',
@@ -33,15 +34,14 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-
+    compile project(':lib-core')
+    compile project(':lib-support')
+    compile project(':lib-adapter')
     compile rootProject.ext.support.blot
     compile rootProject.ext.support.okhttputils
-    compile rootProject.ext.support.quickRv
     compile rootProject.ext.support.slidingSelect
     compile rootProject.ext.support.glide
     compile rootProject.ext.support.design
     compile rootProject.ext.support.appcompat_v7
-
-    compile project(':lib-core')
-    compile project(':lib-support')
+    compile rootProject.ext.support.cardView_v7
 }

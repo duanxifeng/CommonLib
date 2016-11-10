@@ -78,11 +78,13 @@ abstract class AbsActivityWrap extends AbsActivity {
         });
     }
 
-    protected abstract String[] getPermission2Check();
-
     protected boolean handlePermissionResult(Map<String, Integer> resultNotOk) {
         return true;
     }
+
+
+    protected abstract String[] getPermission2Check();
+
 
     protected abstract boolean isInitTitle();
 }

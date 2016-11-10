@@ -20,15 +20,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.march.commonlib.R;
-import com.march.lib.core.dialog.BaseDialog;
+import com.march.lib.adapter.common.SimpleItemListener;
+import com.march.lib.adapter.core.BaseViewHolder;
+import com.march.lib.adapter.core.SimpleRvAdapter;
 import com.march.lib.core.activity.BaseActivity;
 import com.march.lib.core.common.DimensionHelper;
 import com.march.lib.core.common.Toaster;
+import com.march.lib.core.dialog.BaseDialog;
 import com.march.lib.support.helper.ImageHelper;
 import com.march.lib.support.model.ImageInfo;
-import com.march.quickrvlibs.adapter.RvViewHolder;
-import com.march.quickrvlibs.adapter.SimpleRvAdapter;
-import com.march.quickrvlibs.inter.OnItemClickListener;
 import com.march.slidingselect.SlidingSelectLayout;
 
 import java.text.SimpleDateFormat;
@@ -106,6 +106,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
 
     /**
      * 从返回数据中获取选中的图片
+     *
      * @param intent onActivityResult(Intent data)
      * @return ArrayList<ImageInfo>
      */
@@ -169,12 +170,13 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
     // 创建和更新adapter
     private void createOrUpdateAdapter() {
         if (mImageAdapter != null) {
-            mImageAdapter.updateData(mCurrentImages);
+            mImageAdapter.notifyDataSetChanged(mCurrentImages, true);
             return;
         }
         mImageAdapter = new SimpleRvAdapter<ImageInfo>(mContext, mCurrentImages, R.layout.select_image_item_rv) {
+
             @Override
-            public void onBindView(final RvViewHolder holder, final ImageInfo data, final int pos, int type) {
+            public void onBindView(final BaseViewHolder holder, final ImageInfo data, int pos, int type) {
                 mSlidingSelectLy.markView(holder.getParentView(), pos, data);
                 View coverView = holder.getView(R.id.cover_select_image);
                 TextView tv = (TextView) holder.getView(R.id.tv_select_image);
@@ -206,9 +208,9 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
                 holder.setClickLis(R.id.tv_select_image, lis);
             }
         };
-        mImageAdapter.setOnItemClickListener(new OnItemClickListener<ImageInfo>() {
+        mImageAdapter.setItemListener(new SimpleItemListener<ImageInfo>() {
             @Override
-            public void onItemClick(int pos, RvViewHolder holder, ImageInfo data) {
+            public void onClick(int pos, BaseViewHolder holder, ImageInfo data) {
                 showPreviewDialog(data.getPath());
             }
         });
@@ -283,7 +285,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         mSlidingSelectLy.setOnSlidingSelectListener(new SlidingSelectLayout.OnSlidingSelectListener<ImageInfo>() {
             @Override
             public void onSlidingSelect(int pos, View parentView, ImageInfo data) {
-                notifyCheckOrNotCheck((RvViewHolder) mImageRv.findViewHolderForAdapterPosition(pos), data);
+                notifyCheckOrNotCheck((BaseViewHolder) mImageRv.findViewHolderForAdapterPosition(pos), data);
             }
         });
     }
@@ -293,7 +295,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
      *
      * @param holder
      */
-    private void notifyCheckOrNotCheck(RvViewHolder holder, ImageInfo imageInfo) {
+    private void notifyCheckOrNotCheck(BaseViewHolder holder, ImageInfo imageInfo) {
         TextView tv = (TextView) holder.getView(R.id.tv_select_image);
         View coverView = holder.getView(R.id.cover_select_image);
         if (tv.isSelected()) {
@@ -320,7 +322,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         int findSelectCount = 0;
         ImageInfo temp;
         TextView tv;
-        RvViewHolder holder;
+        BaseViewHolder holder;
         int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
         int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
 
@@ -329,7 +331,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
             if (findSelectCount >= mSelectImages.size()) {
                 break;
             }
-            holder = (RvViewHolder) mImageRv.findViewHolderForAdapterPosition(i);
+            holder = (BaseViewHolder) mImageRv.findViewHolderForAdapterPosition(i);
             tv = (TextView) holder.getView(R.id.tv_select_image);
             if (tv.isSelected()) {
                 temp = (ImageInfo) tv.getTag(R.id.data_image_info);
@@ -394,7 +396,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
                 mCurrentImages = mImagesMap.get(data.getDirName());
                 mTitleBarView.setText(mTitleBarView.POS_Center, data.getDirName());
                 mDirTv.setText(data.getDirName());
-                mImageAdapter.updateData(mCurrentImages);
+                mImageAdapter.notifyDataSetChanged(mCurrentImages, true);
             }
         });
         mDirDialog.show();
@@ -478,7 +480,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         private void createAdapter() {
             mDirAdapter = new SimpleRvAdapter<ImageDirInfo>(getContext(), mImageDirs, R.layout.select_image_dir_item) {
                 @Override
-                public void onBindView(RvViewHolder holder, ImageDirInfo data, int pos, int type) {
+                public void onBindView(BaseViewHolder holder, ImageDirInfo data, int pos, int type) {
                     ImageView iv = (ImageView) holder.getView(R.id.iv_dir_cover);
                     int size = DimensionHelper.dp2px(mContext, 80);
                     loadImg(iv, size, size, data.getCoverInfo().getPath());
@@ -487,9 +489,9 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
                     holder.getView(R.id.iv_dir_sign).setVisibility(pos == lastCheckPos ? View.VISIBLE : View.INVISIBLE);
                 }
             };
-            mDirAdapter.setOnItemClickListener(new OnItemClickListener<ImageDirInfo>() {
+            mDirAdapter.setItemListener(new SimpleItemListener<ImageDirInfo>() {
                 @Override
-                public void onItemClick(int pos, RvViewHolder holder, ImageDirInfo data) {
+                public void onClick(int pos, BaseViewHolder holder, ImageDirInfo data) {
                     if (listener != null) {
                         listener.onClickDir(pos, mImageDirs.get(pos));
                     }

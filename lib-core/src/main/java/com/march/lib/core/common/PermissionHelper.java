@@ -123,6 +123,7 @@ public class PermissionHelper {
 //                    if (whenClickNotRemind(context, permission)) {
 //                        return false;
 //                    }
+                    whenClickNotRemind(context, permission);
                 }
             }
 

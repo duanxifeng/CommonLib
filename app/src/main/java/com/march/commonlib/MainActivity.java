@@ -1,12 +1,13 @@
 package com.march.commonlib;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 //import com.march.lib.core.activity.BaseActivity;;
-import com.march.commonlib.selectimg.SelectImageActivity;
+import com.march.commonlib.adapter.AdapterMainActivity;
 import com.march.lib.core.activity.BaseActivity;
 import com.march.lib.support.helper.ImagePicker;
 
@@ -25,7 +26,8 @@ public class MainActivity extends BaseActivity {
     public void onInitIntent(Bundle intent) {
         super.onInitIntent(intent);
         iv = getView(R.id.iv);
-        SelectImageActivity.selectImages(mActivity, 60);
+//        SelectImageActivity.selectImages(mActivity, 60);
+        startActivity(new Intent(this, AdapterMainActivity.class));
     }
 
     @Override

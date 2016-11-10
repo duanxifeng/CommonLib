@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +23,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".selectimg.SelectImageActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".selectimg.SelectImageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".adapter.AdapterMainActivity" />
+        <activity
+            android:name=".adapter.HeaderFooterTest" />
+        <activity
+            android:name=".adapter.SectionRuleActivity" />
+        <activity
+            android:name=".adapter.LoadMoreTest" />
+        <activity
+            android:name=".adapter.SectionAdapterTest" />
+        <activity
+            android:name=".adapter.TypeAdapterTest" />
     </application>
 
 </manifest>
