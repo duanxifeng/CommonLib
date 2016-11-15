@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 
 /**
  * Project  : CommonLib
@@ -14,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
  *
  * @author chendong
  */
-
 public class FragmentHelper {
 
     interface FragmentOperator {
@@ -33,6 +31,12 @@ public class FragmentHelper {
          */
         Fragment makeFragment(int showItem);
 
+        /**
+         * 进行转换之前做操作,动画之类的
+         *
+         * @return FragmentTransaction
+         */
+        void beginTransaction(FragmentTransaction transaction);
 
         /**
          * 同步选中之后的显示状态
@@ -68,6 +72,16 @@ public class FragmentHelper {
         public boolean whenShowSameFragment(int showItem) {
             return false;
         }
+
+        @Override
+        public void syncSelectState(int selectImage) {
+
+        }
+
+        @Override
+        public void beginTransaction(FragmentTransaction transaction) {
+
+        }
     }
 
     private static final String FRAGMENT_ATG = "FragmentHelper";
@@ -81,12 +95,7 @@ public class FragmentHelper {
     private int mExactlyItem = 0;
 
 
-    public FragmentHelper(AppCompatActivity activity, FragmentOperator operator) {
-        mFragmentManager = activity.getSupportFragmentManager();
-        this.operator = operator;
-    }
-
-    public void initFragmentHelper(Bundle save) {
+    public void restoreFragmentHelper(Bundle save) {
         if (save != null) {
             mHideItem = save.getInt(ITEM_HIDE, 0);
             mShowItem = save.getInt(ITEM_SHOW, 0);
@@ -101,6 +110,13 @@ public class FragmentHelper {
     }
 
 
+    public FragmentHelper(FragmentManager mFragmentManager, FragmentOperator operator) {
+        this.mFragmentManager = mFragmentManager;
+        this.mFragmentManager = mFragmentManager;
+        this.operator = operator;
+    }
+
+
     /**
      * 显示某个fragment
      *
@@ -112,7 +128,7 @@ public class FragmentHelper {
 
 
     /**
-     * 选中某一个fragment
+     * 选中某一个fragment，处理重复点击
      *
      * @param showItem   显示的item
      * @param isOnCreate 是否是第一次创
@@ -150,36 +166,45 @@ public class FragmentHelper {
         String currentTag = getFragmentTag(hideItem);
         // 隐藏当前的的fragment
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        // 如果被杀后再进来，全部的fragment都会被呈现显示状态，所以都隐藏一边
-        if (isOnCreate && mFragmentManager.getFragments() != null) {
-            for (Fragment fragment : mFragmentManager.getFragments()) {
-                transaction.hide(fragment);
-            }
-        } else {
-            // 正常按钮点击进入
-            Fragment lastFragment = mFragmentManager.findFragmentByTag(currentTag);
-            if (lastFragment != null) {
-                transaction.hide(lastFragment);
-            }
-        }
+        operator.beginTransaction(transaction);
 
-
-        // 获得将要显示页的tag
-        String toTag = getFragmentTag(showItem);
-        // find要显示的Fragment
-        mCurrentFragment = mFragmentManager.findFragmentByTag(toTag);
-        if (mCurrentFragment != null) {
-            // 已经存在则显示
-            transaction.show(mCurrentFragment);
-        } else {
-            // 不存在则添加新的fragment
+        // 第一次创建，一个都没有，不需要隐藏，直接显示
+        if (mFragmentManager.getFragments() == null) {
+            mShowItem = showItem;
+            mExactlyItem = showItem;
             mCurrentFragment = operator.makeFragment(showItem);
+            transaction.add(operator.getFragmentContainerId(), mCurrentFragment, getFragmentTag(showItem))
+                    .show(mCurrentFragment);
+        } else {
+            // 优化，如果被杀后再进来，全部的fragment都会被呈现显示状态，所以都隐藏一遍
+            if (isOnCreate && mFragmentManager.getFragments() != null) {
+                for (Fragment fragment : mFragmentManager.getFragments()) {
+                    transaction.hide(fragment);
+                }
+            } else {
+                // 正常按钮点击进入，隐藏上一个即可
+                Fragment lastFragment = mFragmentManager.findFragmentByTag(currentTag);
+                if (lastFragment != null) {
+                    transaction.hide(lastFragment);
+                }
+            }
+
+
+            // 获得将要显示页的tag
+            String toTag = getFragmentTag(showItem);
+            // find要显示的Fragment
+            mCurrentFragment = mFragmentManager.findFragmentByTag(toTag);
             if (mCurrentFragment != null) {
-                transaction.add(operator.getFragmentContainerId(), mCurrentFragment, toTag);
+                // 已经存在则显示
+                transaction.show(mCurrentFragment);
+            } else {
+                // 不存在则添加新的fragment
+                mCurrentFragment = operator.makeFragment(showItem);
+                if (mCurrentFragment != null) {
+                    transaction.add(operator.getFragmentContainerId(), mCurrentFragment, toTag);
+                }
             }
         }
-
-
         // 同步状态
         operator.syncSelectState(showItem);
         // 保存当前显示fragment的item
