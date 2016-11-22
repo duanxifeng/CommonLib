@@ -1,6 +1,7 @@
 package com.march.commonlib.adapter;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import com.march.lib.adapter.core.BaseViewHolder;
 import com.march.lib.adapter.core.SimpleRvAdapter;
 import com.march.lib.adapter.module.HFModule;
 import com.march.lib.core.activity.BaseActivity;
+import com.march.lib.core.common.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class HeaderFooterTest extends BaseActivity {
         getSupportActionBar().setTitle("添加Header和Footer模块");
         mRv = getView(R.id.recyclerview);
         changeLayoutManager(LM_STAGGERED);
-        List<HFModel> hfModels = new ArrayList<>();
+        final List<HFModel> hfModels = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             hfModels.add(new HFModel(i));
         }
@@ -70,7 +72,7 @@ public class HeaderFooterTest extends BaseActivity {
             }
         };
 
-        HFModule hfModule = new HFModule(mContext,
+        final HFModule hfModule = new HFModule(mContext,
                 R.layout.header_footer_headerly,
                 R.layout.header_footer_footerly, mRv);
         adapter.addHFModule(hfModule);
@@ -122,6 +124,7 @@ public class HeaderFooterTest extends BaseActivity {
 
     class HFModel {
         int index;
+
         public HFModel(int index) {
             this.index = index;
         }

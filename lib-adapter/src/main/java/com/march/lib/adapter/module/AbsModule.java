@@ -15,9 +15,12 @@ import com.march.lib.adapter.core.AbsAdapter;
  */
 abstract class AbsModule {
 
-    AbsAdapter mAttachAdapter;
+    protected AbsAdapter mAttachAdapter;
+    protected RecyclerView mAttachRecyclerView;
 
-    public abstract void onAttachedToRecyclerView(RecyclerView recyclerView);
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        this.mAttachRecyclerView = recyclerView;
+    }
 
     public void onAttachAdapter(AbsAdapter adapter) {
         this.mAttachAdapter = adapter;

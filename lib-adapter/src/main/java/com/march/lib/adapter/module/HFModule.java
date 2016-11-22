@@ -6,6 +6,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 import com.march.lib.adapter.core.BaseViewHolder;
 import com.march.lib.adapter.helper.CommonHelper;
@@ -106,9 +108,9 @@ public class HFModule extends AbsModule {
         boolean isFooter = isHasFooter() && viewType == TYPE_FOOTER;
         boolean isHeader = isHasHeader() && viewType == TYPE_HEADER;
         if (isFooter) {
-            holder = new BaseViewHolder(mAttachAdapter.getContext(),footerView);
+            holder = new BaseViewHolder(mAttachAdapter.getContext(), footerView);
         } else if (isHeader) {
-            holder = new BaseViewHolder(mAttachAdapter.getContext(),headerView);
+            holder = new BaseViewHolder(mAttachAdapter.getContext(), headerView);
         }
         if (isStaggeredGridLayoutManager && (isFooter || isHeader)) {
             ViewGroup.LayoutParams originLp = holder.getParentView().getLayoutParams();
@@ -128,5 +130,67 @@ public class HFModule extends AbsModule {
 
     public View getHeaderView() {
         return headerView;
+    }
+
+    private boolean isCanZoom() {
+        return CommonHelper.isFirstItemCompletelyVisible(mAttachRecyclerView);
+    }
+
+    private class ZoomBackRunnable implements Runnable {
+        private long mDuration;
+        private boolean mIsFinished = true;
+        private float mScale;
+        private long mStartTime;
+        private View mZoomView;
+        private View mHeaderContainer;
+        private int mHeaderHeight;
+        private Interpolator mSmoothToTopInterpolator;
+
+        ZoomBackRunnable(View mHeaderContainer, View mZoomView) {
+            this.mZoomView = mZoomView;
+            this.mHeaderContainer = mHeaderContainer;
+            this.mHeaderHeight = mHeaderContainer.getLayoutParams().height;
+            this.mSmoothToTopInterpolator = new DecelerateInterpolator(2.0f);
+        }
+
+        public void abortAnimation() {
+            mIsFinished = true;
+        }
+
+        public boolean isFinished() {
+            return mIsFinished;
+        }
+
+        public void run() {
+            if (mZoomView != null && (!mIsFinished) && (mScale > 1.0f)) {
+                // fix PullToZoomView bug  ---dinus
+                // should not convert the System.currentTimeMillis() to float
+                // otherwise the value of (System.currentTimeMillis() - mStartTime) will still be zero
+                float zoomBackProgress = (System.currentTimeMillis() - mStartTime) / (float) mDuration;
+                ViewGroup.LayoutParams localLayoutParams = mHeaderContainer.getLayoutParams();
+
+                if (zoomBackProgress > 1.0f) {
+                    localLayoutParams.height = mHeaderHeight;
+                    mHeaderContainer.setLayoutParams(localLayoutParams);
+                    mIsFinished = true;
+                    return;
+                }
+
+                float currentScale = mScale - (mScale - 1.0F) * mSmoothToTopInterpolator.getInterpolation(zoomBackProgress);
+                localLayoutParams.height = (int) (currentScale * mHeaderHeight);
+                mHeaderContainer.setLayoutParams(localLayoutParams);
+                mHeaderContainer.post(this);
+            }
+        }
+
+        public void startAnimation(long animationDuration) {
+            if (mZoomView != null) {
+                mStartTime = System.currentTimeMillis();
+                mDuration = animationDuration;
+                mScale = (float) mHeaderContainer.getHeight() / mHeaderHeight;
+                mIsFinished = false;
+                mHeaderContainer.post(this);
+            }
+        }
     }
 }

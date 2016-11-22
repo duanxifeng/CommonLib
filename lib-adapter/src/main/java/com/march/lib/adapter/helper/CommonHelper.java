@@ -2,7 +2,7 @@ package com.march.lib.adapter.helper;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
+import android.view.View;
 
 import com.march.lib.adapter.core.AbsAdapter;
 
@@ -37,9 +37,10 @@ public class CommonHelper {
 
     /**
      * 处理GridLayoutManager跨越整行
-     * @param rv recyclerView
+     *
+     * @param rv         recyclerView
      * @param absAdapter adapter
-     * @param handler 接口
+     * @param handler    接口
      */
     public static void handleGridLayoutManager(RecyclerView rv, final AbsAdapter absAdapter, final CheckFullSpanHandler handler) {
         final RecyclerView.LayoutManager layoutManager = rv.getLayoutManager();
@@ -57,9 +58,32 @@ public class CommonHelper {
                 }
             }
         });
+    }
 
-        GestureDetector.SimpleOnGestureListener simpleOnGestureListener = new GestureDetector.SimpleOnGestureListener(){
+    public static boolean isFirstItemCompletelyVisible(RecyclerView recyclerView) {
+        if (recyclerView != null) {
+            RecyclerView.Adapter adapter = recyclerView.getAdapter();
+            RecyclerView.LayoutManager mLayoutManager = recyclerView.getLayoutManager();
 
-        };
+            if (null == adapter || adapter.getItemCount() == 0) {
+                return false;
+            } else
+                return !(null == mLayoutManager || mLayoutManager.getItemCount() == 0)
+                        && checkFirstItemCompletelyVisible(recyclerView, mLayoutManager);
+        }
+        return false;
+    }
+
+    private static boolean checkFirstItemCompletelyVisible(RecyclerView recyclerView, RecyclerView.LayoutManager mLayoutManager) {
+        int firstVisiblePosition = ((RecyclerView.LayoutParams) mLayoutManager.getChildAt(0).getLayoutParams()).getViewPosition();
+        if (firstVisiblePosition == 0) {
+            final View firstVisibleChild = recyclerView.getChildAt(0);
+            if (firstVisibleChild != null) {
+                return firstVisibleChild.getTop() >= recyclerView.getTop();
+            }
+        }
+        return false;
     }
 }
+
+

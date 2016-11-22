@@ -49,15 +49,17 @@ public class TitleBarView extends LinearLayout {
      */
     public static final int POS_Center = 2;
 
-    private TextView mLeftTv;
-    private TextView mRightTv;
-    private TextView mCenterTv;
+    private View parentView;
+    private TextView leftTv;
+    private TextView rightTv;
+    private TextView centerTv;
 
     private void initViews() {
         setOrientation(LinearLayout.VERTICAL);
-        mLeftTv = (TextView) findViewById(R.id.tv_titlebar_left);
-        mRightTv = (TextView) findViewById(R.id.tv_titlebar_right);
-        mCenterTv = (TextView) findViewById(R.id.tv_titlebar_center);
+        parentView = findViewById(R.id.parent);
+        leftTv = (TextView) findViewById(R.id.tv_titlebar_left);
+        rightTv = (TextView) findViewById(R.id.tv_titlebar_right);
+        centerTv = (TextView) findViewById(R.id.tv_titlebar_center);
     }
 
 
@@ -70,11 +72,11 @@ public class TitleBarView extends LinearLayout {
     public TextView get(int pos) {
         switch (pos) {
             case POS_Left:
-                return mLeftTv;
+                return leftTv;
             case POS_Right:
-                return mRightTv;
+                return rightTv;
             case POS_Center:
-                return mCenterTv;
+                return centerTv;
         }
         return null;
     }
@@ -98,11 +100,11 @@ public class TitleBarView extends LinearLayout {
      */
     public void setText(String leftTxt, String centerTxt, String rightTxt) {
         if (leftTxt != null)
-            mLeftTv.setText(leftTxt);
+            leftTv.setText(leftTxt);
         if (centerTxt != null)
-            mCenterTv.setText(centerTxt);
+            centerTv.setText(centerTxt);
         if (rightTxt != null)
-            mRightTv.setText(rightTxt);
+            rightTv.setText(rightTxt);
     }
 
     /**
@@ -116,12 +118,16 @@ public class TitleBarView extends LinearLayout {
     }
 
     public void setLeftBackListener(final Activity activity) {
-        mLeftTv.setOnClickListener(new OnClickListener() {
+        leftTv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 activity.onBackPressed();
             }
         });
+    }
+
+    public View getParentView() {
+        return parentView;
     }
 
     /**

@@ -18,7 +18,7 @@ public class TestMultiFragmentActivity2 extends BaseActivity  {
     @Override
     public void onStartWorks() {
         super.onStartWorks();
-        multiFragmentHelper = new FragmentHelper(this, new FragmentHelper.SimpleFragmentOperator() {
+        multiFragmentHelper = new FragmentHelper(getSupportFragmentManager(), new FragmentHelper.SimpleFragmentOperator() {
             @Override
             public int getFragmentContainerId() {
                 return 0;

@@ -5,14 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 /**
  * Project  : CommonLib
  * Package  : com.march.baselib
@@ -67,7 +65,7 @@ public class FileHelper {
      * @param filePath 文件路径
      */
     public static void scanIntoMediaStore(Context context, String filePath) {
-        if (!checkFile(filePath))
+        if (!checkAndMakeFile(filePath, true))
             return;
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         intent.setData(Uri.fromFile(new File(filePath)));
@@ -100,7 +98,7 @@ public class FileHelper {
      * @param createTime 创建时间
      */
     public static void insertImageToMediaStore(Context context, String filePath, long createTime) {
-        if (!checkFile(filePath))
+        if (!checkAndMakeFile(filePath, true))
             return;
         if (createTime == 0)
             createTime = System.currentTimeMillis();
@@ -121,7 +119,7 @@ public class FileHelper {
      * @param duration   时长，必须是毫秒级别
      */
     public static void insertVideoToMediaStore(Context context, String filePath, long createTime, long duration) {
-        if (!checkFile(filePath))
+        if (!checkAndMakeFile(filePath, true))
             return;
         if (createTime == 0)
             createTime = System.currentTimeMillis();
@@ -133,11 +131,19 @@ public class FileHelper {
         context.getContentResolver().insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
     }
 
-    public static boolean checkFile(String filePath) {
+    public static boolean checkAndMakeFile(String filePath, boolean isMake) {
         if (filePath == null) {
             return false;
         }
         File file = new File(filePath);
-        return file.exists();
+        if (isMake) {
+            if (!file.exists()) {
+                file.mkdirs();
+                return false;
+            }
+            return true;
+        } else {
+            return file.exists();
+        }
     }
 }
