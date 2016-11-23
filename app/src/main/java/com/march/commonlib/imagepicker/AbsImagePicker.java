@@ -30,7 +30,7 @@ public abstract class AbsImagePicker {
     protected static final int CHOOSE_PHOTO_FROM_ALBUM = 0x12;
     protected static final int CHOOSE_PHOTO_FROM_SYSTEM_CROP = 0x13;
     protected Activity mActivity;
-    protected String mSaveImageParentPath = PathHelper.TempPath;//获取图片或者剪切后存放目录
+    protected String mSaveImageParentPath = PathHelper.TEMP_PATH;//获取图片或者剪切后存放目录
     protected File mCropImageFile;//裁剪之后的文件
     protected File mAlbumImageFile;//从相册返回的文件
     protected File mCaptureImageFile;//从拍照返回的文件

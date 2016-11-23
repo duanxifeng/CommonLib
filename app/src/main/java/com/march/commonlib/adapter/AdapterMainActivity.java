@@ -7,12 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-
 import com.march.commonlib.R;
 import com.march.lib.adapter.common.OnItemListener;
 import com.march.lib.adapter.core.BaseViewHolder;
 import com.march.lib.adapter.core.SimpleRvAdapter;
 import com.march.lib.core.activity.BaseActivity;
+import com.march.lib.core.common.Logger;
+import com.march.lib.support.helper.PathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,10 @@ public class AdapterMainActivity extends BaseActivity {
     public void onInitViews(View view, Bundle saveData) {
         super.onInitViews(view, saveData);
         getSupportActionBar().setTitle("主页");
+        Logger.e(PathHelper.dcim().getAbsoluteFile());
+        Logger.e(PathHelper.download().getAbsoluteFile());
+        Logger.e(PathHelper.temp().getAbsoluteFile());
+        Logger.e(PathHelper.thumb().getAbsoluteFile());
         RecyclerView mRv = getView(R.id.recyclerview);
         initDatas();
         SimpleRvAdapter<GuideData> adapter = new SimpleRvAdapter<GuideData>(mContext, mGuideDatas, R.layout.main_guide) {

@@ -33,8 +33,7 @@ public class FragmentHelper {
 
         /**
          * 进行转换之前做操作,动画之类的
-         *
-         * @return FragmentTransaction
+         * @param transaction  transaction
          */
         void beginTransaction(FragmentTransaction transaction);
 

@@ -29,7 +29,7 @@ public class ImagePicker {
     private static final int CHOOSE_PHOTO_FROM_SYSTEM_CROP = 0x13;
     private int type;
     protected Activity mActivity;
-    private String mSaveImageParentPath = PathHelper.TempPath;//获取图片或者剪切后存放目录
+    private String mSaveImageParentPath = PathHelper.TEMP_PATH;//获取图片或者剪切后存放目录
     private File mCropImageFile;//裁剪之后的文件
     private File mAlbumImageFile;//从相册返回的文件
     private File mCaptureImageFile;//从拍照返回的文件

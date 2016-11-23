@@ -1,5 +1,8 @@
 package com.march.commonlib;
+
 import android.app.Application;
+
+import com.march.lib.support.helper.PathHelper;
 
 
 /**
@@ -13,5 +16,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        PathHelper.initPath(this, "TestPath");
     }
 }

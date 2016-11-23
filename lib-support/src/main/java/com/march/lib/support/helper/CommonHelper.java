@@ -15,13 +15,6 @@ import java.io.IOException;
  */
 public class CommonHelper {
 
-    /**
-     * sd卡是否可用
-     * @return 可用？
-     */
-    public static boolean isSDCardAvailable() {
-        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
-    }
 
     /**
      * 关闭读写流

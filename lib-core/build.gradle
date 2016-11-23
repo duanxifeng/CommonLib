@@ -40,7 +40,7 @@ def proDesc = 'core develop libs' //项目的描述，不会有什么影响，�
 def yourId = 'chendongmarch'  //bintrayID
 def yourName = 'chendong'  //不重要，你自己的nickname就可以
 def yourEmail = 'helloworld4x@gmial.com'  //email
-version = "1.0.0"
+version = "1.0.1"
 group = "com.march.lib-core"            // Maven Group ID for the artifact，一般填你唯一的包名
 
 

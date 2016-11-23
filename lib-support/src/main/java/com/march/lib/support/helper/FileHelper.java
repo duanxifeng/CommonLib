@@ -4,13 +4,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 /**
  * Project  : CommonLib
  * Package  : com.march.baselib
@@ -127,7 +130,7 @@ public class FileHelper {
         ContentValues values = initCommonContentValues(saveFile);
         values.put(MediaStore.Video.VideoColumns.DATE_TAKEN, createTime);
         values.put(MediaStore.Video.VideoColumns.DURATION, duration);
-        values.put(MediaStore.MediaColumns.MIME_TYPE, "video/3gp");
+        values.put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4");
         context.getContentResolver().insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
     }
 
@@ -146,4 +149,14 @@ public class FileHelper {
             return file.exists();
         }
     }
+
+    /**
+     * sd卡是否可用
+     *
+     * @return 可用？
+     */
+    public static boolean isSDCardAvailable() {
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+    }
+
 }

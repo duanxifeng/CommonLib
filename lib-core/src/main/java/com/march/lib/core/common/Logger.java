@@ -19,6 +19,7 @@ public class Logger {
 
     /**
      * 是否打印信息
+     *
      * @param debug 打印？
      */
     public static void setDebug(boolean debug) {
@@ -27,12 +28,14 @@ public class Logger {
 
     /**
      * 设置默认tag
+     *
      * @param defTag 默认tag
      */
     public static void setDefTag(String defTag) {
         TAG = defTag;
     }
 
+    // 检测msg不为空
     private static boolean checkMsgNotNull(Object msg) {
         if (msg == null) {
             Log.e(TAG, "log msg is null");
@@ -41,6 +44,7 @@ public class Logger {
         return true;
     }
 
+    // 检测msg不为空
     private static boolean checkMsgNotNull(String tag, Object msg) {
         if (msg == null) {
             Log.e(getTag(tag), "log msg is null");
@@ -53,8 +57,30 @@ public class Logger {
         return tag == null ? TAG : tag;
     }
 
+    public static void e(Object... objects) {
+        StringBuilder builder = new StringBuilder();
+        for (Object object : objects) {
+            if (object != null) {
+                builder.append(object.toString());
+            }
+        }
+        e(TAG, builder.toString());
+    }
+
+
+    public static void e(String tag, Object... objects) {
+        StringBuilder builder = new StringBuilder();
+        for (Object object : objects) {
+            if (object != null) {
+                builder.append(object.toString());
+            }
+        }
+        e(tag, builder.toString());
+    }
+
     /**
      * 打印info信息
+     *
      * @param msg 信息
      */
     public static void i(Object msg) {
@@ -65,6 +91,7 @@ public class Logger {
 
     /**
      * 打印info信息
+     *
      * @param tag tag
      * @param msg 信息
      */
@@ -76,6 +103,7 @@ public class Logger {
 
     /**
      * 打印error信息
+     *
      * @param msg 信息
      */
     public static void e(Object msg) {
@@ -86,6 +114,7 @@ public class Logger {
 
     /**
      * 打印error信息
+     *
      * @param tag tag
      * @param msg 信息
      */
