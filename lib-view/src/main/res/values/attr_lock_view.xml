@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LockView">
+        <attr name="lock_startSpace" format="dimension"/>
+        <attr name="lock_pointRadius" format="dimension"/>
+        <attr name="lock_touchSensitiveRange" format="dimension"/>
+        <attr name="lock_lineWidth" format="dimension"/>
+        <attr name="lock_pointColor" format="color"/>
+        <attr name="lock_lineColor" format="color"/>
+        <attr name="lock_scaleAnimDuration" format="integer"/>
+        <attr name="lock_scaleMax" format="float"/>
+    </declare-styleable>
+</resources>
