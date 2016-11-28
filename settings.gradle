@@ -1,1 +1,1 @@
-include ':app', ':lib-core', ':lib-support', ':lib-adapter'
+include ':app', ':lib-core', ':lib-support', ':lib-adapter', ':lib-view'
