@@ -2,25 +2,6 @@
 
 
 ## Usage
-
-- 类库正在开发中并没有发不到JCenter,需要先在项目根目录下的` yourProject/build.gradle `文件中添加如下依赖
-
-```java
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-        maven { url 'https://dl.bintray.com/chendongmarch/maven' }
-    }
-}
-```
-- 类库中使用25.0.0的android-support库,如果与你的版本不一致你可以在`app/build.gradle`中使用如下代码过滤掉
-```java
-compile ('com.march.lib-core:lib-core:1.0.1,{
-    exclude group: 'com.android.support', module: 'support-annotations'
-})
-```
-
 <1> [lib-core](https://github.com/chendongMarch/CommonLib/lib-core)
 
 核心库，集成了开发必须的核心功能
@@ -54,6 +35,27 @@ compile 'com.march.lib-adapter:lib-adapter:1.0.0'
 ```java
 compile 'com.march.lib-view:lib-view:1.0.0'
 ```
+
+
+- 类库正在开发中并没有发不到JCenter,需要先在项目根目录下的` yourProject/build.gradle `文件中添加如下依赖
+
+```java
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url 'https://dl.bintray.com/chendongmarch/maven' }
+    }
+}
+```
+- 类库中使用25.0.0的android-support库,如果与你的版本不一致你可以在`app/build.gradle`中使用如下代码过滤掉
+```java
+compile ('com.march.lib-core:lib-core:1.0.1,{
+    exclude group: 'com.android.support', module: 'support-annotations'
+})
+```
+
+
 
 
 
