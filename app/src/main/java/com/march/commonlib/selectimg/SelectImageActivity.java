@@ -29,7 +29,7 @@ import com.march.lib.core.common.Toaster;
 import com.march.lib.core.dialog.BaseDialog;
 import com.march.lib.support.helper.ImageHelper;
 import com.march.lib.support.model.ImageInfo;
-import com.march.slidingselect.SlidingSelectLayout;
+import com.march.lib.view.SlidingSelectLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

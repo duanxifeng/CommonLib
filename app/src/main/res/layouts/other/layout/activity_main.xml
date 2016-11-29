@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.march.commonlib.MainActivity">
+    tools:context="com.march.commonlib.activity.SysSelectImageAndCropActivity">
 
     <Button
+        android:layout_margin="30dp"
         android:id="@+id/capture"
         android:onClick="clickBtn"
         android:layout_width="match_parent"
@@ -15,6 +16,8 @@
         android:text="拍照" />
 
     <Button
+        android:layout_margin="30dp"
+
         android:id="@+id/album"
         android:onClick="clickBtn"
         android:layout_width="match_parent"
@@ -22,6 +25,7 @@
         android:text="选择" />
 
     <ImageView
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/iv"/>

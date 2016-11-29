@@ -111,7 +111,7 @@ public class LeProgressView extends View {
         if (isLoading)
             return;
         this.loadPercent = percent;
-        postInvalidateOnAnimation();
+        postInvalidate();
     }
 
     private void completeLoadPercent() {
@@ -239,6 +239,11 @@ public class LeProgressView extends View {
         animator.start();
         isLoading = false;
     }
+
+    public float getLoadPercent() {
+        return loadPercent;
+    }
+
 
     // 停止加载动画
     public void stopLoading() {

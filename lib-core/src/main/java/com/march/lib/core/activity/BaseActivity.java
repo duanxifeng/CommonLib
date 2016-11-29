@@ -64,4 +64,14 @@ public abstract class BaseActivity extends AbsActivityWrap {
         }
         return true;
     }
+
+    @Override
+    protected boolean isInitTitle() {
+        return true;
+    }
+
+    @Override
+    protected String[] getPermission2Check() {
+        return new String[0];
+    }
 }

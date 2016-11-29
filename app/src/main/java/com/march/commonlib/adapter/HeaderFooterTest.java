@@ -14,6 +14,7 @@ import com.march.lib.adapter.core.SimpleRvAdapter;
 import com.march.lib.adapter.module.HFModule;
 import com.march.lib.core.activity.BaseActivity;
 import com.march.lib.core.common.Logger;
+import com.march.lib.core.widget.TitleBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,7 @@ public class HeaderFooterTest extends BaseActivity {
 
     @Override
     public void onInitViews(View view, Bundle saveData) {
-        super.onInitViews(view, saveData);
-        getSupportActionBar().setTitle("添加Header和Footer模块");
+        super.onInitViews(view, saveData);mTitleBarView.setText(TitleBarView.POS_Center,"添加Header&Footer");
         mRv = getView(R.id.recyclerview);
         changeLayoutManager(LM_STAGGERED);
         final List<HFModel> hfModels = new ArrayList<>();
@@ -119,7 +119,7 @@ public class HeaderFooterTest extends BaseActivity {
 
     @Override
     protected boolean isInitTitle() {
-        return false;
+        return true;
     }
 
     class HFModel {

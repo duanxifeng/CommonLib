@@ -20,7 +20,8 @@ import com.march.lib.adapter.core.SectionRvAdapter;
 import com.march.lib.adapter.model.ItemModel;
 import com.march.lib.adapter.module.LoadMoreModule;
 import com.march.lib.core.activity.BaseActivity;
-import com.march.slidingselect.SlidingSelectLayout;
+import com.march.lib.core.widget.TitleBarView;
+import com.march.lib.view.SlidingSelectLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +40,7 @@ public class SectionRuleActivity extends BaseActivity {
         super.onInitViews(view, saveData);
         RecyclerView mRv = getView(R.id.recyclerview);
         ssl = getView(R.id.ssl);
-        ssl.setTagKey(R.string.app_name, R.id.sliding_data);
-        getSupportActionBar().setTitle("每一项都带有Header使用规则匹配Header");
-
+        mTitleBarView.setText(TitleBarView.POS_Center,"九宫格使用Rule适配/滑动选中");
         mRv.setLayoutManager(new GridLayoutManager(this, 3));
 //        mRv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 //        mRv.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
@@ -146,13 +145,8 @@ public class SectionRuleActivity extends BaseActivity {
     }
 
     @Override
-    protected String[] getPermission2Check() {
-        return new String[0];
-    }
-
-    @Override
     protected boolean isInitTitle() {
-        return false;
+        return true;
     }
 
     class ItemHeader extends AbsSectionHeader {

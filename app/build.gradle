@@ -21,6 +21,7 @@ android {
     sourceSets {
         main {
             res.srcDirs = [
+                    'src/main/res/layouts/layout_view',
                     'src/main/res/layouts/layout_adapter',
                     'src/main/res/layouts/layout_selectimg',
                     'src/main/res/layouts/other',
@@ -37,9 +38,10 @@ dependencies {
     compile project(':lib-core')
     compile project(':lib-support')
     compile project(':lib-adapter')
+    compile project(':lib-view')
+
     compile rootProject.ext.support.blot
     compile rootProject.ext.support.okhttputils
-    compile rootProject.ext.support.slidingSelect
     compile rootProject.ext.support.glide
     compile rootProject.ext.support.design
     compile rootProject.ext.support.appcompat_v7

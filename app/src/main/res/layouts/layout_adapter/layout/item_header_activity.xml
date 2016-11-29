@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.march.slidingselect.SlidingSelectLayout
+    <com.march.lib.view.SlidingSelectLayout
         android:id="@+id/ssl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -12,5 +12,5 @@
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.march.slidingselect.SlidingSelectLayout>
+    </com.march.lib.view.SlidingSelectLayout>
 </RelativeLayout>

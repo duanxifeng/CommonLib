@@ -46,7 +46,6 @@ public class PickerBuilder {
                 mPicker = new CapturePicker(activity);
                 break;
         }
-//        ((BaseActivity)activity).setPicker(mPicker);
     }
 
     /**

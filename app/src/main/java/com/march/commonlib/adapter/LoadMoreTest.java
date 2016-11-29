@@ -13,6 +13,7 @@ import com.march.lib.adapter.core.BaseViewHolder;
 import com.march.lib.adapter.core.SimpleRvAdapter;
 import com.march.lib.adapter.module.LoadMoreModule;
 import com.march.lib.core.activity.BaseActivity;
+import com.march.lib.core.widget.TitleBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class LoadMoreTest extends BaseActivity {
     @Override
     public void onInitViews(View view, Bundle saveData) {
         super.onInitViews(view, saveData);
-        getSupportActionBar().setTitle("加载更多模块");
+        mTitleBarView.setText(TitleBarView.POS_Center,"预加载更多");
         RecyclerView mRv = getView(R.id.recyclerview);
 //        mRv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         mRv.setLayoutManager(new GridLayoutManager(mContext, 2));
@@ -71,7 +72,7 @@ public class LoadMoreTest extends BaseActivity {
 
     @Override
     protected boolean isInitTitle() {
-        return false;
+        return true;
     }
 
     class LoadMoreModel {

@@ -21,7 +21,8 @@ import com.march.lib.adapter.core.SectionRvAdapter;
 import com.march.lib.adapter.model.ItemModel;
 import com.march.lib.adapter.module.LoadMoreModule;
 import com.march.lib.core.activity.BaseActivity;
-import com.march.slidingselect.SlidingSelectLayout;
+import com.march.lib.core.widget.TitleBarView;
+import com.march.lib.view.SlidingSelectLayout;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -40,13 +41,18 @@ public class SectionAdapterTest extends BaseActivity {
     }
 
     @Override
+    public void onInitDatas() {
+        super.onInitDatas();
+        list = new ArrayList<>();
+
+    }
+
+    @Override
     public void onInitViews(View view, Bundle saveData) {
         super.onInitViews(view, saveData);
-        list = new ArrayList<>();
         RecyclerView mRv = getView(R.id.recyclerview);
         ssl = getView(R.id.ssl);
-        ssl.setTagKey(R.string.app_name,R.id.sliding_data);
-        getSupportActionBar().setTitle("每一项都带有Header的展示");
+        mTitleBarView.setText(TitleBarView.POS_Center,"九宫格显示适配");
         mRv.setLayoutManager(new GridLayoutManager(this, 3));
         final List<Content> contents = new ArrayList<>();
 
@@ -127,7 +133,7 @@ public class SectionAdapterTest extends BaseActivity {
 
     @Override
     protected boolean isInitTitle() {
-        return false;
+        return true;
     }
 
 

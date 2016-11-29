@@ -10,11 +10,14 @@ import com.march.lib.adapter.common.ITypeAdapterModel;
 import com.march.lib.adapter.core.BaseViewHolder;
 import com.march.lib.adapter.core.TypeRvAdapter;
 import com.march.lib.core.activity.BaseActivity;
+import com.march.lib.core.widget.TitleBarView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TypeAdapterTest extends BaseActivity {
+
+    private List<TypeModel> typeModels;
 
     @Override
     protected int getLayoutId() {
@@ -22,15 +25,21 @@ public class TypeAdapterTest extends BaseActivity {
     }
 
     @Override
-    public void onInitViews(View view, Bundle saveData) {
-        super.onInitViews(view, saveData);
-        getSupportActionBar().setTitle("多类型适配器");
-        RecyclerView mRv = getView(R.id.recyclerview);
-        mRv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        List<TypeModel> typeModels = new ArrayList<>();
+    public void onInitDatas() {
+        super.onInitDatas();
+        typeModels = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             typeModels.add(new TypeModel(i));
         }
+    }
+
+    @Override
+    public void onInitViews(View view, Bundle saveData) {
+        super.onInitViews(view, saveData);
+        mTitleBarView.setText(TitleBarView.POS_Center,"多类型适配");
+        RecyclerView mRv = getView(R.id.recyclerview);
+        mRv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+
         TypeRvAdapter<TypeModel> adapter = new TypeRvAdapter<TypeModel>(mContext, typeModels) {
             @Override
             public void onBindView(BaseViewHolder holder, TypeModel data, int pos, int type) {
@@ -57,7 +66,7 @@ public class TypeAdapterTest extends BaseActivity {
 
     @Override
     protected boolean isInitTitle() {
-        return false;
+        return true;
     }
 
 

@@ -61,7 +61,7 @@ public abstract class AbsImagePicker {
 
     /**
      * 处理结果
-     *@param context context
+     * @param context context
      * @param requestCode 请求码
      * @param resultCode  返回码
      * @param intent      数据
