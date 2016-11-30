@@ -65,7 +65,7 @@ public class LeProgressViewTestActivity extends BaseActivity {
     }
 
     public void loading(View view) {
-        if (mLpv.getLoadPercent() < 0.99f) {
+        if (mLpv.getLoadPercent() < 1f) {
             Toast.makeText(mContext, "没有加载完", Toast.LENGTH_SHORT).show();
         } else {
             view.setEnabled(false);

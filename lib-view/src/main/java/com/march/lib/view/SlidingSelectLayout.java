@@ -62,6 +62,10 @@ public class SlidingSelectLayout extends FrameLayout {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (!isEnabled())
             return super.onInterceptTouchEvent(ev);
+        int pointerCount = ev.getPointerCount();
+        if (pointerCount > 1) {
+            return super.onInterceptTouchEvent(ev);
+        }
         ensureTarget();
         ensureLayoutManager();
         if (!isReadyToIntercept())
@@ -81,7 +85,7 @@ public class SlidingSelectLayout extends FrameLayout {
                 // handle
                 float xDiff = Math.abs(ev.getX() - mInitialDownX);
                 float yDiff = Math.abs(ev.getY() - mInitialDownY);
-                if (yDiff < xTouchSlop && xDiff > yTouchSlop) {
+                if (yDiff < yTouchSlop && xDiff > xTouchSlop) {
                     isBeingSlide = true;
                 }
                 break;

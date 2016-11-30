@@ -14,7 +14,7 @@
 ![](http://7xtjec.com1.z0.glb.clouddn.com/toc.png)
 
 
-* [使用](#使用)
+* [使用](#1.使用)
 * [BaseViewHolder 的使用](#baseviewholder-的使用)
 * [通用适配器](#通用适配器)
 	* [单类型数据适配](#单类型数据适配)
@@ -38,8 +38,8 @@
 	* [Sample](#sample)
 
 
-## 使用
-- 类库还在开发中，暂时没有发布到Jcenter,所以需要在`yourProject.gradle`文件中添加如下代码进行依赖
+## 1. 使用
+- 类库还在开发中，暂时没有发布到JCenter,所以需要在`yourProject/build.gradle`文件中添加如下代码进行依赖
 
 ```
 allprojects {
@@ -49,7 +49,7 @@ allprojects {
 }
 ```
 
-- 在`yourApp.gradle`文件中添加依赖
+- 在`app/build.gradle`文件中添加依赖
 
 ```
 compile 'com.march.lib-adapter:lib-adapter:1.0.0'

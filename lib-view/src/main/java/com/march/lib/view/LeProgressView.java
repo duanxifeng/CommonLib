@@ -26,6 +26,7 @@ import java.util.Random;
 public class LeProgressView extends View {
 
     private String TAG = getClass().getSimpleName();
+    private boolean isRandomColor = true;
     /**
      * 半径
      */
@@ -90,11 +91,19 @@ public class LeProgressView extends View {
 
         // 初始化随机颜色
         colorInit = new int[pointCount];
+
         randomColor();
 
         if (isInEditMode()) {
             loadPercent = 1f;
         }
+    }
+
+    public void setNoRandomColor(int... colors) {
+        if (colors.length < pointCount) {
+            throw new IllegalArgumentException("colors length must is " + pointCount);
+        }
+        colorInit = colors;
     }
 
     // 随机颜色生成
@@ -110,30 +119,29 @@ public class LeProgressView extends View {
     public void prepareLoading(float percent) {
         if (isLoading)
             return;
-        this.loadPercent = percent;
+        if (loadPercent > 1.0f)
+            loadPercent = 1.0f;
+        else loadPercent = percent;
         postInvalidate();
-    }
-
-    private void completeLoadPercent() {
-        loadPercent = 0.9999999f;
     }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (loadPercent <= 0)
+        float tempLoadPercent = loadPercent;
+
+        if (tempLoadPercent <= 0)
             return;
 
-        if (loadPercent >= 1.0f)
-            completeLoadPercent();
+        if (tempLoadPercent >= 1.0f)
+            tempLoadPercent = 0.999999f;
 
 
         int x = getMeasuredWidth() / 2;
         int y = getMeasuredHeight() / 2;
 
         float percentLoad4OnePoint = 1f / pointCount;
-        float tempLoadPercent = loadPercent;
         float calculate = (tempLoadPercent / percentLoad4OnePoint);
         int drawCount = (int) calculate;
 //        Logger.e(" drawCount = " + drawCount + " drawCountF = " + (tempLoadPercent / percentLoad4OnePoint) + "   loadPercent = " + loadPercent + " percentLoad4OnePoint= " + percentLoad4OnePoint);
@@ -205,7 +213,7 @@ public class LeProgressView extends View {
 
     // 开始加载，没有准备动画
     public void startLoading() {
-        completeLoadPercent();
+        loadPercent = 1.0f;
         postInvalidate();
         isLoading = true;
         rotateAnim = ObjectAnimator.ofFloat(this, "rotation", 0f, 360f).setDuration(loadingAnimDuration);
