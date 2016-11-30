@@ -64,7 +64,6 @@ public class CommonHelper {
         if (recyclerView != null) {
             RecyclerView.Adapter adapter = recyclerView.getAdapter();
             RecyclerView.LayoutManager mLayoutManager = recyclerView.getLayoutManager();
-
             if (null == adapter || adapter.getItemCount() == 0) {
                 return false;
             } else

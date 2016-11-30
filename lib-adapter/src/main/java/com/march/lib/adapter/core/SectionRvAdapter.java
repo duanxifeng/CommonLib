@@ -219,18 +219,6 @@ public abstract class SectionRvAdapter<IH extends AbsSectionHeader, ID> extends 
         }
     }
 
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        CommonHelper.handleGridLayoutManager(recyclerView, this, new CommonHelper.CheckFullSpanHandler() {
-            @Override
-            public boolean isFullSpan(int type) {
-                return isFullSpan4GridLayout(type);
-            }
-        });
-    }
-
-
     protected abstract void onBindItemHeader(BaseViewHolder holder, IH data, int pos, int type);
 
     protected abstract void onBindContent(BaseViewHolder holder, ID data, int pos, int type);

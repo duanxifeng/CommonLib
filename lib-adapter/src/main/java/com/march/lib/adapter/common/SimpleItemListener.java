@@ -29,4 +29,10 @@ public abstract class SimpleItemListener<D> implements OnItemListener<D> {
     public void onDoubleClick(int pos, BaseViewHolder holder, D data) {
 
     }
+
+
+    @Override
+    public boolean isSupportDoubleClick() {
+        return false;
+    }
 }

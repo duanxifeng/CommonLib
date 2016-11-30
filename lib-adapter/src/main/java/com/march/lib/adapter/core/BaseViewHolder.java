@@ -47,33 +47,41 @@ public class BaseViewHolder<D> extends RecyclerView.ViewHolder {
 
     /**
      * 初始化事件
-     * @param context 上下文
+     *
+     * @param context  上下文
      * @param itemView parent view
      */
     private void initItemEvent(Context context, final View itemView) {
         GestureDetector.SimpleOnGestureListener gestureListener = new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
-                if (itemListener != null) {
-                    itemListener.onClick(getAdapterPosition() - mHeaderCount, BaseViewHolder.this, (D) itemView.getTag());
+                if (itemListener != null && itemListener.isSupportDoubleClick()) {
+                    itemListener.onClick(getAdapterPosition() - mHeaderCount, BaseViewHolder.this, (D) itemView.getTag(R.id.adapter_data));
                 }
-                return true;
+                return super.onSingleTapConfirmed(e);
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                if (itemListener != null && !itemListener.isSupportDoubleClick()) {
+                    itemListener.onClick(getAdapterPosition() - mHeaderCount, BaseViewHolder.this, (D) itemView.getTag(R.id.adapter_data));
+                }
+                return super.onSingleTapUp(e);
             }
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 if (itemListener != null) {
-                    itemListener.onDoubleClick(getAdapterPosition() - mHeaderCount, BaseViewHolder.this, (D) itemView.getTag());
+                    itemListener.onDoubleClick(getAdapterPosition() - mHeaderCount, BaseViewHolder.this, (D) itemView.getTag(R.id.adapter_data));
                 }
-                return true;
+                return super.onDoubleTap(e);
             }
 
             @Override
             public void onLongPress(MotionEvent e) {
                 if (itemListener != null) {
-                    itemListener.onLongPress(getAdapterPosition() - mHeaderCount, BaseViewHolder.this, (D) itemView.getTag());
+                    itemListener.onLongPress(getAdapterPosition() - mHeaderCount, BaseViewHolder.this, (D) itemView.getTag(R.id.adapter_data));
                 }
-                super.onLongPress(e);
             }
         };
         final GestureDetectorCompat gestureDetector = new GestureDetectorCompat(context, gestureListener);

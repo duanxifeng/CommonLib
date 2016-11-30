@@ -47,6 +47,7 @@ public class HFModule extends AbsModule {
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+
         if (!isHasFooter() && !isHasFooter())
             return;
 
@@ -55,15 +56,11 @@ public class HFModule extends AbsModule {
 
         if (layoutManager instanceof StaggeredGridLayoutManager) {
             isStaggeredGridLayoutManager = true;
-
-        } else {
-            CommonHelper.handleGridLayoutManager(recyclerView, mAttachAdapter, new CommonHelper.CheckFullSpanHandler() {
-                @Override
-                public boolean isFullSpan(int viewType) {
-                    return viewType == TYPE_HEADER || viewType == TYPE_FOOTER;
-                }
-            });
         }
+    }
+
+    public boolean isFullSpan(int viewType){
+        return viewType == TYPE_HEADER || viewType == TYPE_FOOTER;
     }
 
     public boolean isHasHeader() {

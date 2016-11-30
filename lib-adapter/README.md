@@ -52,7 +52,7 @@ allprojects {
 - 在`app/build.gradle`文件中添加依赖
 
 ```
-compile 'com.march.lib-adapter:lib-adapter:1.0.0'
+compile 'com.march.lib-adapter:lib-adapter:1.0.1'
 ```
 
 

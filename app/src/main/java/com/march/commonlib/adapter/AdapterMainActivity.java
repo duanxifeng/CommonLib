@@ -65,6 +65,11 @@ public class AdapterMainActivity extends BaseActivity {
             public void onDoubleClick(int pos, BaseViewHolder holder, GuideData data) {
                 Toast.makeText(mContext, data.desc + "(该项仅用作介绍)", Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public boolean isSupportDoubleClick() {
+                return false;
+            }
         });
         mRv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         mRv.setAdapter(adapter);

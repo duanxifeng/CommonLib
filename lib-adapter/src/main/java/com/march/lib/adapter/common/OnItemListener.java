@@ -17,4 +17,6 @@ public interface OnItemListener<D> {
     void onLongPress(int pos, BaseViewHolder holder, D data);
     // 双击事件
     void onDoubleClick(int pos, BaseViewHolder holder, D data);
+
+    boolean isSupportDoubleClick();
 }

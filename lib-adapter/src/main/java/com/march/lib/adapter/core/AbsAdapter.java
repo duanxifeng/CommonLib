@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.march.lib.adapter.R;
 import com.march.lib.adapter.common.OnItemListener;
+import com.march.lib.adapter.helper.CommonHelper;
 import com.march.lib.adapter.module.HFModule;
 import com.march.lib.adapter.module.LoadMoreModule;
 
@@ -73,9 +75,9 @@ public abstract class AbsAdapter<D>
         return context;
     }
 
-        /*
-         * 私有辅助方法
-         */
+    /*
+     * 私有辅助方法
+     */
     private View getInflateView(int resId, ViewGroup parent) {
         if (resId <= 0)
             return null;
@@ -122,10 +124,10 @@ public abstract class AbsAdapter<D>
         if (mHFModule != null)
             holder = mHFModule.getHFViewHolder(viewType);
         if (holder == null) {
-            holder = new <D>BaseViewHolder(context,getInflateView(getLayout4Type(viewType), parent));
+            holder = new <D>BaseViewHolder(context, getInflateView(getLayout4Type(viewType), parent));
             int headerCount = mHFModule == null || !mHFModule.isHasHeader() ? 0 : 1;
             if (!dispatchClickEvent(holder, viewType))
-                holder.setOnItemListener(headerCount,itemListener);
+                holder.setOnItemListener(headerCount, itemListener);
         }
         return holder;
     }
@@ -136,6 +138,7 @@ public abstract class AbsAdapter<D>
         return false;
     }
 
+
     public boolean isFullSpan4GridLayout(int viewType) {
         return false;
     }
@@ -144,7 +147,7 @@ public abstract class AbsAdapter<D>
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         if (mHFModule == null) {
             int pos = judgePos(position);
-            holder.getParentView().setTag(dateSets.get(pos));
+            holder.getParentView().setTag(R.id.adapter_data,dateSets.get(pos));
             onBindView(holder, dateSets.get(pos), pos, getItemViewType(position));
         } else if (mHFModule.isHasFooter() && position == getItemCount() - 1) {
             onBindFooter(holder);
@@ -152,7 +155,7 @@ public abstract class AbsAdapter<D>
             onBindHeader(holder);
         } else {
             int pos = judgePos(position);
-            holder.getParentView().setTag(dateSets.get(pos));
+            holder.getParentView().setTag(R.id.adapter_data,dateSets.get(pos));
             onBindView(holder, dateSets.get(pos), pos, getItemViewType(position));
         }
     }
@@ -166,6 +169,17 @@ public abstract class AbsAdapter<D>
             mLoadMoreModule.onAttachedToRecyclerView(recyclerView);
         if (mHFModule != null)
             mHFModule.onAttachedToRecyclerView(recyclerView);
+
+        CommonHelper.handleGridLayoutManager(recyclerView, this, new CommonHelper.CheckFullSpanHandler() {
+            @Override
+            public boolean isFullSpan(int type) {
+                return isFullSpan4GridLayoutInternal(type);
+            }
+        });
+    }
+
+    private boolean isFullSpan4GridLayoutInternal(int type) {
+        return (mHFModule != null && mHFModule.isFullSpan(type)) || isFullSpan4GridLayout(type);
     }
 
     public void notifyLayoutManagerChanged() {
