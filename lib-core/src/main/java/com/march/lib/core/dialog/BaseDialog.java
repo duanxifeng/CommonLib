@@ -1,11 +1,15 @@
 package com.march.lib.core.dialog;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatDialog;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.march.lib.core.R;
 
 /**
  * Project  : CommonLib
@@ -31,10 +35,7 @@ public abstract class BaseDialog extends AppCompatDialog {
      * @param context 上下文
      */
     public BaseDialog(Context context) {
-        super(context);
-        setContentView(getLayoutId());
-        initViews();
-        setWindowParams();
+        this(context,R.style.dialog_theme);
     }
 
     /**
@@ -46,6 +47,11 @@ public abstract class BaseDialog extends AppCompatDialog {
     public BaseDialog(Context context, int theme) {
         super(context, theme);
         setContentView(getLayoutId());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         initViews();
         setWindowParams();
     }
@@ -56,10 +62,19 @@ public abstract class BaseDialog extends AppCompatDialog {
 
     protected abstract void setWindowParams();
 
-    protected void setWindowParams(int width, int height, float alpha, float dim, int gravity) {
+    protected void setBottomToCenterAnimation() {
+        Window window = getWindow();
+        if (window == null)
+            return;
+        window.setWindowAnimations(R.style.dialog_anim_bottom_to_center);
+    }
+
+    protected void buildDefaultParams(int width, int height, float alpha, float dim, int gravity) {
         setCancelable(true);
         setCanceledOnTouchOutside(true);
         Window window = getWindow();
+        if (window == null)
+            return;
         WindowManager.LayoutParams params = window.getAttributes();
         // setContentView设置布局的透明度，0为透明，1为实际颜色,该透明度会使layout里的所有空间都有透明度，不仅仅是布局最底层的view
         params.alpha = alpha;
@@ -70,6 +85,14 @@ public abstract class BaseDialog extends AppCompatDialog {
         params.gravity = gravity;
         window.setAttributes(params);
         window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    }
+
+    protected void buildDefaultParams(int width, int height, int gravity) {
+        buildDefaultParams(width, height, 1f, .6f, gravity);
+    }
+
+    protected void buildDefaultParams() {
+        buildDefaultParams(WRAP, WRAP, 1f, .6f, Gravity.CENTER);
     }
 
     protected <V extends View> V getView(int id) {

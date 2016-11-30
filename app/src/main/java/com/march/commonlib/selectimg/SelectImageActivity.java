@@ -441,7 +441,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         protected void setWindowParams() {
-            setWindowParams(WRAP, WRAP, 1, 0.8f, Gravity.CENTER);
+            buildDefaultParams();
         }
 
         public void show(String path) {
@@ -518,8 +518,8 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         @Override
         protected void setWindowParams() {
             int mDialogHeight = (int) (DimensionHelper.getScreenHeight(mContext) * 0.725f);
-            setWindowParams(MATCH, mDialogHeight, 1.0f, 0.8f, Gravity.BOTTOM);
-            getWindow().setWindowAnimations(R.style.dialog_anim_bottom_to_center);
+            buildDefaultParams(MATCH, mDialogHeight, 1.0f, 0.8f, Gravity.BOTTOM);
+            setBottomToCenterAnimation();
         }
 
         @Override

@@ -10,53 +10,6 @@
         <!-- 设置window背景透明，也就是去边框 -->
     </style>
 
-
-    <!-- 使用默认的黑暗程度0.6 -->
-    <style name="dim_dialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorControlActivated">@color/color_60E5DA</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
-
-    <!-- 使用默认的黑暗程度0.6 -->
-    <style name="dim08_dialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorControlActivated">@color/color_60E5DA</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:backgroundDimAmount">0.8</item>
-    </style>
-
-
-    <style name="dim03_dialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorControlActivated">@color/color_60E5DA</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:backgroundDimAmount">0.3</item>
-    </style>
-
-    <!-- 使用默认的黑暗程度0.6 -->
-    <style name="dim_up_down_anim_dialog" parent="dim_dialog">
-        <item name="android:windowAnimationStyle">@style/dialog_anim_bottom_to_center</item>
-        <!-- 无标题，设置的是decorview的背景色 -->
-    </style>
-
-    <!-- 没有阴影-->
-    <style name="no_dim_up_down_anim_dialog" parent="no_dim_dialog">
-        <item name="android:windowAnimationStyle">@style/dialog_anim_bottom_to_center</item>
-    </style>
-
-
-    <!-- 可以自己调整阴影度 -->
-    <style name="no_dim_dialog" parent="dim_dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <!-- 默认是有阴影背景的,加以下属性可以改变阴影度阴影 -->
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:backgroundDimAmount">0</item>
-    </style>
-
     <style name="dialog_anim_bottom_to_center" parent="android:Animation">
         <!-- 进入时的动画 -->
         <item name="@android:windowEnterAnimation">@anim/bottom_to_center</item>
