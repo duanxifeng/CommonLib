@@ -23,21 +23,21 @@
         <activity android:name=".adapter.AdapterMainActivity" />
         <activity android:name=".adapter.HeaderFooterTest" />
         <activity android:name=".adapter.SectionRuleActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".adapter.LoadMoreTest" />
         <activity android:name=".adapter.SectionAdapterTest" />
         <activity android:name=".adapter.TypeAdapterTest" />
         <activity android:name=".view_test.LeProgressViewTestActivity" />
         <activity android:name=".activity.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".view_test.LockViewActivity" />
-        <activity android:name=".view_test.SlidingSelectActivity"></activity>
+        <activity android:name=".view_test.SlidingSelectActivity"/>
     </application>
 
 </manifest>

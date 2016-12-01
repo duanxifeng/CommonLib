@@ -461,7 +461,7 @@ public class SelectImageActivity extends BaseActivity implements View.OnClickLis
         private int lastCheckPos = 0;
 
         public ImageDirDialog(Context context, Map<String, List<ImageInfo>> mImageMap) {
-            super(context, R.style.no_dim_dialog);
+            super(context);
             mImageDirs = new ArrayList<>();
             ImageDirInfo dir;
             for (String dirName : mImageMap.keySet()) {

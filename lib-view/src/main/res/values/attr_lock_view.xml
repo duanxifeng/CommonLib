@@ -5,8 +5,8 @@
         <attr name="lock_pointRadius" format="dimension"/>
         <attr name="lock_touchSensitiveRange" format="dimension"/>
         <attr name="lock_lineWidth" format="dimension"/>
-        <attr name="lock_pointColor" format="color"/>
-        <attr name="lock_lineColor" format="color"/>
+        <attr name="lock_positiveColor" format="color"/>
+        <attr name="lock_negativeColor" format="color"/>
         <attr name="lock_scaleAnimDuration" format="integer"/>
         <attr name="lock_scaleMax" format="float"/>
     </declare-styleable>

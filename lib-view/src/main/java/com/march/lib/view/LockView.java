@@ -48,10 +48,11 @@ public class LockView extends View {
     private int touchSensitiveRange;
     // 线宽度
     private int lineWidth;
-    // 点颜色
-    private int pointColor;
-    // 线颜色
-    private int lineColor;
+    // 积极的颜色
+    private int positiveColor;
+    // 消极的颜色
+    private int negativeColor;
+    private int currentColor;
 
     // 缩放的大小
     private float scaleMax;
@@ -66,39 +67,46 @@ public class LockView extends View {
         int index;
         //  点的x,y坐标
         float x, y;
+
         // 构造方法，初始化一个点
         LockPoint(int index, float x, float y) {
             this.index = index;
             this.x = x;
             this.y = y;
         }
+
         // 构造方法，从另一个点初始化
         LockPoint(LockPoint p) {
             this.x = p.x;
             this.y = p.y;
             this.index = p.index;
         }
+
         // 默认构造方法，初始化为一个空的点
         LockPoint() {
             this.x = -1;
             this.y = -1;
             this.index = -1;
         }
+
         // 判断该点是不是一个空的点
         boolean isEmpty() {
             return this.x == -1 && this.y == -1;
         }
+
         // 重新给位置赋值
         void init(float x, float y) {
             this.x = x;
             this.y = y;
         }
+
         // 设置为另一点的值
         void init(LockPoint p) {
             this.x = p.x;
             this.y = p.y;
             this.index = p.index;
         }
+
         // 判断一个位置是不是在该点触摸范围内,touchSensitiveRange为触摸有效半径
         boolean isTouchIn(float judgeX, float judgeY) {
             return judgeX < x + touchSensitiveRange &&
@@ -146,9 +154,8 @@ public class LockView extends View {
 
     public interface OnLockFinishListener {
         /**
-         *
-         * @param lockView 控件
-         * @param passWd 密码
+         * @param lockView     控件
+         * @param passWd       密码
          * @param passWsLength 密码长度
          * @return 当返回true时，画面将会定格在绘制结束后的状态
          * 返回false时，画面会重新初始化回初始状态
@@ -175,9 +182,9 @@ public class LockView extends View {
         startSpace = (int) typedArray.getDimension(R.styleable.LockView_lock_startSpace, AUTO_START_SPACING);
         lineWidth = (int) typedArray.getDimension(R.styleable.LockView_lock_lineWidth, (5 * density));
 
-        lineColor = typedArray.getColor(R.styleable.LockView_lock_lineColor, Color.WHITE);
-        pointColor = typedArray.getColor(R.styleable.LockView_lock_pointColor, Color.WHITE);
-
+        positiveColor = typedArray.getColor(R.styleable.LockView_lock_positiveColor, Color.WHITE);
+        negativeColor = typedArray.getColor(R.styleable.LockView_lock_negativeColor, Color.WHITE);
+        currentColor = positiveColor;
         scaleAnimDuration = typedArray.getInt(R.styleable.LockView_lock_scaleAnimDuration, 180);
         scaleMax = typedArray.getFloat(R.styleable.LockView_lock_scaleMax, 2.5f);
         typedArray.recycle();
@@ -188,13 +195,13 @@ public class LockView extends View {
 
         pointPaint = new Paint();
         pointPaint.setAntiAlias(true);
-        pointPaint.setColor(pointColor);
+        pointPaint.setColor(currentColor);
         pointPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         linePaint = new Paint();
         linePaint.setAntiAlias(true);
         linePaint.setStrokeWidth(lineWidth);
-        linePaint.setColor(lineColor);
+        linePaint.setColor(currentColor);
         linePaint.setStyle(Paint.Style.STROKE);
     }
 
@@ -338,7 +345,6 @@ public class LockView extends View {
             } else {
                 // 输入不合法
                 cancelLockDraw();
-                isEventOver = false;
             }
         } else {
             cancelLockDraw();
@@ -445,14 +451,32 @@ public class LockView extends View {
         cancelLockDraw();
     }
 
+    private boolean isErrorMode;
+
     /**
      * 结束绘制，恢复初始状态
      */
     private void cancelLockDraw() {
-        touchPoint.init(-1, -1);
-        currentLockPoint.init(-1, -1);
-        historyPointList.clear();
+        currentColor = negativeColor;
+        linePaint.setColor(currentColor);
+        isErrorMode = true;
+        touchPoint.init(currentLockPoint);
         postInvalidate();
+
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isErrorMode = false;
+                currentColor = positiveColor;
+                linePaint.setColor(currentColor);
+                touchPoint.init(-1, -1);
+                currentLockPoint.init(-1, -1);
+                historyPointList.clear();
+                postInvalidate();
+                isEventOver = false;
+            }
+        }, 500);
+
     }
 
 
@@ -522,11 +546,15 @@ public class LockView extends View {
         LockPoint tempPoint;
         for (int i = 0; i < initLockPointArray.length; i++) {
             tempPoint = initLockPointArray[i];
+            if (isErrorMode && historyPointList.contains(tempPoint)) {
+                pointPaint.setColor(negativeColor);
+            } else {
+                pointPaint.setColor(positiveColor);
+            }
             if (currentLockPoint != null && currentLockPoint.equals(tempPoint)) {
                 canvas.drawCircle(tempPoint.x, tempPoint.y, scalePointRadius, pointPaint);
             } else {
                 canvas.drawCircle(tempPoint.x, tempPoint.y, pointRadius, pointPaint);
-
             }
         }
     }
