@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/widget_web_srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.march.lib.core.widget.MyScrollView
+            android:id="@+id/widget_web_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:descendantFocusability="afterDescendants"
+            android:scrollbars="none">
+
+            <WebView
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:id="@+id/widget_web_webview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="@color/white"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+
+        </com.march.lib.core.widget.MyScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/widget_tool_ly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/widget_web_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:text="标题"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <ProgressBar
+            android:id="@+id/widget_web_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/widget_web_title"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress_drawable" />
+        <View
+            android:layout_below="@id/widget_web_progress"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#efefef"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>
