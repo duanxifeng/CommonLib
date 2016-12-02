@@ -61,7 +61,7 @@ public class Logger {
         StringBuilder builder = new StringBuilder();
         for (Object object : objects) {
             if (object != null) {
-                builder.append(object.toString());
+                builder.append(object.toString()).append("   ");
             }
         }
         e(TAG, builder.toString());
