@@ -39,7 +39,7 @@
         </activity>
         <activity android:name=".view_test.LockViewActivity" />
         <activity android:name=".view_test.SlidingSelectActivity"/>
-        <activity android:name="com.march.lib.core.activity.WebActivity"/>
+        <activity android:name=".activity.WebActivityTest"/>
     </application>
 
 </manifest>

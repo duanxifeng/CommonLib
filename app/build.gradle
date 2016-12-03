@@ -39,8 +39,8 @@ dependencies {
     compile project(':lib-support')
     compile project(':lib-adapter')
     compile project(':lib-view')
-
     compile rootProject.ext.support.blot
+    compile rootProject.ext.support.design
     compile rootProject.ext.support.okhttputils
     compile rootProject.ext.support.glide
     compile rootProject.ext.support.design

@@ -17,7 +17,6 @@ import com.march.lib.adapter.common.SimpleItemListener;
 import com.march.lib.adapter.core.BaseViewHolder;
 import com.march.lib.adapter.core.SimpleRvAdapter;
 import com.march.lib.core.activity.BaseActivity;
-import com.march.lib.core.activity.WebActivity;
 import com.march.lib.core.widget.TitleBarView;
 
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class HomeActivity extends BaseActivity {
         datas.add(new TestDemo("View-乐视进度条", LeProgressViewTestActivity.class));
         datas.add(new TestDemo("View-九宫格解锁", LockViewActivity.class));
         datas.add(new TestDemo("View-滑动选中", SlidingSelectActivity.class));
-        datas.add(new TestDemo("Demo-网页界面", WebActivity.class));
+        datas.add(new TestDemo("Demo-网页界面", WebActivityTest.class));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.march.lib.core.widget;
+package com.march.commonlib.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

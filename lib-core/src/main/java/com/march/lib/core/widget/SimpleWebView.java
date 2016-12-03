@@ -1,18 +1,13 @@
 package com.march.lib.core.widget;
 
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -36,45 +31,28 @@ import java.util.Map;
  * @author chendong
  */
 
-public class EasyWebView extends FrameLayout {
+public class SimpleWebView extends FrameLayout {
 
-    private float mToolbarSize;
     private ProgressBar mProgressBar;
     private SwipeRefreshLayout mSwipeRefreshLy;
     private WebView mWebView;
     private TextView mTitleTv;
+    private TextView mTitleLeftTv, mTitleRightTv;
 
-    private View mToolLy;
-    private MyScrollView mScrollView;
-    private boolean isShowTitleEveryUpScroll = true;
-
-    private ObjectAnimator showAnimator, hideAnimator;
-    private boolean isShown = true;
 
     private Map<String, String> headers;
 
-    private WebViewHandler mWebViewHandler;
-
-    public void setWebViewHandler(WebViewHandler mWebViewHandler) {
-        this.mWebViewHandler = mWebViewHandler;
-    }
-
-    public interface WebViewHandler {
-        void onLoadUrl(WebView webView, String url);
-    }
-
-    public EasyWebView(Context context) {
+    public SimpleWebView(Context context) {
         this(context, null);
     }
 
-    public EasyWebView(Context context, AttributeSet attrs) {
+    public SimpleWebView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public EasyWebView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SimpleWebView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        LayoutInflater.from(context).inflate(R.layout.widget_easy_webview, this, true);
-        mToolbarSize = DimensionHelper.dp2px(context, 50);
+        LayoutInflater.from(context).inflate(R.layout.widget_simple_webview, this, true);
         initViews();
     }
 
@@ -83,7 +61,6 @@ public class EasyWebView extends FrameLayout {
     }
 
     public void loadUrl(String url) {
-        Logger.e("loadUrl");
         mSwipeRefreshLy.setRefreshing(false);
         mSwipeRefreshLy.setRefreshing(true);
         if (headers == null) {
@@ -98,13 +75,14 @@ public class EasyWebView extends FrameLayout {
     }
 
     private void initViews() {
-        mProgressBar = getView(R.id.widget_web_progress);
-        mSwipeRefreshLy = getView(R.id.widget_web_srl);
-        mWebView = getView(R.id.widget_web_webview);
+        mProgressBar = getView(R.id.web_progress);
+        mSwipeRefreshLy = getView(R.id.web_srl);
+        mWebView = getView(R.id.web_webview);
         mSwipeRefreshLy.setColorSchemeColors(Color.BLACK);
-        mTitleTv = getView(R.id.widget_web_title);
-        mToolLy = getView(R.id.widget_tool_ly);
-        mScrollView = getView(R.id.widget_web_scroll);
+        mTitleTv = getView(R.id.web_title_tv);
+        mTitleLeftTv = getView(R.id.web_title_left_tv);
+        mTitleRightTv = getView(R.id.web_title_right_tv);
+
         setWebSetting();
 
         mSwipeRefreshLy.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -115,71 +93,14 @@ public class EasyWebView extends FrameLayout {
         });
 
         mSwipeRefreshLy.setProgressViewOffset(true, DimensionHelper.dp2px(getContext(), 20), DimensionHelper.dp2px(getContext(), 80));
-
-        mScrollView.setOnScrollListener(new MyScrollView.OnScrollListener() {
-            @Override
-            public void onScrollChanged(int left, int top, int oldLeft, int oldTop) {
-                if (oldTop <= top) {
-                    //往上
-                    if (isShown && top >= mToolbarSize) {
-                        hideTitleBar();
-                    }
-                } else {
-                    //往下
-                    if (isShown)
-                        return;
-                    if (isShowTitleEveryUpScroll) {
-                        showTitleBar();
-                    } else {
-                        if (top <= mToolbarSize) {
-                            showTitleBar();
-                        }
-                    }
-                }
-            }
-        });
     }
 
-    private void showTitleBar() {
-        if (isShown)
-            return;
-        checkAnimatorState();
-
-        if (showAnimator == null) {
-            PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("alpha", 0f,
-                    1f);
-            PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("translationY", -mToolbarSize,
-                    0);
-            showAnimator = ObjectAnimator.ofPropertyValuesHolder(mToolLy, pvhY, pvhZ).setDuration(200);
-            showAnimator.setInterpolator(new DecelerateInterpolator());
-        }
-        showAnimator.start();
-        isShown = true;
+    public TextView getTitleRightTv() {
+        return mTitleRightTv;
     }
 
-    private void hideTitleBar() {
-        if (!isShown)
-            return;
-        checkAnimatorState();
-        if (hideAnimator == null) {
-            PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("alpha", 1f,
-                    0f);
-            PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("translationY", 0f,
-                    -mToolbarSize);
-            hideAnimator = ObjectAnimator.ofPropertyValuesHolder(mToolLy, pvhY, pvhZ).setDuration(200);
-            hideAnimator.setInterpolator(new DecelerateInterpolator());
-        }
-        hideAnimator.start();
-        isShown = false;
-    }
-
-    private void checkAnimatorState() {
-        if (hideAnimator != null && hideAnimator.isRunning()) {
-            hideAnimator.end();
-        }
-        if (showAnimator != null && showAnimator.isRunning()) {
-            showAnimator.end();
-        }
+    public TextView getTitleLeftTv() {
+        return mTitleLeftTv;
     }
 
     private void setWebSetting() {
@@ -215,7 +136,6 @@ public class EasyWebView extends FrameLayout {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                showTitleBar();
             }
 
             @Override

@@ -9,12 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.march.lib.core.widget.MyScrollView
+        <android.support.v4.widget.NestedScrollView
             android:id="@+id/widget_web_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"
-            android:descendantFocusability="afterDescendants"
             android:scrollbars="none">
 
             <WebView
@@ -28,7 +27,7 @@
                 android:overScrollMode="never"
                 android:scrollbars="none" />
 
-        </com.march.lib.core.widget.MyScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
